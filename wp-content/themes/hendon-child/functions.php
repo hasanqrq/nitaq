@@ -9,7 +9,7 @@ if ( ! function_exists( 'hendon_child_theme_enqueue_scripts' ) ) {
 	function hendon_child_theme_enqueue_scripts() {
 		$main_style = 'hendon-main';
 		
-		wp_enqueue_style( 'hendon-child-style', get_stylesheet_directory_uri() . '/style.css', array( $main_style ), wp_get_theme()->get( 'Version' ) . '.stats-section-1' );
+		wp_enqueue_style( 'hendon-child-style', get_stylesheet_directory_uri() . '/style.css', array( $main_style ), wp_get_theme()->get( 'Version' ) . '.stats-section-2' );
 	}
 	
 	add_action( 'wp_enqueue_scripts', 'hendon_child_theme_enqueue_scripts' );
@@ -843,7 +843,7 @@ if ( ! function_exists( 'hendon_child_nitaq_stats_markup' ) ) {
 	/**
 	 * Render the replacement homepage statistics section.
 	 */
-	function hendon_child_nitaq_stats_markup() {
+	function hendon_child_nitaq_stats_markup( $hidden = false ) {
 		$stats = hendon_child_get_nitaq_stats();
 
 		if ( empty( $stats ) ) {
@@ -852,7 +852,7 @@ if ( ! function_exists( 'hendon_child_nitaq_stats_markup' ) ) {
 
 		ob_start();
 		?>
-		<section class="nitaq-stats-new" dir="rtl" data-nitaq-stats-replacement hidden aria-label="<?php echo esc_attr__( 'Nitaq statistics', 'hendon' ); ?>">
+		<section class="nitaq-stats-new" dir="rtl" data-nitaq-stats-replacement<?php echo $hidden ? ' hidden' : ''; ?> aria-label="<?php echo esc_attr__( 'Nitaq statistics', 'hendon' ); ?>">
 			<div class="nitaq-stats-new__inner">
 				<div class="nitaq-stats-new__header">
 					<span class="nitaq-stats-new__kicker">نطاق الأولى</span>
@@ -908,7 +908,7 @@ if ( ! function_exists( 'hendon_child_nitaq_front_page_stats_replacement' ) ) {
 			return;
 		}
 
-		echo hendon_child_nitaq_stats_markup(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo hendon_child_nitaq_stats_markup( true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		?>
 		<script>
 			(function () {
@@ -929,14 +929,47 @@ if ( ! function_exists( 'hendon_child_nitaq_front_page_stats_replacement' ) ) {
 						}).length >= 3;
 					}
 
-					function findOldStatsSection() {
-						var candidates = Array.prototype.slice.call(root.querySelectorAll('.elementor-section, section, .e-con, .elementor-container, .qodef-row-grid-section'));
+					function isIgnoredStatsCandidate(element) {
+						return !element ||
+							element === replacement ||
+							element.closest('.nitaq-hero-slider, [data-nitaq-stats-replacement], #qodef-page-footer, [id^="image-map-pro-"], .imp-wrap, .nitaq-stats-new');
+					}
 
-						return candidates.find(function (section) {
-							return section !== replacement &&
-								!section.closest('.nitaq-hero-slider, [data-nitaq-stats-replacement], #qodef-page-footer, [id^="image-map-pro-"], .imp-wrap') &&
-								hasLabels(section);
-						}) || null;
+					function getTopLevelHomepageSection(element) {
+						var current = element;
+						var topLevel = element;
+
+						while (current && current.parentElement && current.parentElement !== root) {
+							current = current.parentElement;
+
+							if (
+								current.matches &&
+								current.matches('.elementor-section, section, .e-con, .elementor-top-section, .qodef-row-grid-section')
+							) {
+								topLevel = current;
+							}
+						}
+
+						return topLevel;
+					}
+
+					function findOldStatsSections() {
+						var candidates = Array.prototype.slice.call(root.querySelectorAll('.elementor-section, section, .e-con, .elementor-container, .elementor-widget, .qodef-row-grid-section'));
+						var sections = [];
+
+						candidates.forEach(function (candidate) {
+							if (isIgnoredStatsCandidate(candidate) || !hasLabels(candidate)) {
+								return;
+							}
+
+							var section = getTopLevelHomepageSection(candidate);
+
+							if (section && sections.indexOf(section) === -1 && !isIgnoredStatsCandidate(section)) {
+								sections.push(section);
+							}
+						});
+
+						return sections;
 					}
 
 					function animateNumber(number) {
@@ -1011,17 +1044,24 @@ if ( ! function_exists( 'hendon_child_nitaq_front_page_stats_replacement' ) ) {
 						observer.observe(replacement);
 					}
 
-					var oldSection = findOldStatsSection();
+					var oldSections = findOldStatsSections();
+					var insertionPoint = oldSections.length ? oldSections[0] : null;
 
-					if (oldSection && oldSection.parentNode) {
-						oldSection.parentNode.insertBefore(replacement, oldSection);
-						oldSection.classList.add('nitaq-stats-old-hidden');
+					if (insertionPoint && insertionPoint.parentNode) {
+						insertionPoint.parentNode.insertBefore(replacement, insertionPoint);
 					} else {
 						var hero = document.querySelector('.nitaq-hero-slider');
 						if (hero && hero.parentNode) {
 							hero.parentNode.insertBefore(replacement, hero.nextSibling);
 						}
 					}
+
+					oldSections.forEach(function (section) {
+						section.classList.add('nitaq-stats-old-hidden');
+						section.setAttribute('aria-hidden', 'true');
+						section.hidden = true;
+						section.style.display = 'none';
+					});
 
 					replacement.hidden = false;
 					replacement.dataset.nitaqStatsReady = 'true';
