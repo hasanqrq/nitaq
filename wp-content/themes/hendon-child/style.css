@@ -316,6 +316,213 @@ body.home .nitaq-video-hero {
 	}
 }
 
+/* Nitaq dashboard-managed homepage statistics */
+body.home .nitaq-stats-old-hidden {
+	display: none !important;
+}
+
+.nitaq-stats-new {
+	position: relative;
+	overflow: hidden;
+	padding: clamp(76px, 8vw, 122px) 24px;
+	background:
+		radial-gradient(circle at 16% 8%, rgba(184, 170, 118, 0.14), transparent 28%),
+		linear-gradient(135deg, #0F302D 0%, #123A35 58%, #071D1B 100%);
+	color: #FFFFFF;
+	direction: rtl;
+	text-align: center;
+}
+
+.nitaq-stats-new::before {
+	content: "";
+	position: absolute;
+	inset: 28px;
+	border: 1px solid rgba(184, 170, 118, 0.18);
+	pointer-events: none;
+}
+
+.nitaq-stats-new::after {
+	content: "";
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 1px;
+	background: linear-gradient(90deg, transparent, rgba(184, 170, 118, 0.48), transparent);
+	pointer-events: none;
+}
+
+.nitaq-stats-new__inner {
+	position: relative;
+	z-index: 1;
+	width: min(1200px, 100%);
+	margin: 0 auto;
+}
+
+.nitaq-stats-new__header {
+	max-width: 760px;
+	margin: 0 auto clamp(38px, 5vw, 64px);
+}
+
+.nitaq-stats-new__kicker {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	margin-bottom: 16px;
+	color: #B8AA76;
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 1.7;
+	letter-spacing: 0;
+}
+
+.nitaq-stats-new__kicker::before,
+.nitaq-stats-new__kicker::after {
+	content: "";
+	width: 34px;
+	height: 1px;
+	background: rgba(184, 170, 118, 0.8);
+}
+
+.nitaq-stats-new__header h2 {
+	margin: 0 0 18px;
+	color: #FFFFFF;
+	font-size: clamp(32px, 4vw, 58px);
+	font-weight: 600;
+	line-height: 1.28;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-stats-new__header p {
+	max-width: 680px;
+	margin: 0 auto;
+	color: rgba(255, 255, 255, 0.76);
+	font-size: clamp(16px, 1.25vw, 20px);
+	line-height: 1.9;
+}
+
+.nitaq-stats-new__grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 18px;
+}
+
+.nitaq-stats-new__item {
+	position: relative;
+	display: flex;
+	min-width: 0;
+	min-height: 310px;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 34px 24px;
+	border: 1px solid rgba(184, 170, 118, 0.28);
+	background: rgba(255, 255, 255, 0.045);
+	box-shadow: 0 22px 54px rgba(0, 0, 0, 0.16);
+	text-align: center;
+	transition:
+		transform 0.35s ease,
+		border-color 0.35s ease,
+		box-shadow 0.35s ease,
+		background-color 0.35s ease;
+}
+
+.nitaq-stats-new__item::before {
+	content: "";
+	position: absolute;
+	inset: 14px;
+	border: 1px solid rgba(184, 170, 118, 0.12);
+	pointer-events: none;
+}
+
+.nitaq-stats-new__item:hover {
+	transform: translateY(-4px);
+	border-color: rgba(184, 170, 118, 0.52);
+	background: rgba(255, 255, 255, 0.065);
+	box-shadow: 0 30px 70px rgba(0, 0, 0, 0.22);
+}
+
+.nitaq-stats-new__label {
+	order: 1;
+	margin: 0 0 16px;
+	color: #FFFFFF;
+	font-size: clamp(18px, 1.45vw, 23px);
+	font-weight: 600;
+	line-height: 1.5;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-stats-new__number {
+	order: 2;
+	display: block;
+	margin: 0 0 18px;
+	color: #B8AA76;
+	font-size: clamp(62px, 7.5vw, 104px);
+	font-weight: 400;
+	line-height: 0.95;
+	letter-spacing: -0.03em;
+}
+
+.nitaq-stats-new__unit {
+	order: 3;
+	display: block;
+	margin: 0 0 18px;
+	color: rgba(184, 170, 118, 0.92);
+	font-size: clamp(15px, 1.2vw, 18px);
+	font-weight: 600;
+	line-height: 1.6;
+}
+
+.nitaq-stats-new__description {
+	order: 4;
+	max-width: 245px;
+	margin: 0 auto;
+	color: rgba(255, 255, 255, 0.72);
+	font-size: 15px;
+	line-height: 1.85;
+}
+
+@media (max-width: 1024px) {
+	.nitaq-stats-new {
+		padding: 82px 22px;
+	}
+
+	.nitaq-stats-new__grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.nitaq-stats-new__item {
+		min-height: 280px;
+	}
+}
+
+@media (max-width: 767px) {
+	.nitaq-stats-new {
+		padding: 64px 18px;
+	}
+
+	.nitaq-stats-new::before {
+		inset: 16px;
+	}
+
+	.nitaq-stats-new__grid {
+		grid-template-columns: 1fr;
+		gap: 14px;
+	}
+
+	.nitaq-stats-new__item {
+		min-height: 250px;
+		padding: 30px 18px;
+	}
+
+	.nitaq-stats-new__number {
+		font-size: clamp(58px, 18vw, 82px);
+	}
+}
+
 /* Nitaq interest form and footer */
 .nitaq-interest-section {
 	background-color: #122C2C;

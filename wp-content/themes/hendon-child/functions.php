@@ -9,7 +9,7 @@ if ( ! function_exists( 'hendon_child_theme_enqueue_scripts' ) ) {
 	function hendon_child_theme_enqueue_scripts() {
 		$main_style = 'hendon-main';
 		
-		wp_enqueue_style( 'hendon-child-style', get_stylesheet_directory_uri() . '/style.css', array( $main_style ), wp_get_theme()->get( 'Version' ) . '.hero-slider-3' );
+		wp_enqueue_style( 'hendon-child-style', get_stylesheet_directory_uri() . '/style.css', array( $main_style ), wp_get_theme()->get( 'Version' ) . '.stats-section-1' );
 	}
 	
 	add_action( 'wp_enqueue_scripts', 'hendon_child_theme_enqueue_scripts' );
@@ -492,6 +492,540 @@ JS
 	}
 
 	add_action( 'admin_enqueue_scripts', 'hendon_child_nitaq_hero_admin_assets' );
+}
+
+if ( ! function_exists( 'hendon_child_register_nitaq_stat_post_type' ) ) {
+	/**
+	 * Register editable homepage statistics.
+	 */
+	function hendon_child_register_nitaq_stat_post_type() {
+		register_post_type(
+			'nitaq_stat',
+			array(
+				'labels'          => array(
+					'name'               => 'إحصائيات نطاق',
+					'singular_name'      => 'إحصائية نطاق',
+					'menu_name'          => 'إحصائيات نطاق',
+					'add_new'            => 'إضافة إحصائية',
+					'add_new_item'       => 'إضافة إحصائية جديدة',
+					'edit_item'          => 'تعديل الإحصائية',
+					'new_item'           => 'إحصائية جديدة',
+					'view_item'          => 'عرض الإحصائية',
+					'search_items'       => 'البحث في الإحصائيات',
+					'not_found'          => 'لا توجد إحصائيات',
+					'not_found_in_trash' => 'لا توجد إحصائيات في سلة المهملات',
+					'all_items'          => 'كل الإحصائيات',
+				),
+				'description'     => 'Nitaq homepage statistics',
+				'public'          => false,
+				'show_ui'         => true,
+				'show_in_menu'    => true,
+				'menu_icon'       => 'dashicons-chart-bar',
+				'menu_position'   => 23,
+				'supports'        => array( 'title', 'page-attributes' ),
+				'hierarchical'    => false,
+				'has_archive'     => false,
+				'rewrite'         => false,
+				'query_var'       => false,
+				'capability_type' => 'post',
+			)
+		);
+	}
+
+	add_action( 'init', 'hendon_child_register_nitaq_stat_post_type' );
+}
+
+if ( ! function_exists( 'hendon_child_nitaq_stat_defaults' ) ) {
+	/**
+	 * Default statistics shown if the dashboard has no stat posts yet.
+	 */
+	function hendon_child_nitaq_stat_defaults() {
+		return array(
+			array(
+				'stat_label'       => 'المساحة الإجمالية',
+				'stat_number'      => '9.3',
+				'stat_unit'        => '+ مليون م²',
+				'stat_description' => 'وجهة واسعة بتخطيط عمراني متكامل',
+				'stat_order'       => 1,
+				'stat_is_active'   => '1',
+			),
+			array(
+				'stat_label'       => 'المسطحات الخضراء',
+				'stat_number'      => '877',
+				'stat_unit'        => '+ ألف م²',
+				'stat_description' => 'مساحات مفتوحة تعزز جودة الحياة',
+				'stat_order'       => 2,
+				'stat_is_active'   => '1',
+			),
+			array(
+				'stat_label'       => 'مرافق تجارية',
+				'stat_number'      => '14',
+				'stat_unit'        => 'مرفق',
+				'stat_description' => 'خدمات قريبة تلبي احتياجات السكان',
+				'stat_order'       => 3,
+				'stat_is_active'   => '1',
+			),
+			array(
+				'stat_label'       => 'مرافق تعليمية',
+				'stat_number'      => '10',
+				'stat_unit'        => 'مرافق',
+				'stat_description' => 'بيئة متكاملة للعائلات والمجتمع',
+				'stat_order'       => 4,
+				'stat_is_active'   => '1',
+			),
+		);
+	}
+}
+
+if ( ! function_exists( 'hendon_child_create_default_nitaq_stats' ) ) {
+	/**
+	 * Seed default statistics only when no stat posts exist.
+	 */
+	function hendon_child_create_default_nitaq_stats() {
+		$existing = get_posts(
+			array(
+				'post_type'      => 'nitaq_stat',
+				'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
+				'posts_per_page' => 1,
+				'fields'         => 'ids',
+			)
+		);
+
+		if ( $existing ) {
+			return;
+		}
+
+		foreach ( hendon_child_nitaq_stat_defaults() as $stat ) {
+			$post_id = wp_insert_post(
+				array(
+					'post_type'   => 'nitaq_stat',
+					'post_status' => 'publish',
+					'post_title'  => $stat['stat_label'],
+					'menu_order'  => (int) $stat['stat_order'],
+				)
+			);
+
+			if ( is_wp_error( $post_id ) || ! $post_id ) {
+				continue;
+			}
+
+			foreach ( $stat as $key => $value ) {
+				update_post_meta( $post_id, $key, $value );
+			}
+		}
+	}
+
+	add_action( 'init', 'hendon_child_create_default_nitaq_stats', 12 );
+}
+
+if ( ! function_exists( 'hendon_child_nitaq_stat_meta_fields' ) ) {
+	/**
+	 * Meta field map for statistics.
+	 */
+	function hendon_child_nitaq_stat_meta_fields() {
+		return array(
+			'stat_label'       => array( 'label' => 'العنوان / Label', 'type' => 'text' ),
+			'stat_number'      => array( 'label' => 'الرقم', 'type' => 'text' ),
+			'stat_unit'        => array( 'label' => 'الوحدة', 'type' => 'text' ),
+			'stat_description' => array( 'label' => 'الوصف المختصر', 'type' => 'textarea' ),
+			'stat_order'       => array( 'label' => 'ترتيب العرض', 'type' => 'number' ),
+			'stat_is_active'   => array( 'label' => 'تفعيل الإحصائية', 'type' => 'checkbox' ),
+		);
+	}
+}
+
+if ( ! function_exists( 'hendon_child_add_nitaq_stat_meta_box' ) ) {
+	/**
+	 * Add native dashboard fields for statistics.
+	 */
+	function hendon_child_add_nitaq_stat_meta_box() {
+		add_meta_box(
+			'nitaq_stat_details',
+			'بيانات الإحصائية',
+			'hendon_child_render_nitaq_stat_meta_box',
+			'nitaq_stat',
+			'normal',
+			'high'
+		);
+	}
+
+	add_action( 'add_meta_boxes', 'hendon_child_add_nitaq_stat_meta_box' );
+}
+
+if ( ! function_exists( 'hendon_child_render_nitaq_stat_meta_box' ) ) {
+	/**
+	 * Render stat fields.
+	 */
+	function hendon_child_render_nitaq_stat_meta_box( $post ) {
+		$fields = hendon_child_nitaq_stat_meta_fields();
+
+		wp_nonce_field( 'nitaq_stat_meta', 'nitaq_stat_meta_nonce' );
+		?>
+		<div class="nitaq-admin-fields" dir="rtl">
+			<p style="margin:0 0 18px;color:#555;">عدّل العنوان، الرقم، الوحدة، الوصف، الترتيب، وحالة التفعيل. تظهر الإحصائيات المفعلة فقط في الصفحة الرئيسية.</p>
+			<?php foreach ( $fields as $key => $field ) : ?>
+				<?php $value = get_post_meta( $post->ID, $key, true ); ?>
+				<p style="display:grid;gap:8px;margin:0 0 16px;">
+					<label for="<?php echo esc_attr( $key ); ?>" style="font-weight:700;"><?php echo esc_html( $field['label'] ); ?></label>
+					<?php if ( 'textarea' === $field['type'] ) : ?>
+						<textarea id="<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $key ); ?>" rows="3" style="width:100%;direction:rtl;text-align:right;"><?php echo esc_textarea( $value ); ?></textarea>
+					<?php elseif ( 'checkbox' === $field['type'] ) : ?>
+						<label style="display:flex;align-items:center;gap:8px;">
+							<input id="<?php echo esc_attr( $key ); ?>" type="checkbox" name="<?php echo esc_attr( $key ); ?>" value="1" <?php checked( $value, '1' ); ?>>
+							<span>Active / تفعيل الإحصائية</span>
+						</label>
+					<?php elseif ( 'number' === $field['type'] ) : ?>
+						<input id="<?php echo esc_attr( $key ); ?>" type="number" name="<?php echo esc_attr( $key ); ?>" value="<?php echo esc_attr( $value ); ?>" min="0" step="1" style="width:160px;">
+					<?php else : ?>
+						<input id="<?php echo esc_attr( $key ); ?>" type="text" name="<?php echo esc_attr( $key ); ?>" value="<?php echo esc_attr( $value ); ?>" style="width:100%;direction:rtl;text-align:right;">
+					<?php endif; ?>
+				</p>
+			<?php endforeach; ?>
+		</div>
+		<?php
+	}
+}
+
+if ( ! function_exists( 'hendon_child_save_nitaq_stat_meta' ) ) {
+	/**
+	 * Save statistic fields.
+	 */
+	function hendon_child_save_nitaq_stat_meta( $post_id ) {
+		if (
+			! isset( $_POST['nitaq_stat_meta_nonce'] ) ||
+			! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nitaq_stat_meta_nonce'] ) ), 'nitaq_stat_meta' )
+		) {
+			return;
+		}
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+
+		foreach ( hendon_child_nitaq_stat_meta_fields() as $key => $field ) {
+			if ( 'checkbox' === $field['type'] ) {
+				update_post_meta( $post_id, $key, isset( $_POST[ $key ] ) ? '1' : '0' );
+				continue;
+			}
+
+			$value = isset( $_POST[ $key ] ) ? wp_unslash( $_POST[ $key ] ) : '';
+
+			if ( 'number' === $field['type'] ) {
+				$value = (string) max( 0, (int) $value );
+			} else {
+				$value = sanitize_textarea_field( $value );
+			}
+
+			update_post_meta( $post_id, $key, $value );
+		}
+
+		$order = isset( $_POST['stat_order'] ) ? (int) $_POST['stat_order'] : 0;
+		remove_action( 'save_post_nitaq_stat', 'hendon_child_save_nitaq_stat_meta' );
+		wp_update_post(
+			array(
+				'ID'         => $post_id,
+				'menu_order' => $order,
+			)
+		);
+		add_action( 'save_post_nitaq_stat', 'hendon_child_save_nitaq_stat_meta' );
+	}
+
+	add_action( 'save_post_nitaq_stat', 'hendon_child_save_nitaq_stat_meta' );
+}
+
+if ( ! function_exists( 'hendon_child_nitaq_stat_columns' ) ) {
+	/**
+	 * Dashboard list columns for statistics.
+	 */
+	function hendon_child_nitaq_stat_columns( $columns ) {
+		return array(
+			'cb'          => $columns['cb'],
+			'title'       => 'Label',
+			'stat_number' => 'Number',
+			'stat_unit'   => 'Unit',
+			'stat_order'  => 'Order',
+			'stat_active' => 'Active',
+			'date'        => $columns['date'],
+		);
+	}
+
+	add_filter( 'manage_nitaq_stat_posts_columns', 'hendon_child_nitaq_stat_columns' );
+}
+
+if ( ! function_exists( 'hendon_child_nitaq_stat_column_content' ) ) {
+	/**
+	 * Render dashboard column content for statistics.
+	 */
+	function hendon_child_nitaq_stat_column_content( $column, $post_id ) {
+		if ( 'stat_number' === $column ) {
+			echo esc_html( get_post_meta( $post_id, 'stat_number', true ) );
+		}
+
+		if ( 'stat_unit' === $column ) {
+			echo esc_html( get_post_meta( $post_id, 'stat_unit', true ) );
+		}
+
+		if ( 'stat_order' === $column ) {
+			echo esc_html( get_post_meta( $post_id, 'stat_order', true ) );
+		}
+
+		if ( 'stat_active' === $column ) {
+			echo '1' === get_post_meta( $post_id, 'stat_is_active', true ) ? esc_html__( 'Yes', 'hendon' ) : esc_html__( 'No', 'hendon' );
+		}
+	}
+
+	add_action( 'manage_nitaq_stat_posts_custom_column', 'hendon_child_nitaq_stat_column_content', 10, 2 );
+}
+
+if ( ! function_exists( 'hendon_child_get_nitaq_stats' ) ) {
+	/**
+	 * Get active homepage statistics ordered by stat order.
+	 */
+	function hendon_child_get_nitaq_stats() {
+		$query = new WP_Query(
+			array(
+				'post_type'      => 'nitaq_stat',
+				'post_status'    => 'publish',
+				'posts_per_page' => -1,
+				'meta_query'     => array(
+					array(
+						'key'   => 'stat_is_active',
+						'value' => '1',
+					),
+				),
+				'meta_key'       => 'stat_order',
+				'orderby'        => array(
+					'meta_value_num' => 'ASC',
+					'menu_order'     => 'ASC',
+					'date'           => 'ASC',
+				),
+				'order'          => 'ASC',
+			)
+		);
+
+		$stats = array();
+
+		foreach ( $query->posts as $post ) {
+			$stats[] = array(
+				'label'       => get_post_meta( $post->ID, 'stat_label', true ) ?: get_the_title( $post ),
+				'number'      => get_post_meta( $post->ID, 'stat_number', true ),
+				'unit'        => get_post_meta( $post->ID, 'stat_unit', true ),
+				'description' => get_post_meta( $post->ID, 'stat_description', true ),
+				'order'       => get_post_meta( $post->ID, 'stat_order', true ),
+			);
+		}
+
+		wp_reset_postdata();
+
+		if ( empty( $stats ) ) {
+			foreach ( hendon_child_nitaq_stat_defaults() as $stat ) {
+				if ( '1' === $stat['stat_is_active'] ) {
+					$stats[] = array(
+						'label'       => $stat['stat_label'],
+						'number'      => $stat['stat_number'],
+						'unit'        => $stat['stat_unit'],
+						'description' => $stat['stat_description'],
+						'order'       => $stat['stat_order'],
+					);
+				}
+			}
+		}
+
+		return $stats;
+	}
+}
+
+if ( ! function_exists( 'hendon_child_nitaq_stats_markup' ) ) {
+	/**
+	 * Render the replacement homepage statistics section.
+	 */
+	function hendon_child_nitaq_stats_markup() {
+		$stats = hendon_child_get_nitaq_stats();
+
+		if ( empty( $stats ) ) {
+			return '';
+		}
+
+		ob_start();
+		?>
+		<section class="nitaq-stats-new" dir="rtl" data-nitaq-stats-replacement hidden aria-label="<?php echo esc_attr__( 'Nitaq statistics', 'hendon' ); ?>">
+			<div class="nitaq-stats-new__inner">
+				<div class="nitaq-stats-new__header">
+					<span class="nitaq-stats-new__kicker">نطاق الأولى</span>
+					<h2>أرقام تعكس حجم الوجهة</h2>
+					<p>مساحات ومرافق صُممت لتمنح السكان تجربة حياة متكاملة في قلب الخبر.</p>
+				</div>
+
+				<div class="nitaq-stats-new__grid">
+					<?php foreach ( $stats as $stat ) : ?>
+						<article class="nitaq-stats-new__item">
+							<?php if ( ! empty( $stat['label'] ) ) : ?>
+								<h3 class="nitaq-stats-new__label"><?php echo esc_html( $stat['label'] ); ?></h3>
+							<?php endif; ?>
+							<?php if ( '' !== (string) $stat['number'] ) : ?>
+								<strong class="nitaq-stats-new__number" data-final-number="<?php echo esc_attr( $stat['number'] ); ?>"><?php echo esc_html( $stat['number'] ); ?></strong>
+							<?php endif; ?>
+							<?php if ( ! empty( $stat['unit'] ) ) : ?>
+								<span class="nitaq-stats-new__unit"><?php echo esc_html( $stat['unit'] ); ?></span>
+							<?php endif; ?>
+							<?php if ( ! empty( $stat['description'] ) ) : ?>
+								<p class="nitaq-stats-new__description"><?php echo esc_html( $stat['description'] ); ?></p>
+							<?php endif; ?>
+						</article>
+					<?php endforeach; ?>
+				</div>
+			</div>
+		</section>
+		<?php
+
+		return ob_get_clean();
+	}
+}
+
+if ( ! function_exists( 'hendon_child_nitaq_stats_shortcode' ) ) {
+	/**
+	 * Shortcode fallback for the dashboard-managed statistics.
+	 */
+	function hendon_child_nitaq_stats_shortcode() {
+		return hendon_child_nitaq_stats_markup();
+	}
+
+	add_shortcode( 'nitaq_stats', 'hendon_child_nitaq_stats_shortcode' );
+}
+
+if ( ! function_exists( 'hendon_child_nitaq_front_page_stats_replacement' ) ) {
+	/**
+	 * Replace the broken Elementor statistics block in-place on the homepage.
+	 */
+	function hendon_child_nitaq_front_page_stats_replacement() {
+		if ( ! is_front_page() ) {
+			return;
+		}
+
+		echo hendon_child_nitaq_stats_markup(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		?>
+		<script>
+			(function () {
+				function initNitaqStatsReplacement() {
+					var replacement = document.querySelector('[data-nitaq-stats-replacement]');
+					var root = document.querySelector('body.home #qodef-page-inner');
+
+					if (!replacement || !root || replacement.dataset.nitaqStatsReady === 'true') {
+						return;
+					}
+
+					var labels = ['المساحة الإجمالية', 'المسطحات الخضراء', 'مرافق تجارية', 'مرافق تعليمية'];
+
+					function hasLabels(element) {
+						var text = element ? element.textContent || '' : '';
+						return labels.filter(function (label) {
+							return text.indexOf(label) > -1;
+						}).length >= 3;
+					}
+
+					function findOldStatsSection() {
+						var candidates = Array.prototype.slice.call(root.querySelectorAll('.elementor-section, section, .e-con, .elementor-container, .qodef-row-grid-section'));
+
+						return candidates.find(function (section) {
+							return section !== replacement &&
+								!section.closest('.nitaq-hero-slider, [data-nitaq-stats-replacement], #qodef-page-footer, [id^="image-map-pro-"], .imp-wrap') &&
+								hasLabels(section);
+						}) || null;
+					}
+
+					function animateNumber(number) {
+						if (!number || number.dataset.counted === 'true') {
+							return;
+						}
+
+						var finalRaw = number.dataset.finalNumber || number.textContent;
+						var finalValue = parseFloat(String(finalRaw).replace(/,/g, ''));
+						var decimals = String(finalRaw).indexOf('.') > -1 ? String(finalRaw).split('.')[1].length : 0;
+						var duration = 1400;
+						var startTime = null;
+
+						if (!isFinite(finalValue)) {
+							return;
+						}
+
+						function format(value) {
+							return decimals > 0 ? value.toFixed(decimals) : String(Math.round(value));
+						}
+
+						function tick(timestamp) {
+							if (!startTime) {
+								startTime = timestamp;
+							}
+
+							var progress = Math.min((timestamp - startTime) / duration, 1);
+							var eased = 1 - Math.pow(1 - progress, 3);
+							number.textContent = format(finalValue * eased);
+
+							if (progress < 1) {
+								window.requestAnimationFrame(tick);
+							} else {
+								number.textContent = finalRaw;
+								number.dataset.counted = 'true';
+							}
+						}
+
+						window.requestAnimationFrame(tick);
+					}
+
+					function initCountUp() {
+						var numbers = Array.prototype.slice.call(replacement.querySelectorAll('.nitaq-stats-new__number'));
+
+						if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+							numbers.forEach(function (number) {
+								number.textContent = number.dataset.finalNumber || number.textContent;
+								number.dataset.counted = 'true';
+							});
+							return;
+						}
+
+						var observer = new IntersectionObserver(function (entries) {
+							entries.forEach(function (entry) {
+								if (entry.isIntersecting) {
+									numbers.forEach(animateNumber);
+									observer.unobserve(entry.target);
+								}
+							});
+						}, {
+							threshold: 0.25,
+							rootMargin: '0px 0px -8% 0px'
+						});
+
+						observer.observe(replacement);
+					}
+
+					var oldSection = findOldStatsSection();
+
+					if (oldSection && oldSection.parentNode) {
+						oldSection.parentNode.insertBefore(replacement, oldSection);
+						oldSection.classList.add('nitaq-stats-old-hidden');
+					} else {
+						var hero = document.querySelector('.nitaq-hero-slider');
+						if (hero && hero.parentNode) {
+							hero.parentNode.insertBefore(replacement, hero.nextSibling);
+						}
+					}
+
+					replacement.hidden = false;
+					replacement.dataset.nitaqStatsReady = 'true';
+					initCountUp();
+				}
+
+				document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', initNitaqStatsReplacement) : initNitaqStatsReplacement();
+			})();
+		</script>
+		<?php
+	}
+
+	add_action( 'wp_footer', 'hendon_child_nitaq_front_page_stats_replacement', 95 );
 }
 
 if ( ! function_exists( 'hendon_child_get_nitaq_hero_slides' ) ) {
