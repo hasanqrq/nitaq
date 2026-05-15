@@ -1,0 +1,3161 @@
+/*
+Theme Name: Hendon Child
+Theme URI: http://hendon.qodeinteractive.com
+Description: A child theme of Hendon
+Author: Mikado Themes
+Author URI: http://themeforest.net/user/mikado-themes
+Version: 1.0.1
+Text Domain: hendon
+Template: hendon
+*/
+
+/* Nitaq homepage hero slider */
+.nitaq-hero-slider {
+	position: relative;
+	width: 100%;
+	min-height: 620px;
+	height: 80vh;
+	overflow: hidden;
+	direction: rtl;
+	background: #0F302D;
+}
+
+.nitaq-hero-slide {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(18px) scale(0.985);
+	transition: opacity 1s ease, visibility 1s ease, transform 1s ease;
+}
+
+.nitaq-hero-slide.is-active {
+	z-index: 2;
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0) scale(1);
+}
+
+.nitaq-hero-global-video,
+.nitaq-hero-poster {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center center;
+}
+
+.nitaq-hero-text-slides {
+	position: absolute;
+	inset: 0;
+	z-index: 3;
+	pointer-events: none;
+}
+
+.nitaq-hero-overlay {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	background: rgba(15, 48, 45, 0.24);
+}
+
+.nitaq-hero-content {
+	position: relative;
+	z-index: 4;
+	max-width: 980px;
+	padding: 0 24px;
+	color: #FFFFFF;
+	pointer-events: auto;
+}
+
+.nitaq-hero-kicker {
+	display: inline-block;
+	margin-bottom: 18px;
+	padding: 8px 18px;
+	border: 1px solid rgba(184, 170, 118, 0.34);
+	border-radius: 999px;
+	background: rgba(15, 48, 45, 0.14);
+	backdrop-filter: blur(8px);
+	color: #B8AA76;
+	font-size: clamp(14px, 1.5vw, 20px);
+	line-height: 1.7;
+	letter-spacing: 0;
+	text-transform: none;
+	text-shadow: 0 3px 14px rgba(0, 0, 0, 0.45);
+}
+
+.nitaq-hero-content h1 {
+	margin: 0 0 22px;
+	color: #FFFFFF;
+	font-size: clamp(42px, 6vw, 88px);
+	font-weight: 600;
+	line-height: 1.22;
+	letter-spacing: 0;
+	text-transform: none;
+	text-shadow: 0 3px 14px rgba(0, 0, 0, 0.45);
+}
+
+.nitaq-hero-content h1::after {
+	content: "";
+	display: block;
+	width: 82px;
+	height: 2px;
+	margin: 24px auto 0;
+	background: linear-gradient(90deg, transparent, #B8AA76, transparent);
+}
+
+.nitaq-hero-content p {
+	max-width: 780px;
+	margin: 0 auto 34px;
+	color: rgba(255, 255, 255, 0.88);
+	font-size: clamp(18px, 2vw, 28px);
+	line-height: 1.8;
+	letter-spacing: 0;
+	text-transform: none;
+	text-shadow: 0 3px 14px rgba(0, 0, 0, 0.45);
+}
+
+.nitaq-hero-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 14px 36px;
+	border: 1px solid #B8AA76;
+	border-radius: 8px;
+	color: #0F302D !important;
+	background: #B8AA76;
+	box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
+	font-weight: 700;
+	line-height: 1.7;
+	text-decoration: none;
+	transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.nitaq-hero-btn:hover {
+	color: #B8AA76 !important;
+	background: transparent;
+	border-color: #B8AA76;
+	box-shadow: 0 16px 34px rgba(0, 0, 0, 0.16);
+}
+
+.nitaq-hero-dots {
+	position: absolute;
+	right: 50%;
+	bottom: 36px;
+	z-index: 5;
+	display: flex;
+	gap: 10px;
+	transform: translateX(50%);
+}
+
+.nitaq-hero-dots button {
+	width: 28px;
+	height: 10px;
+	padding: 0;
+	border: 1px solid #B8AA76;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.08);
+	cursor: pointer;
+	transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease, width 0.25s ease;
+}
+
+.nitaq-hero-dots button.is-active {
+	width: 42px;
+	background: #B8AA76;
+	transform: scale(1.15);
+}
+
+.nitaq-hero-arrows {
+	position: absolute;
+	top: 50%;
+	right: clamp(24px, 4vw, 58px);
+	left: clamp(24px, 4vw, 58px);
+	z-index: 5;
+	display: flex;
+	justify-content: space-between;
+	pointer-events: none;
+	transform: translateY(-50%);
+}
+
+.nitaq-hero-arrow {
+	position: relative;
+	width: 52px;
+	height: 52px;
+	padding: 0;
+	border: 1px solid rgba(184, 170, 118, 0.55);
+	border-radius: 50%;
+	background: rgba(15, 48, 45, 0.16);
+	backdrop-filter: blur(8px);
+	cursor: pointer;
+	pointer-events: auto;
+	transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.nitaq-hero-arrow::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 12px;
+	height: 12px;
+	border-top: 2px solid #B8AA76;
+	border-left: 2px solid #B8AA76;
+	transform-origin: center;
+}
+
+.nitaq-hero-arrow--prev::before {
+	transform: translate(-42%, -50%) rotate(135deg);
+}
+
+.nitaq-hero-arrow--next::before {
+	transform: translate(-58%, -50%) rotate(-45deg);
+}
+
+.nitaq-hero-arrow:hover {
+	background: rgba(184, 170, 118, 0.16);
+	border-color: #B8AA76;
+	transform: scale(1.04);
+}
+
+body.home #qodef-page-inner rs-module-wrap,
+body.home #qodef-page-inner .rev_slider_wrapper,
+body.home #qodef-page-inner .nitaq-old-hero,
+body.home #qodef-page-inner .nitaq-desktop-hero-section,
+body.home #qodef-page-inner .nitaq-mobile-hero-section,
+body.home #qodef-page-inner .nitaq-mobile-slider {
+	display: none !important;
+}
+
+body.home #qodef-page-outer {
+	overflow-x: hidden;
+}
+
+body.home .nitaq-hero-slider,
+body.home .nitaq-video-hero {
+	margin-top: 90px;
+}
+
+@media (max-width: 767px) {
+	.nitaq-hero-slider {
+		min-height: 580px;
+		height: 580px;
+	}
+
+	body.home .nitaq-hero-slider,
+	body.home .nitaq-video-hero {
+		margin-top: 80px;
+	}
+
+	.nitaq-hero-slide {
+		padding-top: 80px;
+	}
+
+	.nitaq-hero-content {
+		padding: 0 22px;
+	}
+
+	.nitaq-hero-kicker {
+		margin-bottom: 14px;
+		padding: 6px 14px;
+		font-size: 14px;
+	}
+
+	.nitaq-hero-content h1 {
+		margin-bottom: 16px;
+		font-size: 34px;
+		line-height: 1.35;
+	}
+
+	.nitaq-hero-content p {
+		margin-bottom: 28px;
+		font-size: 16px;
+		line-height: 1.8;
+	}
+
+	.nitaq-hero-btn {
+		padding: 12px 28px;
+		font-size: 15px;
+	}
+
+	.nitaq-hero-dots {
+		bottom: 28px;
+	}
+
+	.nitaq-hero-arrows {
+		display: none;
+	}
+
+	.nitaq-hero-dots button {
+		width: 22px;
+	}
+
+	.nitaq-hero-dots button.is-active {
+		width: 34px;
+	}
+}
+
+@media (max-width: 480px) {
+	.nitaq-hero-slider {
+		min-height: 560px;
+		height: 560px;
+	}
+
+	.nitaq-hero-content h1 {
+		font-size: 30px;
+	}
+
+	.nitaq-hero-content p {
+		font-size: 15px;
+	}
+}
+
+/* Nitaq interest form and footer */
+.nitaq-interest-section {
+	background-color: #122C2C;
+	direction: rtl;
+}
+
+.nitaq-interest-card {
+	border: 1px solid rgba(189, 177, 143, 0.32);
+	box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+	direction: rtl;
+	text-align: right;
+}
+
+.nitaq-interest-card .qodef-m-title {
+	color: #122C2C;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-interest-card .qodef-m-text {
+	color: rgba(18, 44, 44, 0.72);
+	line-height: 1.9;
+}
+
+.nitaq-interest-form input,
+.nitaq-interest-form textarea,
+.nitaq-interest-form select {
+	width: 100%;
+	direction: rtl;
+	text-align: right;
+	color: #122C2C;
+	background-color: transparent;
+	border-color: rgba(18, 44, 44, 0.25);
+}
+
+.nitaq-interest-form textarea {
+	min-height: 130px;
+}
+
+.nitaq-interest-form input::placeholder,
+.nitaq-interest-form textarea::placeholder {
+	color: rgba(18, 44, 44, 0.58);
+	opacity: 1;
+}
+
+.nitaq-interest-form input[type="submit"],
+.nitaq-interest-form button[type="submit"] {
+	width: 100%;
+	color: #122C2C !important;
+	background-color: #BDB18F !important;
+	border-color: #BDB18F !important;
+}
+
+.nitaq-interest-form input[type="submit"]:hover,
+.nitaq-interest-form button[type="submit"]:hover {
+	color: #F8F7F2 !important;
+	background-color: #122C2C !important;
+	border-color: #122C2C !important;
+}
+
+.nitaq-interest-form .wpcf7-not-valid-tip,
+.nitaq-interest-form .wpcf7-response-output {
+	direction: rtl;
+	text-align: right;
+}
+
+/* Nitaq mobile-only homepage hero */
+.nitaq-mobile-hero-section,
+.nitaq-mobile-slider {
+	display: none;
+}
+
+@media only screen and (max-width: 767px) {
+	html,
+	body {
+		overflow-x: hidden;
+	}
+
+	.nitaq-desktop-hero-section {
+		display: none !important;
+	}
+
+	.nitaq-mobile-hero-section {
+		display: block !important;
+	}
+
+	.nitaq-mobile-slider {
+		position: relative;
+		display: block !important;
+		min-height: 640px;
+		height: 640px;
+		width: 100%;
+		max-width: 100vw;
+		overflow: hidden;
+		direction: rtl;
+		text-align: center;
+	}
+
+	.nitaq-mobile-slide {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 120px 24px 74px;
+		background-image:
+			linear-gradient(rgba(15, 48, 45, 0.55), rgba(15, 48, 45, 0.55)),
+			var(--nitaq-slide-image);
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: cover;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 900ms ease, visibility 900ms ease;
+	}
+
+	.nitaq-mobile-slide.is-active {
+		opacity: 1;
+		visibility: visible;
+		z-index: 2;
+	}
+
+	.nitaq-mobile-slide__content {
+		width: min(90vw, 360px);
+		transform: translateY(10px);
+		opacity: 0;
+		transition: transform 900ms ease, opacity 900ms ease;
+	}
+
+	.nitaq-mobile-slide.is-active .nitaq-mobile-slide__content {
+		transform: translateY(0);
+		opacity: 1;
+	}
+
+	.nitaq-mobile-slider h1 {
+		margin: 0 0 16px;
+		color: #FFFFFF;
+		font-size: 34px;
+		font-weight: 600;
+		line-height: 1.3;
+		letter-spacing: 0;
+		text-transform: none;
+	}
+
+	.nitaq-mobile-slider p {
+		margin: 0 0 28px;
+		color: #B8AA76;
+		font-size: 15px;
+		font-weight: 500;
+		line-height: 1.7;
+		letter-spacing: 0;
+		text-transform: none;
+	}
+
+	.nitaq-mobile-hero-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 12px 24px;
+		color: #0F302D !important;
+		background: #B8AA76;
+		border: 1px solid #B8AA76;
+		border-radius: 10px;
+		font-size: 15px;
+		font-weight: 600;
+		line-height: 1.7;
+		text-decoration: none;
+	}
+
+	.nitaq-mobile-slider__dots {
+		position: absolute;
+		right: 0;
+		bottom: 34px;
+		left: 0;
+		z-index: 5;
+		display: flex;
+		justify-content: center;
+		gap: 10px;
+	}
+
+	.nitaq-mobile-slider__dots button {
+		width: 9px;
+		height: 9px;
+		padding: 0;
+		border: 1px solid rgba(184, 170, 118, 0.82);
+		border-radius: 50%;
+		background: transparent;
+		cursor: pointer;
+	}
+
+	.nitaq-mobile-slider__dots button.is-active {
+		background: #B8AA76;
+	}
+}
+
+/* Nitaq about page */
+.nitaq-about-page {
+	--nitaq-green: #123A35;
+	--nitaq-green-deep: #0F302D;
+	--nitaq-gold: #B8AA76;
+	--nitaq-soft: #F8F7F2;
+	--nitaq-ink: #122C2C;
+	--nitaq-muted: rgba(255, 255, 255, 0.76);
+	background: var(--nitaq-green-deep);
+	color: #FFFFFF;
+	direction: rtl;
+	text-align: right;
+	overflow: hidden;
+}
+
+.nitaq-about-page *,
+.nitaq-about-page *::before,
+.nitaq-about-page *::after {
+	box-sizing: border-box;
+}
+
+.nitaq-about-page h1,
+.nitaq-about-page h2,
+.nitaq-about-page h3,
+.nitaq-about-page p {
+	margin: 0;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-about-page h1,
+.nitaq-about-page h2,
+.nitaq-about-page h3 {
+	color: inherit;
+	line-height: 1.35;
+}
+
+.nitaq-about-page p {
+	font-size: 18px;
+	line-height: 2;
+}
+
+.nitaq-about-container {
+	width: min(1180px, calc(100% - 56px));
+	margin: 0 auto;
+}
+
+.nitaq-about-hero {
+	position: relative;
+	display: flex;
+	min-height: min(820px, 94vh);
+	align-items: flex-end;
+	padding: 170px 0 110px;
+	background: var(--nitaq-green-deep);
+}
+
+.nitaq-about-hero__image,
+.nitaq-about-hero__overlay {
+	position: absolute;
+	inset: 0;
+}
+
+.nitaq-about-hero__image {
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	transform: scale(1.02);
+}
+
+.nitaq-about-hero__overlay {
+	background:
+		linear-gradient(90deg, rgba(15, 48, 45, 0.38), rgba(15, 48, 45, 0.9)),
+		linear-gradient(0deg, rgba(15, 48, 45, 0.78), rgba(15, 48, 45, 0.2));
+}
+
+.nitaq-about-hero__content {
+	position: relative;
+	z-index: 2;
+	max-width: 760px;
+	margin-right: max(7vw, 28px);
+	margin-left: auto;
+}
+
+.nitaq-about-kicker {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 18px;
+	color: var(--nitaq-gold);
+	font-size: 14px;
+	font-weight: 600;
+	letter-spacing: 0;
+	line-height: 1.8;
+}
+
+.nitaq-about-kicker::before {
+	content: "";
+	width: 44px;
+	height: 1px;
+	background: currentColor;
+}
+
+.nitaq-about-hero h1 {
+	margin-bottom: 18px;
+	font-size: clamp(48px, 8vw, 96px);
+	font-weight: 500;
+}
+
+.nitaq-about-hero h2 {
+	max-width: 720px;
+	margin-bottom: 24px;
+	color: #FFFFFF;
+	font-size: clamp(28px, 4vw, 50px);
+	font-weight: 500;
+}
+
+.nitaq-about-hero p {
+	max-width: 700px;
+	margin-bottom: 34px;
+	color: var(--nitaq-muted);
+}
+
+.nitaq-about-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 48px;
+	padding: 12px 26px;
+	color: var(--nitaq-green-deep) !important;
+	background: var(--nitaq-gold);
+	border: 1px solid var(--nitaq-gold);
+	border-radius: 10px;
+	font-size: 15px;
+	font-weight: 700;
+	line-height: 1.7;
+	text-decoration: none;
+	transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.nitaq-about-button:hover {
+	color: #FFFFFF !important;
+	background: transparent;
+}
+
+.nitaq-about-button--dark:hover {
+	color: var(--nitaq-green-deep) !important;
+	background: transparent;
+	border-color: var(--nitaq-green-deep);
+}
+
+.nitaq-about-section {
+	padding: 112px 0;
+}
+
+.nitaq-about-section--light {
+	background: var(--nitaq-soft);
+	color: var(--nitaq-ink);
+}
+
+.nitaq-about-section--light p,
+.nitaq-about-section--light li {
+	color: rgba(18, 44, 44, 0.78);
+}
+
+.nitaq-about-section--dark,
+.nitaq-about-section--green {
+	background:
+		radial-gradient(circle at 15% 20%, rgba(184, 170, 118, 0.12), transparent 30%),
+		var(--nitaq-green-deep);
+	color: #FFFFFF;
+}
+
+.nitaq-about-section--green {
+	background-color: var(--nitaq-green);
+}
+
+.nitaq-about-split,
+.nitaq-about-feature {
+	display: grid;
+	grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+	gap: 72px;
+	align-items: center;
+}
+
+.nitaq-about-split--reverse {
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.nitaq-about-copy h2,
+.nitaq-about-heading h2,
+.nitaq-about-feature__text h2,
+.nitaq-about-duo h2,
+.nitaq-about-final h2 {
+	margin-bottom: 24px;
+	font-size: clamp(34px, 4vw, 58px);
+	font-weight: 500;
+}
+
+.nitaq-about-copy p + p {
+	margin-top: 20px;
+}
+
+.nitaq-about-image {
+	position: relative;
+	margin: 0;
+	overflow: hidden;
+	border-radius: 0;
+	box-shadow: 0 26px 70px rgba(0, 0, 0, 0.18);
+}
+
+.nitaq-about-image::before {
+	content: "";
+	position: absolute;
+	inset: 18px;
+	z-index: 1;
+	border: 1px solid rgba(184, 170, 118, 0.55);
+	pointer-events: none;
+}
+
+.nitaq-about-image img,
+.nitaq-about-feature__media img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-height: 470px;
+	object-fit: cover;
+}
+
+.nitaq-about-duo {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 28px;
+}
+
+.nitaq-about-duo article,
+.nitaq-about-values article,
+.nitaq-about-stats article {
+	border: 1px solid rgba(184, 170, 118, 0.38);
+	background: rgba(255, 255, 255, 0.045);
+}
+
+.nitaq-about-duo article {
+	min-height: 330px;
+	padding: 54px;
+}
+
+.nitaq-about-duo p {
+	color: var(--nitaq-muted);
+}
+
+.nitaq-about-heading {
+	max-width: 760px;
+	margin-bottom: 48px;
+}
+
+.nitaq-about-values {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 22px;
+}
+
+.nitaq-about-values article {
+	min-height: 275px;
+	padding: 34px 28px;
+	background: #FFFFFF;
+	border-color: rgba(18, 44, 44, 0.1);
+	box-shadow: 0 18px 48px rgba(18, 44, 44, 0.08);
+}
+
+.nitaq-about-values h3 {
+	margin-bottom: 14px;
+	color: var(--nitaq-green-deep);
+	font-size: 24px;
+	font-weight: 600;
+}
+
+.nitaq-about-values h3::after {
+	content: "";
+	display: block;
+	width: 36px;
+	height: 2px;
+	margin-top: 16px;
+	background: var(--nitaq-gold);
+}
+
+.nitaq-about-values p {
+	font-size: 16px;
+}
+
+.nitaq-about-reasons {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 18px;
+}
+
+.nitaq-about-reasons span {
+	position: relative;
+	display: flex;
+	align-items: center;
+	min-height: 92px;
+	padding: 22px 56px 22px 24px;
+	color: #FFFFFF;
+	border: 1px solid rgba(184, 170, 118, 0.34);
+	background: rgba(255, 255, 255, 0.05);
+	font-size: 18px;
+	line-height: 1.8;
+}
+
+.nitaq-about-reasons span::before {
+	content: "";
+	position: absolute;
+	right: 24px;
+	width: 14px;
+	height: 14px;
+	border: 1px solid var(--nitaq-gold);
+	transform: rotate(45deg);
+}
+
+.nitaq-about-feature {
+	grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+}
+
+.nitaq-about-feature__media {
+	overflow: hidden;
+	min-height: 560px;
+}
+
+.nitaq-about-feature__text ul {
+	display: grid;
+	gap: 10px;
+	margin: 26px 0 34px;
+	padding: 0;
+	list-style: none;
+}
+
+.nitaq-about-feature__text li {
+	position: relative;
+	padding-right: 26px;
+	font-size: 17px;
+	line-height: 1.9;
+}
+
+.nitaq-about-feature__text li::before {
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 16px;
+	width: 9px;
+	height: 9px;
+	background: var(--nitaq-gold);
+	transform: rotate(45deg);
+}
+
+.nitaq-about-section--stats {
+	background: var(--nitaq-soft);
+	color: var(--nitaq-ink);
+}
+
+.nitaq-about-section--stats .nitaq-about-heading p {
+	color: rgba(18, 44, 44, 0.72);
+}
+
+.nitaq-about-stats {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 18px;
+}
+
+.nitaq-about-stats article {
+	padding: 34px 24px;
+	background: #FFFFFF;
+	border-color: rgba(184, 170, 118, 0.38);
+	text-align: center;
+}
+
+.nitaq-about-stats strong {
+	display: block;
+	margin-bottom: 12px;
+	color: var(--nitaq-green-deep);
+	font-size: clamp(28px, 3vw, 40px);
+	font-weight: 600;
+	line-height: 1.25;
+}
+
+.nitaq-about-stats span {
+	color: rgba(18, 44, 44, 0.7);
+	font-size: 15px;
+	line-height: 1.8;
+}
+
+.nitaq-about-final {
+	padding: 112px 0;
+	background:
+		linear-gradient(rgba(15, 48, 45, 0.9), rgba(15, 48, 45, 0.9)),
+		url("/wp-content/uploads/2026/05/تفاصيل-معمارية-وطبيعية.png") center center / cover no-repeat;
+	text-align: center;
+}
+
+.nitaq-about-final .nitaq-about-container {
+	max-width: 820px;
+}
+
+.nitaq-about-final .nitaq-about-kicker::before {
+	display: none;
+}
+
+.nitaq-about-final p {
+	margin-bottom: 34px;
+	color: var(--nitaq-muted);
+}
+
+@media only screen and (max-width: 1024px) {
+	.nitaq-about-values,
+	.nitaq-about-stats {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.nitaq-about-split,
+	.nitaq-about-split--reverse,
+	.nitaq-about-feature {
+		grid-template-columns: 1fr;
+		gap: 42px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.nitaq-about-container {
+		width: min(100% - 36px, 1180px);
+	}
+
+	.nitaq-about-hero {
+		min-height: 680px;
+		padding: 138px 0 64px;
+	}
+
+	.nitaq-about-hero__content {
+		max-width: none;
+		margin-right: auto;
+	}
+
+	.nitaq-about-hero h1 {
+		font-size: 46px;
+	}
+
+	.nitaq-about-hero h2 {
+		font-size: 29px;
+	}
+
+	.nitaq-about-page p {
+		font-size: 16px;
+		line-height: 1.95;
+	}
+
+	.nitaq-about-section,
+	.nitaq-about-final {
+		padding: 72px 0;
+	}
+
+	.nitaq-about-copy h2,
+	.nitaq-about-heading h2,
+	.nitaq-about-feature__text h2,
+	.nitaq-about-duo h2,
+	.nitaq-about-final h2 {
+		font-size: 34px;
+	}
+
+	.nitaq-about-image img,
+	.nitaq-about-feature__media,
+	.nitaq-about-feature__media img {
+		min-height: 360px;
+	}
+
+	.nitaq-about-duo,
+	.nitaq-about-values,
+	.nitaq-about-reasons,
+	.nitaq-about-stats {
+		grid-template-columns: 1fr;
+	}
+
+	.nitaq-about-duo article {
+		min-height: auto;
+		padding: 34px 28px;
+	}
+
+	.nitaq-about-values article {
+		min-height: auto;
+	}
+}
+
+/* Nitaq news system */
+.nitaq-news-section,
+.nitaq-news-page {
+	--nitaq-news-green: #0F302D;
+	--nitaq-news-green-soft: #123A35;
+	--nitaq-news-gold: #B8AA76;
+	--nitaq-news-cream: #F8F7F2;
+	background: var(--nitaq-news-green);
+	color: #FFFFFF;
+	direction: rtl;
+	text-align: right;
+	overflow: hidden;
+}
+
+.nitaq-news-section *,
+.nitaq-news-page *,
+.nitaq-news-section *::before,
+.nitaq-news-page *::before,
+.nitaq-news-section *::after,
+.nitaq-news-page *::after {
+	box-sizing: border-box;
+}
+
+.nitaq-news-container {
+	width: min(1180px, calc(100% - 56px));
+	margin: 0 auto;
+}
+
+.nitaq-news-section {
+	padding: 104px 0 110px;
+}
+
+.nitaq-news-heading {
+	max-width: 760px;
+	margin-bottom: 46px;
+}
+
+.nitaq-news-heading span,
+.nitaq-news-hero span,
+.nitaq-news-single-hero span {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 16px;
+	color: var(--nitaq-news-gold);
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1.8;
+}
+
+.nitaq-news-heading span::before,
+.nitaq-news-hero span::before,
+.nitaq-news-single-hero span::before {
+	content: "";
+	width: 42px;
+	height: 1px;
+	background: currentColor;
+}
+
+.nitaq-news-heading h2,
+.nitaq-news-hero h1,
+.nitaq-news-single-hero h1 {
+	margin: 0 0 18px;
+	color: #FFFFFF;
+	font-size: clamp(38px, 5vw, 68px);
+	font-weight: 500;
+	line-height: 1.3;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-news-heading p,
+.nitaq-news-hero p {
+	max-width: 720px;
+	margin: 0;
+	color: rgba(255, 255, 255, 0.74);
+	font-size: 18px;
+	line-height: 2;
+}
+
+.nitaq-news-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 28px;
+}
+
+.nitaq-news-card {
+	display: flex;
+	min-height: 100%;
+	flex-direction: column;
+	border: 1px solid rgba(184, 170, 118, 0.25);
+	background: rgba(255, 255, 255, 0.04);
+	box-shadow: 0 24px 70px rgba(0, 0, 0, 0.14);
+}
+
+.nitaq-news-card__image {
+	position: relative;
+	display: block;
+	height: 260px;
+	overflow: hidden;
+}
+
+.nitaq-news-card__image img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.45s ease;
+}
+
+.nitaq-news-card:hover .nitaq-news-card__image img {
+	transform: scale(1.04);
+}
+
+.nitaq-news-card__image span {
+	position: absolute;
+	right: 18px;
+	bottom: 18px;
+	display: inline-flex;
+	padding: 8px 14px;
+	color: var(--nitaq-news-gold);
+	background: rgba(15, 48, 45, 0.92);
+	border: 1px solid rgba(184, 170, 118, 0.34);
+	font-size: 13px;
+	font-weight: 700;
+	line-height: 1.4;
+}
+
+.nitaq-news-card__content {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	padding: 28px;
+}
+
+.nitaq-news-card h3 {
+	margin: 0 0 16px;
+	color: #FFFFFF;
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 1.45;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-news-card h3 a {
+	color: inherit !important;
+	text-decoration: none;
+}
+
+.nitaq-news-card p {
+	margin: 0 0 24px;
+	color: rgba(255, 255, 255, 0.72);
+	font-size: 16px;
+	line-height: 1.9;
+}
+
+.nitaq-news-card__button {
+	display: inline-flex;
+	width: fit-content;
+	align-items: center;
+	justify-content: center;
+	margin-top: auto;
+	padding: 10px 20px;
+	color: var(--nitaq-news-gold) !important;
+	background: transparent;
+	border: 1px solid var(--nitaq-news-gold);
+	border-radius: 10px;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.7;
+	text-decoration: none;
+	transition: color 0.25s ease, background 0.25s ease;
+}
+
+.nitaq-news-card__button:hover {
+	color: var(--nitaq-news-green) !important;
+	background: var(--nitaq-news-gold);
+}
+
+.nitaq-news-more {
+	margin-top: 42px;
+	text-align: center;
+}
+
+.nitaq-news-empty {
+	color: rgba(255, 255, 255, 0.75);
+	font-size: 18px;
+	line-height: 2;
+}
+
+.nitaq-news-hero,
+.nitaq-news-single-hero {
+	position: relative;
+	display: flex;
+	min-height: 520px;
+	align-items: flex-end;
+	padding: 160px 0 90px;
+	background:
+		linear-gradient(rgba(15, 48, 45, 0.88), rgba(15, 48, 45, 0.88)),
+		url("/wp-content/uploads/2026/05/theWholeProject.png") center center / cover no-repeat;
+}
+
+.nitaq-news-listing,
+.nitaq-news-related {
+	padding: 92px 0 110px;
+	background: var(--nitaq-news-green);
+}
+
+.nitaq-news-pagination {
+	margin-top: 52px;
+	text-align: center;
+}
+
+.nitaq-news-pagination .page-numbers {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 42px;
+	height: 42px;
+	margin: 0 4px;
+	color: #FFFFFF;
+	border: 1px solid rgba(184, 170, 118, 0.35);
+	text-decoration: none;
+}
+
+.nitaq-news-pagination .page-numbers.current,
+.nitaq-news-pagination .page-numbers:hover {
+	color: var(--nitaq-news-green);
+	background: var(--nitaq-news-gold);
+	border-color: var(--nitaq-news-gold);
+}
+
+.nitaq-news-single-hero {
+	overflow: hidden;
+}
+
+.nitaq-news-single-hero__image,
+.nitaq-news-single-hero__overlay {
+	position: absolute;
+	inset: 0;
+}
+
+.nitaq-news-single-hero__image {
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	transform: scale(1.02);
+}
+
+.nitaq-news-single-hero__overlay {
+	background:
+		linear-gradient(90deg, rgba(15, 48, 45, 0.42), rgba(15, 48, 45, 0.92)),
+		linear-gradient(0deg, rgba(15, 48, 45, 0.82), rgba(15, 48, 45, 0.18));
+}
+
+.nitaq-news-single-hero .nitaq-news-container {
+	position: relative;
+	z-index: 2;
+}
+
+.nitaq-news-single-content {
+	padding: 84px 0;
+	background: var(--nitaq-news-cream);
+	color: #122C2C;
+}
+
+.nitaq-news-single-content__inner {
+	max-width: 860px;
+}
+
+.nitaq-news-single-content p,
+.nitaq-news-single-content li {
+	color: rgba(18, 44, 44, 0.82);
+	font-size: 19px;
+	line-height: 2.05;
+}
+
+.nitaq-news-single-content p {
+	margin: 0 0 24px;
+}
+
+.nitaq-news-single-content .nitaq-news-card__button {
+	margin-top: 28px;
+	color: #122C2C !important;
+}
+
+.nitaq-news-single-content .nitaq-news-card__button:hover {
+	color: #122C2C !important;
+}
+
+@media only screen and (max-width: 1024px) {
+	.nitaq-news-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.nitaq-news-card__image {
+		height: 220px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.nitaq-news-container {
+		width: min(100% - 36px, 1180px);
+	}
+
+	.nitaq-news-section,
+	.nitaq-news-listing,
+	.nitaq-news-related,
+	.nitaq-news-single-content {
+		padding: 70px 0;
+	}
+
+	.nitaq-news-hero,
+	.nitaq-news-single-hero {
+		min-height: 430px;
+		padding: 132px 0 58px;
+	}
+
+	.nitaq-news-heading h2,
+	.nitaq-news-hero h1,
+	.nitaq-news-single-hero h1 {
+		font-size: 38px;
+	}
+
+	.nitaq-news-grid {
+		grid-template-columns: 1fr;
+		gap: 22px;
+	}
+
+	.nitaq-news-card__image {
+		height: 200px;
+	}
+
+	.nitaq-news-card__content {
+		padding: 24px;
+	}
+}
+
+/* Nitaq brochures page */
+.nitaq-brochures-page {
+	--nitaq-brochures-green: #0F302D;
+	--nitaq-brochures-green-soft: #123A35;
+	--nitaq-brochures-gold: #B8AA76;
+	--nitaq-brochures-cream: #F8F7F2;
+	background: var(--nitaq-brochures-green);
+	color: #FFFFFF;
+	direction: rtl;
+	text-align: right;
+	overflow: hidden;
+}
+
+.nitaq-brochures-page *,
+.nitaq-brochures-page *::before,
+.nitaq-brochures-page *::after {
+	box-sizing: border-box;
+}
+
+.nitaq-brochures-container {
+	width: min(1180px, calc(100% - 56px));
+	margin: 0 auto;
+}
+
+.nitaq-brochures-hero {
+	position: relative;
+	padding: 180px 0 118px;
+	background:
+		radial-gradient(circle at 18% 20%, rgba(184, 170, 118, 0.14), transparent 28%),
+		linear-gradient(135deg, rgba(18, 58, 53, 0.96), rgba(15, 48, 45, 1));
+	text-align: center;
+}
+
+.nitaq-brochures-hero::after {
+	content: "";
+	position: absolute;
+	right: 50%;
+	bottom: 78px;
+	width: 86px;
+	height: 1px;
+	background: var(--nitaq-brochures-gold);
+	transform: translateX(50%);
+}
+
+.nitaq-brochures-kicker {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 18px;
+	color: var(--nitaq-brochures-gold);
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.8;
+}
+
+.nitaq-brochures-page h1,
+.nitaq-brochures-page h2,
+.nitaq-brochures-page h3,
+.nitaq-brochures-page p {
+	margin: 0;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-brochures-hero h1 {
+	margin-bottom: 18px;
+	color: #FFFFFF;
+	font-size: clamp(52px, 8vw, 92px);
+	font-weight: 500;
+	line-height: 1.25;
+}
+
+.nitaq-brochures-hero h2 {
+	max-width: 860px;
+	margin: 0 auto 22px;
+	color: #FFFFFF;
+	font-size: clamp(28px, 4vw, 46px);
+	font-weight: 500;
+	line-height: 1.45;
+}
+
+.nitaq-brochures-hero p {
+	max-width: 820px;
+	margin: 0 auto;
+	color: rgba(255, 255, 255, 0.74);
+	font-size: 18px;
+	line-height: 2;
+}
+
+.nitaq-brochures-list {
+	padding: 110px 0;
+	background: var(--nitaq-brochures-cream);
+}
+
+.nitaq-brochures-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 32px;
+}
+
+.nitaq-brochure-card {
+	display: flex;
+	min-height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	border: 1px solid rgba(184, 170, 118, 0.35);
+	border-radius: 12px;
+	background: #FFFFFF;
+	box-shadow: 0 24px 70px rgba(15, 48, 45, 0.12);
+}
+
+.nitaq-brochure-card__image {
+	display: block;
+	height: 320px;
+	overflow: hidden;
+	background: var(--nitaq-brochures-green);
+}
+
+.nitaq-brochure-card__image img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.45s ease;
+}
+
+.nitaq-brochure-card:hover .nitaq-brochure-card__image img {
+	transform: scale(1.04);
+}
+
+.nitaq-brochure-card__content {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	padding: 34px;
+	color: var(--nitaq-brochures-green);
+}
+
+.nitaq-brochure-card__content span {
+	margin-bottom: 12px;
+	color: var(--nitaq-brochures-gold);
+	font-size: 13px;
+	font-weight: 800;
+	line-height: 1.8;
+}
+
+.nitaq-brochure-card h3 {
+	margin-bottom: 16px;
+	color: var(--nitaq-brochures-green);
+	font-size: 30px;
+	font-weight: 600;
+	line-height: 1.4;
+}
+
+.nitaq-brochure-card p {
+	margin-bottom: 30px;
+	color: rgba(15, 48, 45, 0.74);
+	font-size: 17px;
+	line-height: 2;
+}
+
+.nitaq-brochure-card__button {
+	display: inline-flex;
+	width: fit-content;
+	align-items: center;
+	justify-content: center;
+	margin-top: auto;
+	padding: 12px 24px;
+	color: var(--nitaq-brochures-green) !important;
+	background: var(--nitaq-brochures-gold);
+	border: 1px solid var(--nitaq-brochures-gold);
+	border-radius: 10px;
+	font-size: 15px;
+	font-weight: 800;
+	line-height: 1.7;
+	text-decoration: none;
+	transition: color 0.25s ease, background 0.25s ease;
+}
+
+.nitaq-brochure-card__button:hover {
+	color: var(--nitaq-brochures-gold) !important;
+	background: var(--nitaq-brochures-green);
+}
+
+.nitaq-brochures-cta {
+	padding: 98px 0 108px;
+	background:
+		linear-gradient(rgba(15, 48, 45, 0.92), rgba(15, 48, 45, 0.92)),
+		url("/wp-content/uploads/2026/05/تفاصيل-معمارية-وطبيعية.png") center center / cover no-repeat;
+	text-align: center;
+}
+
+.nitaq-brochures-cta .nitaq-brochures-container {
+	max-width: 820px;
+}
+
+.nitaq-brochures-cta h2 {
+	margin-bottom: 18px;
+	color: #FFFFFF;
+	font-size: clamp(34px, 5vw, 58px);
+	font-weight: 500;
+	line-height: 1.35;
+}
+
+.nitaq-brochures-cta p {
+	margin: 0 auto 30px;
+	color: rgba(255, 255, 255, 0.76);
+	font-size: 18px;
+	line-height: 2;
+}
+
+@media only screen and (max-width: 1024px) {
+	.nitaq-brochures-grid {
+		gap: 24px;
+	}
+
+	.nitaq-brochure-card__image {
+		height: 280px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.nitaq-brochures-container {
+		width: min(100% - 36px, 1180px);
+	}
+
+	.nitaq-brochures-hero {
+		padding: 138px 0 86px;
+	}
+
+	.nitaq-brochures-hero h1 {
+		font-size: 48px;
+	}
+
+	.nitaq-brochures-hero h2 {
+		font-size: 28px;
+	}
+
+	.nitaq-brochures-hero p,
+	.nitaq-brochures-cta p {
+		font-size: 16px;
+	}
+
+	.nitaq-brochures-list,
+	.nitaq-brochures-cta {
+		padding: 72px 0;
+	}
+
+	.nitaq-brochures-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.nitaq-brochure-card__image {
+		height: 230px;
+	}
+
+	.nitaq-brochure-card__content {
+		padding: 26px;
+	}
+
+	.nitaq-brochure-card h3 {
+		font-size: 26px;
+	}
+}
+
+/* Nitaq register interest landing page */
+.nitaq-register-page {
+	--nitaq-register-green: #0F302D;
+	--nitaq-register-green-soft: #123A35;
+	--nitaq-register-gold: #B8AA76;
+	--nitaq-register-cream: #F7F4EC;
+	background: var(--nitaq-register-green);
+	color: #FFFFFF;
+	direction: rtl;
+	text-align: right;
+	overflow: hidden;
+	scroll-behavior: smooth;
+}
+
+.nitaq-register-page *,
+.nitaq-register-page *::before,
+.nitaq-register-page *::after {
+	box-sizing: border-box;
+}
+
+.nitaq-register-container {
+	width: min(1180px, calc(100% - 56px));
+	margin: 0 auto;
+}
+
+.nitaq-register-page h1,
+.nitaq-register-page h2,
+.nitaq-register-page h3,
+.nitaq-register-page p {
+	margin: 0;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-register-hero {
+	position: relative;
+	display: flex;
+	min-height: min(820px, 94vh);
+	align-items: flex-end;
+	padding: 170px 0 104px;
+	overflow: hidden;
+	background: var(--nitaq-register-green);
+}
+
+.nitaq-register-hero__image,
+.nitaq-register-hero__overlay {
+	position: absolute;
+	inset: 0;
+}
+
+.nitaq-register-hero__image {
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	transform: scale(1.02);
+}
+
+.nitaq-register-hero__overlay {
+	background:
+		linear-gradient(90deg, rgba(15, 48, 45, 0.32), rgba(15, 48, 45, 0.92)),
+		linear-gradient(0deg, rgba(15, 48, 45, 0.76), rgba(15, 48, 45, 0.28));
+}
+
+.nitaq-register-hero__content {
+	position: relative;
+	z-index: 2;
+	max-width: 760px;
+	margin-right: max(7vw, 28px);
+	margin-left: auto;
+}
+
+.nitaq-register-kicker {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 18px;
+	color: var(--nitaq-register-gold);
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.8;
+}
+
+.nitaq-register-kicker::before {
+	content: "";
+	width: 42px;
+	height: 1px;
+	background: currentColor;
+}
+
+.nitaq-register-hero h1 {
+	margin-bottom: 20px;
+	color: #FFFFFF;
+	font-size: clamp(48px, 7vw, 86px);
+	font-weight: 500;
+	line-height: 1.25;
+}
+
+.nitaq-register-hero h2 {
+	max-width: 720px;
+	margin-bottom: 22px;
+	color: #FFFFFF;
+	font-size: clamp(27px, 3.7vw, 45px);
+	font-weight: 500;
+	line-height: 1.45;
+}
+
+.nitaq-register-hero p {
+	max-width: 720px;
+	margin-bottom: 34px;
+	color: rgba(255, 255, 255, 0.76);
+	font-size: 18px;
+	line-height: 2;
+}
+
+.nitaq-register-button,
+.nitaq-register-form-fields input[type="submit"],
+.nitaq-register-form-fields button[type="submit"] {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 50px;
+	padding: 12px 28px;
+	color: var(--nitaq-register-green) !important;
+	background: var(--nitaq-register-gold) !important;
+	border: 1px solid var(--nitaq-register-gold) !important;
+	border-radius: 10px;
+	font-size: 15px;
+	font-weight: 800;
+	line-height: 1.7;
+	text-decoration: none;
+	transition: color 0.25s ease, background 0.25s ease;
+}
+
+.nitaq-register-button:hover,
+.nitaq-register-form-fields input[type="submit"]:hover,
+.nitaq-register-form-fields button[type="submit"]:hover {
+	color: var(--nitaq-register-gold) !important;
+	background: var(--nitaq-register-green) !important;
+}
+
+.nitaq-register-highlights {
+	padding: 0 0 96px;
+	background: var(--nitaq-register-green);
+}
+
+.nitaq-register-highlight-grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 18px;
+	margin-top: -54px;
+	position: relative;
+	z-index: 3;
+}
+
+.nitaq-register-highlight-grid article {
+	min-height: 250px;
+	padding: 34px 26px;
+	border: 1px solid rgba(184, 170, 118, 0.32);
+	background: rgba(255, 255, 255, 0.055);
+	box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+}
+
+.nitaq-register-highlight-grid span {
+	display: block;
+	margin-bottom: 24px;
+	color: var(--nitaq-register-gold);
+	font-size: 15px;
+	font-weight: 800;
+}
+
+.nitaq-register-highlight-grid h3 {
+	margin-bottom: 14px;
+	color: #FFFFFF;
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 1.45;
+}
+
+.nitaq-register-highlight-grid p {
+	color: rgba(255, 255, 255, 0.72);
+	font-size: 15px;
+	line-height: 1.9;
+}
+
+.nitaq-register-preview,
+.nitaq-register-form-section {
+	padding: 112px 0;
+	background: var(--nitaq-register-cream);
+	color: var(--nitaq-register-green);
+}
+
+.nitaq-register-split,
+.nitaq-register-form-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+	gap: 72px;
+	align-items: center;
+}
+
+.nitaq-register-copy h2,
+.nitaq-register-form-card h2,
+.nitaq-register-final h2 {
+	margin-bottom: 22px;
+	color: var(--nitaq-register-green);
+	font-size: clamp(34px, 4.4vw, 58px);
+	font-weight: 500;
+	line-height: 1.35;
+}
+
+.nitaq-register-copy p,
+.nitaq-register-form-card > p {
+	color: rgba(15, 48, 45, 0.75);
+	font-size: 18px;
+	line-height: 2;
+}
+
+.nitaq-register-copy ul,
+.nitaq-register-side-card ul {
+	display: grid;
+	gap: 12px;
+	margin: 28px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.nitaq-register-copy li,
+.nitaq-register-side-card li {
+	position: relative;
+	padding-right: 26px;
+	color: rgba(15, 48, 45, 0.82);
+	font-size: 17px;
+	line-height: 1.9;
+}
+
+.nitaq-register-copy li::before,
+.nitaq-register-side-card li::before {
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 15px;
+	width: 9px;
+	height: 9px;
+	background: var(--nitaq-register-gold);
+	transform: rotate(45deg);
+}
+
+.nitaq-register-image {
+	margin: 0;
+	overflow: hidden;
+	box-shadow: 0 26px 70px rgba(15, 48, 45, 0.14);
+}
+
+.nitaq-register-image img {
+	display: block;
+	width: 100%;
+	min-height: 520px;
+	object-fit: cover;
+}
+
+.nitaq-register-form-section {
+	background: var(--nitaq-register-green);
+	color: #FFFFFF;
+}
+
+.nitaq-register-form-layout {
+	grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+	align-items: stretch;
+}
+
+.nitaq-register-form-card {
+	padding: 48px;
+	border: 1px solid rgba(184, 170, 118, 0.35);
+	border-radius: 14px;
+	background: var(--nitaq-register-cream);
+	color: var(--nitaq-register-green);
+	box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+}
+
+.nitaq-register-form-card .nitaq-register-kicker::before {
+	background: var(--nitaq-register-gold);
+}
+
+.nitaq-register-form-fields {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 18px;
+	margin-top: 30px;
+}
+
+.nitaq-register-form-fields label {
+	display: grid;
+	gap: 8px;
+	color: var(--nitaq-register-green);
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.6;
+}
+
+.nitaq-register-form-fields__wide,
+.nitaq-register-form-fields__submit {
+	grid-column: 1 / -1;
+}
+
+.nitaq-register-form-fields input,
+.nitaq-register-form-fields select,
+.nitaq-register-form-fields textarea {
+	width: 100%;
+	min-height: 52px;
+	padding: 12px 14px;
+	color: var(--nitaq-register-green);
+	background: #FFFFFF;
+	border: 1px solid rgba(184, 170, 118, 0.45);
+	border-radius: 10px;
+	direction: rtl;
+	text-align: right;
+	font-size: 15px;
+}
+
+.nitaq-register-form-fields textarea {
+	min-height: 130px;
+	resize: vertical;
+}
+
+.nitaq-register-form-fields input::placeholder,
+.nitaq-register-form-fields textarea::placeholder {
+	color: rgba(15, 48, 45, 0.48);
+	opacity: 1;
+}
+
+.nitaq-register-form-fields__submit p {
+	margin-top: 12px;
+	color: rgba(15, 48, 45, 0.62);
+	font-size: 13px;
+	line-height: 1.8;
+}
+
+.nitaq-register-page .wpcf7-not-valid-tip,
+.nitaq-register-page .wpcf7-response-output {
+	direction: rtl;
+	text-align: right;
+}
+
+.nitaq-register-page .wpcf7-response-output {
+	margin: 20px 0 0 !important;
+	border-color: var(--nitaq-register-gold) !important;
+	color: var(--nitaq-register-green);
+}
+
+.nitaq-register-side-card {
+	display: flex;
+	min-height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	border: 1px solid rgba(184, 170, 118, 0.32);
+	border-radius: 14px;
+	background: rgba(255, 255, 255, 0.055);
+}
+
+.nitaq-register-side-card img {
+	display: block;
+	width: 100%;
+	height: 330px;
+	object-fit: cover;
+}
+
+.nitaq-register-side-card div {
+	padding: 32px;
+}
+
+.nitaq-register-side-card h3 {
+	margin-bottom: 14px;
+	color: #FFFFFF;
+	font-size: 28px;
+	line-height: 1.45;
+}
+
+.nitaq-register-side-card p,
+.nitaq-register-side-card li {
+	color: rgba(255, 255, 255, 0.76);
+}
+
+.nitaq-register-final {
+	padding: 108px 0;
+	background:
+		linear-gradient(rgba(15, 48, 45, 0.9), rgba(15, 48, 45, 0.9)),
+		url("/wp-content/uploads/2026/05/تفاصيل-معمارية-وطبيعية.png") center center / cover no-repeat;
+	text-align: center;
+}
+
+.nitaq-register-final .nitaq-register-container {
+	max-width: 850px;
+}
+
+.nitaq-register-final .nitaq-register-kicker::before {
+	display: none;
+}
+
+.nitaq-register-final h2 {
+	color: #FFFFFF;
+}
+
+.nitaq-register-final p {
+	margin: 0 auto 30px;
+	color: rgba(255, 255, 255, 0.76);
+	font-size: 18px;
+	line-height: 2;
+}
+
+@media only screen and (max-width: 1024px) {
+	.nitaq-register-highlight-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.nitaq-register-split,
+	.nitaq-register-form-layout {
+		grid-template-columns: 1fr;
+		gap: 42px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.nitaq-register-container {
+		width: min(100% - 36px, 1180px);
+	}
+
+	.nitaq-register-hero {
+		min-height: 690px;
+		padding: 138px 0 70px;
+	}
+
+	.nitaq-register-hero__content {
+		margin-right: auto;
+	}
+
+	.nitaq-register-hero h1 {
+		font-size: 43px;
+	}
+
+	.nitaq-register-hero h2 {
+		font-size: 27px;
+	}
+
+	.nitaq-register-hero p,
+	.nitaq-register-copy p,
+	.nitaq-register-form-card > p,
+	.nitaq-register-final p {
+		font-size: 16px;
+	}
+
+	.nitaq-register-highlights {
+		padding-bottom: 70px;
+	}
+
+	.nitaq-register-highlight-grid {
+		grid-template-columns: 1fr;
+		margin-top: -36px;
+	}
+
+	.nitaq-register-preview,
+	.nitaq-register-form-section,
+	.nitaq-register-final {
+		padding: 72px 0;
+	}
+
+	.nitaq-register-image img {
+		min-height: 360px;
+	}
+
+	.nitaq-register-form-card {
+		padding: 28px;
+	}
+
+	.nitaq-register-form-fields {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Nitaq projects page */
+.nitaq-project-page {
+	--nitaq-green: #122C2C;
+	--nitaq-green-deep: #0F302D;
+	--nitaq-gold: #B8AA76;
+	--nitaq-soft: #F8F7F2;
+	--nitaq-muted: rgba(248, 247, 242, 0.76);
+	background: var(--nitaq-green);
+	color: var(--nitaq-soft);
+	direction: rtl;
+	text-align: right;
+	overflow: hidden;
+}
+
+.nitaq-project-page *,
+.nitaq-project-page *::before,
+.nitaq-project-page *::after {
+	box-sizing: border-box;
+}
+
+.nitaq-project-page h1,
+.nitaq-project-page h2,
+.nitaq-project-page h3,
+.nitaq-project-page p {
+	margin: 0;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-project-page h1,
+.nitaq-project-page h2,
+.nitaq-project-page h3 {
+	color: inherit;
+	line-height: 1.35;
+}
+
+.nitaq-project-page p {
+	color: var(--nitaq-muted);
+	font-size: 18px;
+	line-height: 2;
+}
+
+.nitaq-project-hero {
+	position: relative;
+	display: flex;
+	min-height: min(760px, 92vh);
+	align-items: flex-end;
+	padding: 170px max(7vw, 28px) 96px;
+	background: var(--nitaq-green-deep);
+	overflow: hidden;
+}
+
+.nitaq-project-hero__image,
+.nitaq-project-hero__overlay {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.nitaq-project-hero__image {
+	object-fit: cover;
+	filter: saturate(0.9) contrast(1.02);
+}
+
+.nitaq-project-hero__overlay {
+	background:
+		linear-gradient(90deg, rgba(18, 44, 44, 0.28), rgba(18, 44, 44, 0.88)),
+		linear-gradient(180deg, rgba(18, 44, 44, 0.15), rgba(18, 44, 44, 0.92));
+}
+
+.nitaq-project-hero__content {
+	position: relative;
+	z-index: 1;
+	width: min(780px, 100%);
+}
+
+.nitaq-project-kicker {
+	display: inline-flex;
+	margin-bottom: 16px !important;
+	color: var(--nitaq-gold) !important;
+	font-size: 14px !important;
+	font-weight: 600;
+	line-height: 1.8 !important;
+}
+
+.nitaq-project-hero h1 {
+	margin-bottom: 10px;
+	font-size: clamp(54px, 8vw, 120px);
+	font-weight: 600;
+}
+
+.nitaq-project-hero h2 {
+	max-width: 760px;
+	margin-bottom: 22px;
+	color: #FFFFFF;
+	font-size: clamp(30px, 4.5vw, 64px);
+	font-weight: 500;
+}
+
+.nitaq-project-hero p:not(.nitaq-project-kicker) {
+	max-width: 640px;
+	color: rgba(248, 247, 242, 0.86);
+	font-size: 20px;
+}
+
+.nitaq-project-section {
+	padding: 110px max(7vw, 28px);
+	background: var(--nitaq-green);
+}
+
+.nitaq-project-section--light {
+	background: var(--nitaq-soft);
+	color: var(--nitaq-green);
+}
+
+.nitaq-project-section--light p {
+	color: rgba(18, 44, 44, 0.74);
+}
+
+.nitaq-project-grid {
+	display: grid;
+	width: min(1180px, 100%);
+	margin: 0 auto;
+	gap: 44px;
+}
+
+.nitaq-project-grid--split,
+.nitaq-project-grid--two,
+.nitaq-project-models {
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	align-items: center;
+}
+
+.nitaq-project-grid--reverse {
+	direction: ltr;
+}
+
+.nitaq-project-grid--reverse > * {
+	direction: rtl;
+}
+
+.nitaq-project-page h2 {
+	margin-bottom: 24px;
+	font-size: clamp(34px, 4vw, 58px);
+	font-weight: 500;
+}
+
+.nitaq-project-page h3 {
+	margin-bottom: 14px;
+	font-size: clamp(25px, 2.4vw, 36px);
+	font-weight: 600;
+}
+
+.nitaq-project-lead {
+	font-size: 20px !important;
+	line-height: 2.05 !important;
+}
+
+.nitaq-project-media,
+.nitaq-project-wide-media,
+.nitaq-project-model-card,
+.nitaq-project-text-card,
+.nitaq-project-image-pair img {
+	border: 1px solid rgba(184, 170, 118, 0.28);
+	box-shadow: 0 28px 70px rgba(0, 0, 0, 0.22);
+}
+
+.nitaq-project-media,
+.nitaq-project-wide-media {
+	margin: 0;
+	overflow: hidden;
+	background: rgba(248, 247, 242, 0.06);
+}
+
+.nitaq-project-media {
+	aspect-ratio: 1.1 / 1;
+}
+
+.nitaq-project-wide-media {
+	width: min(1180px, 100%);
+	margin: 44px auto 0;
+	aspect-ratio: 16 / 7;
+}
+
+.nitaq-project-media img,
+.nitaq-project-wide-media img,
+.nitaq-project-model-card img,
+.nitaq-project-image-pair img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.nitaq-project-text-card,
+.nitaq-project-model-card {
+	background: #FFFFFF;
+	color: var(--nitaq-green);
+}
+
+.nitaq-project-text-card {
+	min-height: 330px;
+	padding: 42px;
+}
+
+.nitaq-project-section-head {
+	width: min(860px, 100%);
+	margin: 0 auto 42px;
+	text-align: center;
+}
+
+.nitaq-project-section-head .nitaq-project-kicker {
+	justify-content: center;
+}
+
+.nitaq-project-section-head p:not(.nitaq-project-kicker) {
+	font-size: 19px;
+}
+
+.nitaq-project-model-card {
+	overflow: hidden;
+}
+
+.nitaq-project-model-card img {
+	aspect-ratio: 16 / 11;
+	height: auto;
+}
+
+.nitaq-project-model-card div {
+	padding: 32px;
+}
+
+.nitaq-project-model-card p {
+	color: rgba(18, 44, 44, 0.72);
+}
+
+.nitaq-project-lifestyle {
+	background: linear-gradient(180deg, #122C2C 0%, #0F302D 100%);
+}
+
+.nitaq-project-amenities {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 16px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.nitaq-project-amenities li {
+	position: relative;
+	min-height: 74px;
+	padding: 20px 44px 20px 20px;
+	color: #FFFFFF;
+	background: rgba(248, 247, 242, 0.06);
+	border: 1px solid rgba(184, 170, 118, 0.22);
+	font-size: 18px;
+	line-height: 1.8;
+}
+
+.nitaq-project-amenities li::before {
+	content: "";
+	position: absolute;
+	top: 30px;
+	right: 20px;
+	width: 8px;
+	height: 8px;
+	background: var(--nitaq-gold);
+}
+
+.nitaq-project-image-pair {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 18px;
+}
+
+.nitaq-project-image-pair img {
+	aspect-ratio: 4 / 5;
+}
+
+.nitaq-project-cta {
+	text-align: center;
+	background:
+		linear-gradient(135deg, rgba(184, 170, 118, 0.12), transparent 38%),
+		var(--nitaq-green);
+	border-top: 1px solid rgba(184, 170, 118, 0.28);
+}
+
+.nitaq-project-cta > div {
+	width: min(820px, 100%);
+	margin: 0 auto;
+}
+
+.nitaq-project-cta .nitaq-project-kicker {
+	justify-content: center;
+}
+
+.nitaq-project-cta a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 34px;
+	padding: 14px 34px;
+	color: var(--nitaq-green) !important;
+	background: var(--nitaq-gold);
+	border: 1px solid var(--nitaq-gold);
+	border-radius: 10px;
+	font-size: 17px;
+	font-weight: 600;
+	line-height: 1.8;
+	text-decoration: none;
+}
+
+.nitaq-project-cta a:hover {
+	color: #FFFFFF !important;
+	background: transparent;
+}
+
+@media only screen and (max-width: 1024px) {
+	.nitaq-project-hero {
+		min-height: 720px;
+		padding-top: 130px;
+	}
+
+	.nitaq-project-grid--split,
+	.nitaq-project-grid--two,
+	.nitaq-project-models {
+		grid-template-columns: 1fr;
+	}
+
+	.nitaq-project-wide-media {
+		aspect-ratio: 4 / 3;
+	}
+}
+
+@media only screen and (max-width: 680px) {
+	.nitaq-project-hero {
+		min-height: 640px;
+		padding: 116px 24px 68px;
+	}
+
+	.nitaq-project-section {
+		padding: 76px 24px;
+	}
+
+	.nitaq-project-page p,
+	.nitaq-project-lead {
+		font-size: 16px !important;
+	}
+
+	.nitaq-project-media {
+		aspect-ratio: 4 / 3;
+	}
+
+	.nitaq-project-text-card,
+	.nitaq-project-model-card div {
+		padding: 28px;
+	}
+
+	.nitaq-project-amenities,
+	.nitaq-project-image-pair {
+		grid-template-columns: 1fr;
+	}
+
+	.nitaq-project-section-head {
+		text-align: right;
+	}
+
+	.nitaq-project-section-head .nitaq-project-kicker,
+	.nitaq-project-cta .nitaq-project-kicker {
+		justify-content: flex-start;
+	}
+
+	.nitaq-project-cta {
+		text-align: right;
+	}
+}
+
+/* Nitaq homepage news */
+.nitaq-news-section {
+	direction: rtl;
+}
+
+.nitaq-news-section .qodef-section-title {
+	text-align: right;
+}
+
+.nitaq-news-section .qodef-blog {
+	direction: rtl;
+}
+
+.nitaq-news-section .qodef-blog article {
+	text-align: right;
+}
+
+.nitaq-news-section .qodef-blog article .qodef-e-media-image {
+	background-color: rgba(248, 247, 242, 0.08);
+	overflow: hidden;
+}
+
+.nitaq-news-section .qodef-blog article .qodef-e-media-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	filter: saturate(0.94) contrast(1.02);
+}
+
+.nitaq-news-section .qodef-blog article .qodef-e-info-date,
+.nitaq-news-section .qodef-blog article .qodef-e-info-date a {
+	color: #B8AA76 !important;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-news-section .qodef-blog article .qodef-e-title,
+.nitaq-news-section .qodef-blog article .qodef-e-title a {
+	color: #FFFFFF !important;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-news-section .qodef-blog article .qodef-e-title a:hover {
+	color: #B8AA76 !important;
+}
+
+.nitaq-news-section .qodef-blog article .qodef-e-excerpt {
+	color: rgba(248, 247, 242, 0.78) !important;
+	line-height: 1.9;
+	text-align: right;
+}
+
+.nitaq-news-section .qodef-blog article .qodef-e-read-more,
+.nitaq-news-section .qodef-blog article .qodef-button {
+	color: #B8AA76 !important;
+}
+
+.nitaq-news-section .qodef-blog article .qodef-e-read-more svg *,
+.nitaq-news-section .qodef-blog article .qodef-button svg * {
+	stroke: #B8AA76 !important;
+}
+
+@media only screen and (max-width: 768px) {
+	.nitaq-news-section {
+		padding-top: 74px !important;
+		padding-bottom: 74px !important;
+	}
+
+	.nitaq-news-section .qodef-blog article {
+		margin-bottom: 42px;
+	}
+}
+
+#qodef-page-footer {
+	background-color: #122C2C !important;
+	color: #F8F7F2;
+	direction: rtl;
+	text-align: right;
+	border-top: 1px solid rgba(184, 170, 118, 0.45);
+	box-shadow: 0 -18px 50px rgba(8, 26, 24, 0.12);
+}
+
+#qodef-page-footer-top-area,
+#qodef-page-footer-bottom-area {
+	background-color: #122C2C !important;
+}
+
+#qodef-page-footer-top-area {
+	padding-top: 64px !important;
+	padding-bottom: 42px !important;
+}
+
+#qodef-page-footer-bottom-area {
+	border-top: 1px solid rgba(184, 170, 118, 0.18);
+	padding-top: 22px !important;
+	padding-bottom: 24px !important;
+}
+
+#qodef-page-footer .widget {
+	margin-bottom: 24px;
+}
+
+#qodef-page-footer .widget,
+#qodef-page-footer p,
+#qodef-page-footer li,
+#qodef-page-footer .textwidget {
+	color: rgba(248, 247, 242, 0.82);
+}
+
+#qodef-page-footer .qodef-widget-title,
+#qodef-page-footer h1,
+#qodef-page-footer h2,
+#qodef-page-footer h3,
+#qodef-page-footer h4,
+#qodef-page-footer h5,
+#qodef-page-footer h6 {
+	color: #BDB18F !important;
+	letter-spacing: 0;
+	text-transform: none;
+	margin-bottom: 18px;
+}
+
+#qodef-page-footer a {
+	color: #F8F7F2 !important;
+	text-decoration: none;
+}
+
+#qodef-page-footer a:hover {
+	color: #BDB18F !important;
+}
+
+#qodef-page-footer ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.nitaq-footer-logo {
+	display: block;
+	width: min(205px, 64vw);
+	height: auto;
+	margin: 0 0 24px auto;
+	object-fit: contain;
+}
+
+.nitaq-footer-company,
+.nitaq-footer-contact-company {
+	color: #BDB18F !important;
+	font-weight: 600;
+	margin-bottom: 10px !important;
+}
+
+.nitaq-footer-brand p,
+.nitaq-footer-contact p {
+	margin: 0;
+	line-height: 1.9;
+	max-width: 390px;
+}
+
+.nitaq-footer-links li {
+	margin-bottom: 12px;
+	line-height: 1.8;
+}
+
+.nitaq-footer-copy {
+	width: 100%;
+	color: rgba(248, 247, 242, 0.72);
+	text-align: center;
+	line-height: 1.8;
+}
+
+@media only screen and (max-width: 768px) {
+	.nitaq-interest-section {
+		padding-top: 80px !important;
+		padding-bottom: 80px !important;
+	}
+
+	.nitaq-interest-card {
+		margin-right: 20px !important;
+		margin-left: 20px !important;
+		padding: 38px 26px 44px !important;
+	}
+
+	#qodef-page-footer {
+		text-align: right;
+	}
+
+	#qodef-page-footer-top-area {
+		padding-top: 48px !important;
+		padding-bottom: 24px !important;
+	}
+
+	#qodef-page-footer-bottom-area {
+		padding-top: 18px !important;
+		padding-bottom: 20px !important;
+	}
+
+	#qodef-page-footer .widget {
+		margin-bottom: 34px;
+	}
+
+	.nitaq-footer-logo {
+		width: min(165px, 58vw);
+		margin-right: 0;
+		margin-left: auto;
+	}
+
+	.nitaq-footer-brand p,
+	.nitaq-footer-contact p {
+		max-width: none;
+	}
+}
+
+/* Nitaq side area menu */
+#qodef-side-area {
+	right: auto !important;
+	left: -499px;
+	background-color: #122C2C !important;
+	color: #F8F7F2;
+	border-right: 1px solid rgba(189, 177, 143, 0.28);
+	box-shadow: 18px 0 60px rgba(0, 0, 0, 0.28);
+}
+
+.qodef-side-area--opened #qodef-side-area {
+	right: auto !important;
+	left: 0 !important;
+	visibility: visible;
+}
+
+.qodef-side-area--opened .qodef-side-area-cover {
+	background-color: rgba(18, 44, 44, 0.55) !important;
+}
+
+#qodef-side-area-close {
+	right: auto !important;
+	left: 42px;
+	color: #BDB18F !important;
+}
+
+#qodef-side-area-close:hover {
+	color: #F8F7F2 !important;
+}
+
+#qodef-side-area .widget,
+#qodef-side-area p,
+#qodef-side-area .textwidget {
+	color: rgba(248, 247, 242, 0.78);
+}
+
+#qodef-side-area {
+	direction: rtl;
+	text-align: center;
+}
+
+#qodef-side-area-inner {
+	display: flex;
+	min-height: 100%;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 30px;
+}
+
+#qodef-side-area .widget {
+	margin: 0;
+}
+
+#qodef-side-area .widget_media_image {
+	line-height: 0;
+}
+
+#qodef-side-area .nitaq-side-area-logo-link {
+	display: inline-block;
+	line-height: 0;
+}
+
+#qodef-side-area img.nitaq-side-area-logo {
+	display: block;
+	width: min(210px, 60vw);
+	max-width: 100%;
+	height: auto;
+	object-fit: contain;
+}
+
+#qodef-side-area .nitaq-side-brand,
+#qodef-side-area .nitaq-side-contact {
+	max-width: 340px;
+	margin: 0 auto;
+	direction: rtl;
+	text-align: center;
+}
+
+#qodef-side-area .nitaq-side-brand h4,
+#qodef-side-area .nitaq-side-contact h5 {
+	margin: 0 0 16px;
+	color: #BDB18F;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+#qodef-side-area .nitaq-side-brand h4 {
+	font-size: 34px;
+	line-height: 1.35;
+}
+
+#qodef-side-area .nitaq-side-contact h5 {
+	font-size: 24px;
+	line-height: 1.4;
+}
+
+#qodef-side-area .nitaq-side-brand p,
+#qodef-side-area .nitaq-side-contact p {
+	margin: 0;
+	color: rgba(248, 247, 242, 0.82);
+	font-size: 17px;
+	line-height: 1.9;
+}
+
+#qodef-side-area .nitaq-side-contact-link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 24px;
+	padding: 11px 28px;
+	border: 1px solid #BDB18F;
+	color: #BDB18F !important;
+	font-size: 14px;
+	line-height: 1.6;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+#qodef-side-area .nitaq-side-contact-link:hover {
+	background-color: #BDB18F !important;
+	color: #122C2C !important;
+}
+
+#qodef-side-area .qodef-widget-title,
+#qodef-side-area h1,
+#qodef-side-area h2,
+#qodef-side-area h3,
+#qodef-side-area h4,
+#qodef-side-area h5,
+#qodef-side-area h6 {
+	color: #F8F7F2;
+}
+
+#qodef-side-area a,
+#qodef-side-area .qodef-social-icons-group a,
+#qodef-side-area .qodef-icon-holder {
+	color: #BDB18F !important;
+}
+
+#qodef-side-area a:hover,
+#qodef-side-area .qodef-social-icons-group a:hover,
+#qodef-side-area .qodef-icon-holder:hover {
+	color: #F8F7F2 !important;
+}
+
+#qodef-side-area svg,
+#qodef-side-area svg * {
+	stroke: currentColor;
+}
+
+#qodef-side-area .sbi_info,
+#qodef-side-area .sb_instagram_error,
+#qodef-side-area .sbi_error {
+	background-color: #F8F7F2;
+	color: #122C2C;
+	border-color: rgba(189, 177, 143, 0.35);
+}
+
+@media only screen and (max-width: 680px) {
+	#qodef-side-area {
+		left: -86vw;
+		width: 86vw;
+		padding-right: 36px;
+		padding-left: 36px;
+	}
+
+	.qodef-side-area--opened #qodef-side-area {
+		left: 0 !important;
+	}
+
+	#qodef-side-area-close {
+		left: 28px;
+	}
+
+	#qodef-side-area-inner {
+		gap: 24px;
+	}
+
+	#qodef-side-area img.nitaq-side-area-logo {
+		width: min(170px, 58vw);
+	}
+
+	#qodef-side-area .nitaq-side-brand h4 {
+		font-size: 29px;
+	}
+
+	#qodef-side-area .nitaq-side-brand p,
+	#qodef-side-area .nitaq-side-contact p {
+		font-size: 15px;
+		line-height: 1.85;
+	}
+}
+
+/* Nitaq mobile header and menu */
+@media only screen and (max-width: 1024px) {
+	body.qodef-mobile-header--standard #qodef-page-mobile-header {
+		background-color: #0F302D !important;
+		border: 0;
+		box-shadow: 0 10px 28px rgba(5, 22, 20, 0.18);
+		direction: rtl;
+	}
+
+	body.qodef-mobile-header--standard #qodef-page-mobile-header-inner {
+		min-height: 82px;
+		height: 82px;
+		padding: 0 22px;
+		background-color: #0F302D !important;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-logo-link {
+		position: absolute !important;
+		left: 50% !important;
+		right: auto !important;
+		top: 50% !important;
+		transform: translate(-50%, -50%) !important;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: min(136px, 38vw);
+		height: auto !important;
+		min-height: 0;
+		max-height: none;
+		line-height: 0;
+		padding: 0;
+		box-sizing: border-box;
+		overflow: visible !important;
+		background-image: none !important;
+		opacity: 1 !important;
+		visibility: visible !important;
+		z-index: 4;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-logo-link img {
+		position: static !important;
+		display: block;
+		width: auto !important;
+		max-width: min(136px, 38vw) !important;
+		height: auto !important;
+		max-height: none !important;
+		object-fit: contain !important;
+		transform: none !important;
+		opacity: 1 !important;
+		visibility: visible !important;
+		z-index: 5;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-logo-link .qodef--main {
+		display: none !important;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-logo-link .qodef--light {
+		display: block !important;
+		opacity: 1 !important;
+		visibility: visible !important;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-logo-link .qodef--dark {
+		display: none !important;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-opener {
+		position: absolute !important;
+		right: 18px !important;
+		left: auto !important;
+		top: 50% !important;
+		transform: translateY(-50%) !important;
+		width: 52px;
+		height: 52px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		color: #B8AA76 !important;
+		border: 1px solid rgba(184, 170, 118, 0.34);
+		border-radius: 10px;
+		background-color: rgba(255, 255, 255, 0.02);
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-opener svg {
+		width: 28px !important;
+		height: 18px !important;
+		overflow: visible;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-opener svg rect,
+	#qodef-page-mobile-header .qodef-mobile-header-opener svg path,
+	#qodef-page-mobile-header .qodef-mobile-header-opener svg polygon {
+		fill: #B8AA76 !important;
+		stroke: #B8AA76 !important;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-opener:hover,
+	#qodef-page-mobile-header .qodef-mobile-header-opener.qodef--opened {
+		background-color: rgba(184, 170, 118, 0.12);
+		border-color: #B8AA76;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation {
+		background-color: #0F302D !important;
+		border-top: 1px solid rgba(184, 170, 118, 0.22);
+		box-shadow: 0 24px 42px rgba(5, 22, 20, 0.26);
+		direction: rtl;
+		text-align: right;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation > ul,
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul {
+		width: 100%;
+		margin: 0;
+		padding: 18px 24px 26px;
+		background-color: #0F302D !important;
+		list-style: none;
+		box-sizing: border-box;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li {
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li:last-child {
+		border-bottom: 0;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li a {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		min-height: 56px;
+		padding: 0;
+		color: #FFFFFF !important;
+		font-size: 18px;
+		line-height: 1.6;
+		letter-spacing: 0;
+		text-transform: none;
+		text-align: right;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li a:hover,
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li.current-menu-item > a,
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li.current-menu-ancestor > a {
+		color: #B8AA76 !important;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li.nitaq-mobile-menu-cta {
+		border-bottom: 0;
+		margin-bottom: 12px;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li.nitaq-mobile-menu-cta > a {
+		justify-content: center;
+		min-height: 52px;
+		padding: 0 20px;
+		color: #0F302D !important;
+		background-color: #B8AA76;
+		border-radius: 10px;
+		font-weight: 600;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li.nitaq-mobile-menu-cta > a:hover {
+		color: #0F302D !important;
+		background-color: #ADA37D;
+	}
+
+	#qodef-page-outer {
+		margin-top: -82px;
+	}
+}
+
+@media only screen and (max-width: 430px) {
+	body.qodef-mobile-header--standard #qodef-page-mobile-header-inner {
+		min-height: 76px;
+		height: 76px;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-logo-link {
+		width: min(124px, 36vw);
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-logo-link img {
+		max-width: min(124px, 36vw) !important;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-opener {
+		right: 14px !important;
+		width: 48px;
+		height: 48px;
+	}
+
+	#qodef-page-outer {
+		margin-top: -76px;
+	}
+}
+
+/* Image Map Pro tooltip visibility fix */
+.imp-tooltips-container {
+	display: block !important;
+	z-index: 2147483000 !important;
+	overflow: visible !important;
+	pointer-events: none;
+}
+
+.imp-tooltips-container.is-fullscreen:not([style*="display: block"]) {
+	display: none !important;
+}
+
+.imp-tooltip-wrap {
+	z-index: 2147483001 !important;
+	overflow: visible !important;
+	visibility: visible !important;
+}
+
+.imp-tooltip-wrap .imp-tooltip,
+.imp-tooltips-container.is-fullscreen .imp-fullscreen-tooltip {
+	box-sizing: border-box;
+	min-width: 220px;
+	max-width: min(340px, calc(100vw - 32px));
+	z-index: 2147483002 !important;
+	visibility: visible !important;
+	direction: rtl;
+	text-align: right;
+}
+
+.imp-tooltip-wrap .imp-tooltip[style*="display: inline-block"],
+.imp-tooltips-container.is-fullscreen[style*="display: block"] .imp-fullscreen-tooltip[style*="display: flex"] {
+	opacity: 1 !important;
+}
+
+@media (max-width: 767px), (pointer: coarse) {
+	.imp-tooltip-wrap {
+		position: fixed !important;
+		inset: auto 16px calc(16px + env(safe-area-inset-bottom)) 16px !important;
+		width: auto !important;
+		height: auto !important;
+		z-index: 2147483001 !important;
+	}
+
+	.imp-tooltip-wrap .imp-tooltip[style*="display: inline-block"] {
+		display: block !important;
+		width: auto !important;
+		min-width: 0;
+		max-width: none;
+		max-height: min(52vh, 420px);
+		overflow: auto;
+		border-radius: 14px !important;
+		box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+	}
+
+	.imp-tooltips-container.is-fullscreen {
+		position: fixed !important;
+		inset: 0 !important;
+		width: 100% !important;
+		height: 100% !important;
+		z-index: 2147483000 !important;
+		background: rgba(18, 44, 44, 0.42);
+	}
+
+	.imp-tooltips-container.is-fullscreen .imp-fullscreen-tooltip {
+		width: 100% !important;
+		max-width: none;
+		min-width: 0;
+		padding: 20px;
+	}
+
+	.imp-tooltips-container.is-fullscreen .imp-fullscreen-tooltip .imp-tooltip-content {
+		width: min(100%, 360px);
+		direction: rtl;
+		text-align: right;
+	}
+}
+
+.elementor-widget-shortcode,
+.elementor-widget-shortcode .elementor-widget-container,
+.elementor-shortcode,
+.elementor-section:has([id^="image-map-pro-"]),
+.elementor-container:has([id^="image-map-pro-"]),
+.elementor-column:has([id^="image-map-pro-"]),
+.elementor-widget-wrap:has([id^="image-map-pro-"]) {
+	overflow: visible !important;
+}

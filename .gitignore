@@ -1,0 +1,26 @@
+# Ignore everything by default
+*
+
+# Allow Git config files
+!.gitignore
+!.codexignore
+
+# Allow only the child theme path
+!wp-content/
+wp-content/*
+!wp-content/themes/
+wp-content/themes/*
+!wp-content/themes/hendon-child/
+!wp-content/themes/hendon-child/**
+
+# Always ignore sensitive / heavy WordPress files
+wp-config.php
+.env
+.env.*
+*.log
+*.sql
+*.zip
+*.tar
+*.gz
+*.wpress
+.DS_Store
