@@ -864,16 +864,18 @@ if ( ! function_exists( 'hendon_child_nitaq_stats_markup' ) ) {
 					<?php foreach ( $stats as $stat ) : ?>
 						<article class="nitaq-stats-new__item">
 							<?php if ( ! empty( $stat['label'] ) ) : ?>
-								<h3 class="nitaq-stats-new__label"><?php echo esc_html( $stat['label'] ); ?></h3>
+								<div class="nitaq-stats-new__label"><?php echo esc_html( $stat['label'] ); ?></div>
 							<?php endif; ?>
-							<?php if ( '' !== (string) $stat['number'] ) : ?>
-								<strong class="nitaq-stats-new__number" data-final-number="<?php echo esc_attr( $stat['number'] ); ?>"><?php echo esc_html( $stat['number'] ); ?></strong>
-							<?php endif; ?>
-							<?php if ( ! empty( $stat['unit'] ) ) : ?>
-								<span class="nitaq-stats-new__unit"><?php echo esc_html( $stat['unit'] ); ?></span>
-							<?php endif; ?>
+							<div class="nitaq-stats-new__value">
+								<?php if ( '' !== (string) $stat['number'] ) : ?>
+									<span class="nitaq-stats-new__number" dir="ltr" data-final-number="<?php echo esc_attr( $stat['number'] ); ?>" data-target="<?php echo esc_attr( $stat['number'] ); ?>"><?php echo esc_html( $stat['number'] ); ?></span>
+								<?php endif; ?>
+								<?php if ( ! empty( $stat['unit'] ) ) : ?>
+									<span class="nitaq-stats-new__unit" dir="rtl"><?php echo esc_html( $stat['unit'] ); ?></span>
+								<?php endif; ?>
+							</div>
 							<?php if ( ! empty( $stat['description'] ) ) : ?>
-								<p class="nitaq-stats-new__description"><?php echo esc_html( $stat['description'] ); ?></p>
+								<div class="nitaq-stats-new__description"><?php echo esc_html( $stat['description'] ); ?></div>
 							<?php endif; ?>
 						</article>
 					<?php endforeach; ?>
@@ -952,6 +954,10 @@ if ( ! function_exists( 'hendon_child_nitaq_front_page_stats_replacement' ) ) {
 							return;
 						}
 
+						number.setAttribute('dir', 'ltr');
+						number.style.direction = 'ltr';
+						number.style.unicodeBidi = 'isolate';
+
 						function format(value) {
 							return decimals > 0 ? value.toFixed(decimals) : String(Math.round(value));
 						}
@@ -964,11 +970,13 @@ if ( ! function_exists( 'hendon_child_nitaq_front_page_stats_replacement' ) ) {
 							var progress = Math.min((timestamp - startTime) / duration, 1);
 							var eased = 1 - Math.pow(1 - progress, 3);
 							number.textContent = format(finalValue * eased);
+							number.setAttribute('dir', 'ltr');
 
 							if (progress < 1) {
 								window.requestAnimationFrame(tick);
 							} else {
 								number.textContent = finalRaw;
+								number.setAttribute('dir', 'ltr');
 								number.dataset.counted = 'true';
 							}
 						}
@@ -982,6 +990,7 @@ if ( ! function_exists( 'hendon_child_nitaq_front_page_stats_replacement' ) ) {
 						if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
 							numbers.forEach(function (number) {
 								number.textContent = number.dataset.finalNumber || number.textContent;
+								number.setAttribute('dir', 'ltr');
 								number.dataset.counted = 'true';
 							});
 							return;

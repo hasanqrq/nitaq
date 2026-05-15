@@ -412,6 +412,7 @@ body.home .nitaq-stats-old-hidden {
 .nitaq-stats-new__item {
 	position: relative;
 	display: flex;
+	gap: 12px;
 	min-width: 0;
 	min-height: 310px;
 	flex-direction: column;
@@ -446,7 +447,9 @@ body.home .nitaq-stats-old-hidden {
 
 .nitaq-stats-new__label {
 	order: 1;
-	margin: 0 0 16px;
+	position: static;
+	z-index: auto;
+	margin: 0;
 	color: #FFFFFF;
 	font-size: clamp(18px, 1.45vw, 23px);
 	font-weight: 600;
@@ -455,24 +458,32 @@ body.home .nitaq-stats-old-hidden {
 	text-transform: none;
 }
 
-.nitaq-stats-new__number {
+.nitaq-stats-new__value {
 	order: 2;
+	position: static;
 	display: block;
-	margin: 0 0 18px;
+	margin: 0;
+	text-align: center;
+	transform: none;
+}
+
+.nitaq-stats-new__number {
+	display: inline-block;
+	margin: 0;
 	color: #B8AA76;
 	direction: ltr;
 	font-size: clamp(62px, 7.5vw, 104px);
 	font-variant-numeric: lining-nums tabular-nums;
 	font-weight: 400;
-	line-height: 0.95;
+	line-height: 1;
 	letter-spacing: -0.03em;
+	text-align: center;
 	unicode-bidi: isolate;
 }
 
 .nitaq-stats-new__unit {
-	order: 3;
 	display: block;
-	margin: 0 0 18px;
+	margin: 8px 0 0;
 	color: rgba(184, 170, 118, 0.92);
 	direction: rtl;
 	font-size: clamp(15px, 1.2vw, 18px);
@@ -482,7 +493,7 @@ body.home .nitaq-stats-old-hidden {
 }
 
 .nitaq-stats-new__description {
-	order: 4;
+	order: 3;
 	max-width: 245px;
 	margin: 0 auto;
 	color: rgba(255, 255, 255, 0.72);
