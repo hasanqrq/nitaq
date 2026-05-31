@@ -1,0 +1,252 @@
+/* ── nitaq-models-explorer.css — interactive model explorer ── */
+
+/* ── Section bg override when explorer is present ── */
+.nitaq-project-section--light:has(.nitaq-models-explorer) {
+	background: #0F302D !important;
+	color: #F6F1E5;
+}
+.nitaq-project-section--light:has(.nitaq-models-explorer) .nitaq-project-section-head {
+	color: #F6F1E5;
+}
+.nitaq-project-section--light:has(.nitaq-models-explorer) .nitaq-project-kicker {
+	color: #C9BA82 !important;
+}
+.nitaq-project-section--light:has(.nitaq-models-explorer) h2 {
+	color: #F8F3E6 !important;
+}
+
+/* ── Explorer wrapper ── */
+.nitaq-models-explorer {
+	width: min(960px, 100%);
+	margin-inline: auto;
+	direction: rtl;
+}
+
+/* ── Model selector pills ── */
+.nitaq-models-explorer__model-tabs {
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+	margin-bottom: 32px;
+}
+.nitaq-models-explorer__model-tab {
+	background: rgba(255,255,255,.04);
+	border: 1px solid rgba(184,170,118,.3);
+	border-radius: 100px;
+	color: rgba(246,241,229,.6);
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: 500;
+	padding: 10px 30px;
+	transition: background .25s ease, border-color .25s ease, color .25s ease;
+}
+.nitaq-models-explorer__model-tab:hover {
+	background: rgba(184,170,118,.1);
+	border-color: rgba(184,170,118,.55);
+	color: #F6F1E5;
+}
+.nitaq-models-explorer__model-tab.is-active {
+	background: #B8AA76;
+	border-color: #B8AA76;
+	color: #0F302D;
+	font-weight: 700;
+}
+
+/* ── Panel ── */
+.nitaq-models-explorer__panel {
+	background: rgba(255,255,255,.03);
+	border: 1px solid rgba(184,170,118,.2);
+	border-radius: 16px;
+	overflow: hidden;
+}
+
+/* ── View tabs (رندر / مخطط / تفاصيل) ── */
+.nitaq-models-explorer__view-tabs {
+	display: flex;
+	justify-content: center;
+	gap: 0;
+	border-bottom: 1px solid rgba(184,170,118,.18);
+	padding: 0;
+}
+.nitaq-models-explorer__view-tab {
+	background: transparent;
+	border: none;
+	border-bottom: 2px solid transparent;
+	color: rgba(246,241,229,.5);
+	cursor: pointer;
+	font-size: 13px;
+	font-weight: 600;
+	letter-spacing: 2px;
+	margin-bottom: -1px;
+	padding: 14px 32px;
+	transition: color .2s ease, border-color .2s ease;
+}
+.nitaq-models-explorer__view-tab:hover {
+	color: rgba(246,241,229,.85);
+}
+.nitaq-models-explorer__view-tab.is-active {
+	border-bottom-color: #B8AA76;
+	color: #C9BA82;
+}
+
+/* ── Image stage ── */
+.nitaq-models-explorer__img-wrap {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 16 / 10;
+	overflow: hidden;
+	background: rgba(0,0,0,.3);
+}
+.nitaq-models-explorer__img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	opacity: 0;
+	transition: opacity .5s ease;
+}
+.nitaq-models-explorer__img.is-active {
+	opacity: 1;
+}
+
+/* ── Detail panel ── */
+.nitaq-models-explorer__detail-panel {
+	max-height: 320px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 28px 36px 32px;
+	scroll-behavior: smooth;
+	/* custom scrollbar — subtle gold on dark */
+	scrollbar-width: thin;
+	scrollbar-color: rgba(184,170,118,.35) transparent;
+}
+.nitaq-models-explorer__detail-panel::-webkit-scrollbar {
+	width: 4px;
+}
+.nitaq-models-explorer__detail-panel::-webkit-scrollbar-track {
+	background: transparent;
+}
+.nitaq-models-explorer__detail-panel::-webkit-scrollbar-thumb {
+	background: rgba(184,170,118,.35);
+	border-radius: 2px;
+}
+
+/* Floor block */
+.nitaq-models-explorer__floor {
+	margin-bottom: 4px;
+}
+.nitaq-models-explorer__floor--sep {
+	border-top: 1px solid rgba(184,170,118,.18);
+	margin-top: 20px;
+	padding-top: 20px;
+}
+
+/* Floor label */
+.nitaq-models-explorer__floor-label {
+	color: #C9BA82;
+	font-size: 20px;
+	font-weight: 700;
+	letter-spacing: 2.5px;
+	text-transform: uppercase;
+	margin: 0 0 14px;
+}
+
+/* Room grid — 2 columns: name right, size left */
+.nitaq-models-explorer__room-grid {
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+}
+.nitaq-models-explorer__room-row {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: center;
+	gap: 16px;
+	padding: 14px 0;
+	border-bottom: 1px solid rgba(184,170,118,.12);
+}
+.nitaq-models-explorer__room-row:last-child {
+	border-bottom: none;
+}
+.nitaq-models-explorer__room-name {
+	color: rgba(246,241,229,.72);
+	font-size: 18px;
+	line-height: 1.4;
+}
+.nitaq-models-explorer__room-size {
+	color: #F6F1E5;
+	font-size: 18px;
+	font-weight: 600;
+	white-space: nowrap;
+	direction: ltr;
+	text-align: left;
+}
+
+/* Empty state */
+.nitaq-models-explorer__detail-empty {
+	color: rgba(246,241,229,.45);
+	font-size: 14px;
+	text-align: center;
+	padding: 32px 0;
+	margin: 0;
+}
+
+/* ── Info block ── */
+.nitaq-models-explorer__info {
+	padding: 28px 36px 36px;
+	border-top: 1px solid rgba(184,170,118,.14);
+}
+.nitaq-models-explorer__name {
+	color: #F8F3E6;
+	font-size: clamp(22px, 2.5vw, 30px);
+	font-weight: 700;
+	margin: 0 0 12px;
+}
+.nitaq-models-explorer__body {
+	color: #D9CB90 !important;
+	font-size: 16px;
+	line-height: 2.0;
+	margin: 0;
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+	.nitaq-models-explorer__model-tabs {
+		gap: 8px;
+	}
+	.nitaq-models-explorer__model-tab {
+		font-size: 14px;
+		padding: 9px 20px;
+	}
+	.nitaq-models-explorer__view-tab {
+		padding: 12px 18px;
+		font-size: 12px;
+		letter-spacing: 1px;
+	}
+	.nitaq-models-explorer__img-wrap {
+		aspect-ratio: 4 / 3;
+	}
+	.nitaq-models-explorer__detail-panel {
+		padding: 20px 18px 24px;
+		max-height: 280px;
+	}
+	.nitaq-models-explorer__info {
+		padding: 22px 20px 28px;
+	}
+	.nitaq-models-explorer__body {
+		font-size: 15px;
+	}
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+	.nitaq-models-explorer__model-tab,
+	.nitaq-models-explorer__view-tab,
+	.nitaq-models-explorer__img {
+		transition: none;
+	}
+	.nitaq-models-explorer__detail-panel {
+		scroll-behavior: auto;
+	}
+}

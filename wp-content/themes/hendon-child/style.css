@@ -1,0 +1,6668 @@
+/*
+Theme Name: Hendon Child
+Theme URI: http://hendon.qodeinteractive.com
+Description: A child theme of Hendon
+Author: Mikado Themes
+Author URI: http://themeforest.net/user/mikado-themes
+Version: 1.0.1
+Text Domain: hendon
+Template: hendon
+*/
+
+:root {
+  /* الألوان */
+  --nq-green: #0F302D;
+  --nq-gold:  #B8AA76;
+  --nq-sand:  #BDB18F;
+  --nq-neutral: #F6F4EF;
+  /* (1) المساحات */
+  --nq-section-y: clamp(64px, 9vw, 140px);
+  --nq-container: 1240px;
+  --nq-gap: clamp(24px, 3vw, 48px);
+  --nq-block-gap: clamp(16px, 2vw, 28px);
+  /* (2) الطباعة */
+  --nq-kicker: 0.8125rem;
+  --nq-kicker-spacing: 0.22em;
+  --nq-h1: clamp(2.625rem, 6vw, 5.5rem);
+  --nq-h2: clamp(2rem, 4.5vw, 3.5rem);
+  --nq-h3: clamp(1.25rem, 2vw, 1.75rem);
+  --nq-lead: clamp(1.125rem, 1.4vw, 1.375rem);
+  --nq-line-tight: 1.12;
+  --nq-line-body: 1.8;
+  /* الصور */
+  --nq-ratio-card: 4/5;
+  --nq-overlay: 0.28;
+  --nq-radius: 4px;
+  /* (3) الحركة */
+  --nq-dur: 600ms;
+  --nq-dur-fast: 250ms;
+  --nq-ease: cubic-bezier(.22,.61,.36,1);
+}
+
+/* Nitaq homepage hero slider */
+.nitaq-hero-slider {
+	position: relative;
+	width: 100%;
+	min-height: 620px;
+	height: 80vh;
+	overflow: hidden;
+	direction: rtl;
+	background: #0F302D;
+}
+
+.nitaq-hero-slide {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(18px) scale(0.985);
+	transition:
+		opacity var(--nq-dur) var(--nq-ease),
+		visibility var(--nq-dur) var(--nq-ease),
+		transform var(--nq-dur) var(--nq-ease);
+}
+
+.nitaq-hero-slide.is-active {
+	z-index: 2;
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0) scale(1);
+}
+
+.nitaq-hero-global-video,
+.nitaq-hero-poster {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center center;
+}
+
+.nitaq-hero-text-slides {
+	position: absolute;
+	inset: 0;
+	z-index: 3;
+	pointer-events: none;
+}
+
+.nitaq-hero-overlay {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	background: rgba(15, 48, 45, 0.24);
+}
+
+.nitaq-hero-content {
+	position: relative;
+	z-index: 4;
+	max-width: 980px;
+	padding: 0 24px;
+	color: #FFFFFF;
+	pointer-events: auto;
+}
+
+.nitaq-hero-kicker {
+	display: inline-block;
+	margin-bottom: 18px;
+	padding: 8px 18px;
+	border: 1px solid rgba(184, 170, 118, 0.34);
+	border-radius: 999px;
+	background: rgba(15, 48, 45, 0.14);
+	backdrop-filter: blur(8px);
+	color: #B8AA76;
+	font-size: var(--nq-kicker);
+	line-height: 1.7;
+	letter-spacing: 0;
+	text-transform: none;
+	text-shadow: 0 3px 14px rgba(0, 0, 0, 0.45);
+}
+
+.nitaq-hero-content h1 {
+	margin: 0 0 22px;
+	color: #FFFFFF;
+	font-size: var(--nq-h1);
+	font-weight: 600;
+	line-height: 1.22;
+	letter-spacing: 0;
+	text-transform: none;
+	text-shadow: 0 3px 14px rgba(0, 0, 0, 0.45);
+}
+
+.nitaq-hero-content h1::after {
+	content: "";
+	display: block;
+	width: 82px;
+	height: 2px;
+	margin: 24px auto 0;
+	background: linear-gradient(90deg, transparent, #B8AA76, transparent);
+}
+
+.nitaq-hero-content p {
+	max-width: 780px;
+	margin: 0 auto 34px;
+	color: rgba(255, 255, 255, 0.88);
+	font-size: var(--nq-lead);
+	line-height: 1.8;
+	letter-spacing: 0;
+	text-transform: none;
+	text-shadow: 0 3px 14px rgba(0, 0, 0, 0.45);
+}
+
+.nitaq-hero-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 14px 36px;
+	border: 1px solid #B8AA76;
+	border-radius: var(--nq-radius);
+	color: #0F302D !important;
+	background: #B8AA76;
+	box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
+	font-weight: 700;
+	line-height: 1.7;
+	text-decoration: none;
+	transition:
+		color var(--nq-dur-fast) var(--nq-ease),
+		background-color var(--nq-dur-fast) var(--nq-ease),
+		border-color var(--nq-dur-fast) var(--nq-ease);
+}
+
+.nitaq-hero-btn:hover {
+	color: #B8AA76 !important;
+	background: transparent;
+	border-color: #B8AA76;
+	box-shadow: 0 16px 34px rgba(0, 0, 0, 0.16);
+}
+
+.nitaq-hero-dots {
+	position: absolute;
+	right: 50%;
+	bottom: 36px;
+	z-index: 5;
+	display: flex;
+	gap: 10px;
+	transform: translateX(50%);
+}
+
+.nitaq-hero-dots button {
+	width: 28px;
+	height: 10px;
+	padding: 0;
+	border: 1px solid #B8AA76;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.08);
+	cursor: pointer;
+	transition:
+		background-color var(--nq-dur-fast) var(--nq-ease),
+		border-color var(--nq-dur-fast) var(--nq-ease),
+		transform var(--nq-dur-fast) var(--nq-ease),
+		width var(--nq-dur-fast) var(--nq-ease);
+}
+
+.nitaq-hero-dots button.is-active {
+	width: 42px;
+	background: #B8AA76;
+	transform: scale(1.15);
+}
+
+.nitaq-hero-arrows {
+	position: absolute;
+	top: 50%;
+	right: clamp(24px, 4vw, 58px);
+	left: clamp(24px, 4vw, 58px);
+	z-index: 5;
+	display: flex;
+	justify-content: space-between;
+	pointer-events: none;
+	transform: translateY(-50%);
+}
+
+.nitaq-hero-arrow {
+	position: relative;
+	width: 52px;
+	height: 52px;
+	padding: 0;
+	border: 1px solid rgba(184, 170, 118, 0.55);
+	border-radius: 50%;
+	background: rgba(15, 48, 45, 0.16);
+	backdrop-filter: blur(8px);
+	cursor: pointer;
+	pointer-events: auto;
+	transition:
+		background-color var(--nq-dur-fast) var(--nq-ease),
+		border-color var(--nq-dur-fast) var(--nq-ease),
+		transform var(--nq-dur-fast) var(--nq-ease);
+}
+
+.nitaq-hero-arrow::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 12px;
+	height: 12px;
+	border-top: 2px solid #B8AA76;
+	border-left: 2px solid #B8AA76;
+	transform-origin: center;
+}
+
+.nitaq-hero-arrow--prev::before {
+	transform: translate(-42%, -50%) rotate(135deg);
+}
+
+.nitaq-hero-arrow--next::before {
+	transform: translate(-58%, -50%) rotate(-45deg);
+}
+
+.nitaq-hero-arrow:hover {
+	background: rgba(184, 170, 118, 0.16);
+	border-color: #B8AA76;
+	transform: scale(1.04);
+}
+
+body.home #qodef-page-inner rs-module-wrap,
+body.home #qodef-page-inner .rev_slider_wrapper,
+body.home #qodef-page-inner .nitaq-old-hero,
+body.home #qodef-page-inner .nitaq-desktop-hero-section,
+body.home #qodef-page-inner .nitaq-mobile-hero-section,
+body.home #qodef-page-inner .nitaq-mobile-slider {
+	display: none !important;
+}
+
+body.home #qodef-page-outer {
+	overflow-x: hidden;
+}
+
+body.home .nitaq-hero-slider,
+body.home .nitaq-video-hero {
+	margin-top: 90px;
+}
+
+/* Nitaq custom homepage statistics */
+body.home .nitaq-old-stats-hidden {
+	display: none !important;
+}
+
+body.home #qodef-back-to-top {
+	display: none !important;
+	visibility: hidden !important;
+	pointer-events: none !important;
+}
+
+/* ── Nitaq Company Section v2 ─────────────────────────────────────────────── */
+.ncs2 {
+	--ncs2-green:  #0B2826;
+	--ncs2-gold:   var(--nq-gold, #B8AA76);
+	--ncs2-white:  #FFFFFF;
+	--ncs2-soft:   rgba(255, 255, 255, 0.72);
+	--ncs2-border: rgba(184, 170, 118, 0.28);
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	min-height: clamp(480px, 60vh, 700px);
+	direction: rtl;
+	overflow: hidden;
+}
+
+/* ── Image column (left side, physically first in RTL flow) ── */
+.ncs2__image-col {
+	order: 2;
+	position: relative;
+	overflow: hidden;
+}
+
+.ncs2__img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center center;
+	display: block;
+}
+
+/* ── Content column (right side, dark green) ── */
+.ncs2__content-col {
+	order: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: clamp(48px, 6vw, 80px) clamp(32px, 5vw, 72px);
+	background: var(--ncs2-green);
+	color: var(--ncs2-white);
+	text-align: right;
+}
+
+.ncs2__kicker {
+	display: inline-block;
+	margin-bottom: 20px;
+	padding: 6px 16px;
+	border: 1px solid var(--ncs2-border);
+	border-radius: 999px;
+	color: var(--ncs2-gold);
+	font-size: 13px;
+	line-height: 1.8;
+	letter-spacing: 0;
+}
+
+.ncs2__headline {
+	margin: 0 0 18px;
+	color: var(--ncs2-white);
+	font-size: clamp(26px, 2.8vw, 40px);
+	font-weight: 700;
+	line-height: 1.4;
+	letter-spacing: 0;
+}
+
+.ncs2__desc {
+	margin: 0 0 18px;
+	color: var(--ncs2-soft);
+	font-size: clamp(14px, 1.2vw, 16px);
+	line-height: 1.9;
+	letter-spacing: 0;
+}
+
+.ncs2__tagline {
+	margin: 0 0 32px;
+	color: var(--ncs2-gold);
+	font-size: 11px;
+	font-weight: 500;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	opacity: 0.75;
+}
+
+/* ── 2×2 stats grid ── */
+.ncs2__grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0;
+	margin-bottom: 32px;
+}
+
+.ncs2__stat {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: 20px 0;
+	border-bottom: 1px solid var(--ncs2-border);
+	border-inline-start: 1px solid var(--ncs2-border);
+	padding-inline: 20px;
+}
+
+.ncs2__stat:nth-child(1),
+.ncs2__stat:nth-child(2) {
+	border-top: 1px solid var(--ncs2-border);
+}
+
+.ncs2__stat:nth-child(odd) {
+	border-inline-start: none;
+	padding-inline-start: 0;
+}
+
+.ncs2__stat-num {
+	color: var(--ncs2-gold);
+	font-size: clamp(22px, 2.2vw, 32px);
+	font-weight: 700;
+	line-height: 1.2;
+	letter-spacing: 0;
+}
+
+.ncs2__stat-unit {
+	color: rgba(255, 255, 255, 0.85);
+	font-size: clamp(12px, 1vw, 14px);
+	font-weight: 500;
+	letter-spacing: 0;
+}
+
+/* hide empty unit spans */
+.ncs2__stat-unit:empty { display: none; }
+
+.ncs2__stat-label {
+	color: var(--ncs2-soft);
+	font-size: clamp(12px, 1vw, 13px);
+	line-height: 1.6;
+	letter-spacing: 0;
+}
+
+.ncs2__cta {
+	margin-top: 4px;
+}
+
+.ncs2__btn {
+	display: inline-block;
+	padding: 11px 28px;
+	border: 1px solid var(--ncs2-gold);
+	color: var(--ncs2-gold);
+	border-radius: var(--nq-radius, 6px);
+	font-size: 14px;
+	text-decoration: none;
+	transition: background 0.22s ease, color 0.22s ease;
+	letter-spacing: 0;
+}
+
+.ncs2__btn:hover {
+	background: var(--ncs2-gold);
+	color: var(--ncs2-green);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+	.ncs2 {
+		grid-template-columns: 1fr;
+		min-height: auto;
+	}
+	.ncs2__image-col {
+		order: 1;
+		height: 260px;
+	}
+	.ncs2__content-col {
+		order: 2;
+		padding: 40px 24px;
+	}
+	.ncs2__grid {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+/* ── Legacy — keep for JS counter compatibility ─────────────────────────── */
+.nitaq-stats {
+	--nitaq-stats-green: #0F302D;
+	--nitaq-stats-gold: #B8AA76;
+	--nitaq-stats-white: #FFFFFF;
+	--nitaq-stats-soft: rgba(255, 255, 255, 0.78);
+	direction: rtl;
+	background:
+		linear-gradient(135deg, rgba(15, 48, 45, 0.98), rgba(18, 58, 53, 0.94)),
+		#0F302D;
+	color: var(--nitaq-stats-white);
+	text-align: right;
+	overflow: hidden;
+}
+
+.nitaq-stats__inner {
+	width: min(1180px, calc(100% - 48px));
+	margin: 0 auto;
+	padding: clamp(72px, 8vw, 112px) 0;
+}
+
+.nitaq-stats__intro {
+	display: flex;
+	max-width: 820px;
+	margin: 0 auto clamp(34px, 5vw, 56px);
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.nitaq-stats__kicker {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 16px;
+	padding: 7px 18px;
+	border: 1px solid rgba(184, 170, 118, 0.42);
+	border-radius: 999px;
+	color: var(--nitaq-stats-gold);
+	font-size: 14px;
+	line-height: 1.8;
+}
+
+.nitaq-stats__intro h2 {
+	margin: 0 0 18px;
+	color: var(--nitaq-stats-white);
+	font-size: clamp(34px, 4vw, 58px);
+	font-weight: 600;
+	line-height: 1.35;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-stats__intro p {
+	max-width: 720px;
+	margin: 0;
+	color: var(--nitaq-stats-soft);
+	font-size: clamp(16px, 1.45vw, 20px);
+	line-height: 2;
+}
+
+.nitaq-stats__grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(220px, 280px));
+	gap: 28px;
+	max-width: 900px;
+	margin-inline: auto;
+	justify-content: center;
+}
+
+.nitaq-stats__card {
+	display: flex;
+	min-height: 220px;
+	padding: clamp(26px, 3vw, 38px) 24px;
+	border: 1px solid rgba(184, 170, 118, 0.34);
+	background: rgba(255, 255, 255, 0.055);
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+	transition:
+		transform 0.35s ease,
+		border-color 0.35s ease,
+		background-color 0.35s ease,
+		box-shadow 0.35s ease;
+}
+
+.nitaq-stats__card:hover {
+	transform: translateY(-6px);
+	border-color: rgba(184, 170, 118, 0.7);
+	background: rgba(255, 255, 255, 0.08);
+	box-shadow: 0 28px 68px rgba(0, 0, 0, 0.18);
+}
+
+.nitaq-stats__value {
+	display: flex;
+	min-width: 0;
+	margin-bottom: 14px;
+	flex-wrap: nowrap;
+	white-space: nowrap;
+	align-items: baseline;
+	justify-content: center;
+	gap: 8px;
+	color: var(--nitaq-stats-gold);
+}
+
+.nitaq-stats__number {
+	display: inline-block;
+	font-size: clamp(32px, 3.2vw, 44px);
+	font-weight: 600;
+	line-height: 1;
+	letter-spacing: 0;
+	text-align: center;
+	font-variant-numeric: tabular-nums;
+	transition:
+		text-shadow 0.3s ease,
+		transform 0.3s ease;
+}
+
+.nitaq-stats__number.is-counting {
+	text-shadow: 0 0 26px rgba(184, 170, 118, 0.26);
+}
+
+.nitaq-stats__unit {
+	display: inline-block;
+	color: rgba(255, 255, 255, 0.88);
+	font-size: clamp(18px, 1.55vw, 24px);
+	font-weight: 500;
+	line-height: 1.4;
+	white-space: nowrap;
+}
+
+.nitaq-stats__prefix {
+	display: inline-block;
+	color: rgba(255, 255, 255, 0.88);
+	font-size: clamp(18px, 1.55vw, 24px);
+	font-weight: 500;
+	line-height: 1.4;
+	white-space: nowrap;
+}
+
+.nitaq-stats__label {
+	margin: 0;
+	color: var(--nitaq-stats-soft);
+	font-size: clamp(16px, 1.35vw, 19px);
+	line-height: 1.9;
+}
+
+.nitaq-stats__cta {
+	text-align: center;
+	margin-top: var(--nq-gap);
+}
+
+.nitaq-stats__btn {
+	display: inline-block;
+	padding: 12px 28px;
+	border: 1px solid var(--nq-gold);
+	color: var(--nq-gold);
+	border-radius: var(--nq-radius);
+	font-size: 14px;
+	text-decoration: none;
+	transition: all var(--nq-dur-fast, 0.2s) var(--nq-ease, ease);
+}
+
+.nitaq-stats__btn:hover {
+	background: var(--nq-gold);
+	color: var(--nq-green);
+}
+
+@media (max-width: 767px) {
+	.nitaq-hero-slider {
+		min-height: 580px;
+		height: 580px;
+	}
+
+	body.home .nitaq-hero-slider,
+	body.home .nitaq-video-hero {
+		margin-top: 80px;
+	}
+
+	.nitaq-hero-slide {
+		padding-top: 80px;
+	}
+
+	.nitaq-hero-content {
+		padding: 0 22px;
+	}
+
+	.nitaq-hero-kicker {
+		margin-bottom: 14px;
+		padding: 6px 14px;
+		font-size: 14px;
+	}
+
+	.nitaq-hero-content h1 {
+		margin-bottom: 16px;
+		font-size: 34px;
+		line-height: 1.35;
+	}
+
+	.nitaq-hero-content p {
+		margin-bottom: 28px;
+		font-size: 16px;
+		line-height: 1.8;
+	}
+
+	.nitaq-hero-btn {
+		padding: 12px 28px;
+		font-size: 15px;
+	}
+
+	.nitaq-hero-dots {
+		bottom: 28px;
+	}
+
+	.nitaq-hero-arrows {
+		display: none;
+	}
+
+	.nitaq-hero-dots button {
+		width: 22px;
+	}
+
+	.nitaq-hero-dots button.is-active {
+		width: 34px;
+	}
+
+	.nitaq-stats__inner {
+		width: min(620px, calc(100% - 32px));
+		padding: 64px 0;
+	}
+
+	.nitaq-stats__grid {
+		grid-template-columns: 1fr;
+		max-width: 360px;
+	}
+
+	.nitaq-stats__card {
+		min-height: 185px;
+		padding: 24px 16px;
+	}
+}
+
+@media (max-width: 480px) {
+	.nitaq-hero-slider {
+		min-height: 560px;
+		height: 560px;
+	}
+
+	.nitaq-hero-content h1 {
+		font-size: 30px;
+	}
+
+	.nitaq-hero-content p {
+		font-size: 15px;
+	}
+
+
+
+	.nitaq-stats__card {
+		min-height: 170px;
+	}
+
+	.nitaq-stats__number {
+		font-size: 40px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.nitaq-stats__card,
+	.nitaq-stats__number {
+		transition: none !important;
+		transform: none !important;
+		text-shadow: none !important;
+	}
+}
+
+/* Nitaq interest form and footer */
+.nitaq-interest-section {
+	background-color: #122C2C;
+	direction: rtl;
+}
+
+.nitaq-interest-card {
+	border: 1px solid rgba(189, 177, 143, 0.32);
+	box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+	direction: rtl;
+	text-align: right;
+}
+
+.nitaq-interest-card .qodef-m-title {
+	color: #122C2C;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-interest-card .qodef-m-text {
+	color: rgba(18, 44, 44, 0.72);
+	line-height: 1.9;
+}
+
+.nitaq-interest-form input,
+.nitaq-interest-form textarea,
+.nitaq-interest-form select {
+	width: 100%;
+	direction: rtl;
+	text-align: right;
+	color: #122C2C;
+	background-color: transparent;
+	border-color: rgba(18, 44, 44, 0.25);
+}
+
+.nitaq-interest-form textarea {
+	min-height: 130px;
+}
+
+.nitaq-interest-form input::placeholder,
+.nitaq-interest-form textarea::placeholder {
+	color: rgba(18, 44, 44, 0.58);
+	opacity: 1;
+}
+
+.nitaq-interest-form input[type="submit"],
+.nitaq-interest-form button[type="submit"] {
+	width: 100%;
+	color: #122C2C !important;
+	background-color: #BDB18F !important;
+	border-color: #BDB18F !important;
+}
+
+.nitaq-interest-form input[type="submit"]:hover,
+.nitaq-interest-form button[type="submit"]:hover {
+	color: #F8F7F2 !important;
+	background-color: #122C2C !important;
+	border-color: #122C2C !important;
+}
+
+.nitaq-interest-form .wpcf7-not-valid-tip,
+.nitaq-interest-form .wpcf7-response-output {
+	direction: rtl;
+	text-align: right;
+}
+
+/* Nitaq mobile-only homepage hero */
+.nitaq-mobile-hero-section,
+.nitaq-mobile-slider {
+	display: none;
+}
+
+@media only screen and (max-width: 767px) {
+	html,
+	body {
+		overflow-x: hidden;
+	}
+
+	.nitaq-desktop-hero-section {
+		display: none !important;
+	}
+
+	.nitaq-mobile-hero-section {
+		display: block !important;
+	}
+
+	.nitaq-mobile-slider {
+		position: relative;
+		display: block !important;
+		min-height: 640px;
+		height: 640px;
+		width: 100%;
+		max-width: 100vw;
+		overflow: hidden;
+		direction: rtl;
+		text-align: center;
+	}
+
+	.nitaq-mobile-slide {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 120px 24px 74px;
+		background-image:
+			linear-gradient(rgba(15, 48, 45, 0.55), rgba(15, 48, 45, 0.55)),
+			var(--nitaq-slide-image);
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: cover;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 900ms ease, visibility 900ms ease;
+	}
+
+	.nitaq-mobile-slide.is-active {
+		opacity: 1;
+		visibility: visible;
+		z-index: 2;
+	}
+
+	.nitaq-mobile-slide__content {
+		width: min(90vw, 360px);
+		transform: translateY(10px);
+		opacity: 0;
+		transition: transform 900ms ease, opacity 900ms ease;
+	}
+
+	.nitaq-mobile-slide.is-active .nitaq-mobile-slide__content {
+		transform: translateY(0);
+		opacity: 1;
+	}
+
+	.nitaq-mobile-slider h1 {
+		margin: 0 0 16px;
+		color: #FFFFFF;
+		font-size: 34px;
+		font-weight: 600;
+		line-height: 1.3;
+		letter-spacing: 0;
+		text-transform: none;
+	}
+
+	.nitaq-mobile-slider p {
+		margin: 0 0 28px;
+		color: #B8AA76;
+		font-size: 15px;
+		font-weight: 500;
+		line-height: 1.7;
+		letter-spacing: 0;
+		text-transform: none;
+	}
+
+	.nitaq-mobile-hero-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 12px 24px;
+		color: #0F302D !important;
+		background: #B8AA76;
+		border: 1px solid #B8AA76;
+		border-radius: 10px;
+		font-size: 15px;
+		font-weight: 600;
+		line-height: 1.7;
+		text-decoration: none;
+	}
+
+	.nitaq-mobile-slider__dots {
+		position: absolute;
+		right: 0;
+		bottom: 34px;
+		left: 0;
+		z-index: 5;
+		display: flex;
+		justify-content: center;
+		gap: 10px;
+	}
+
+	.nitaq-mobile-slider__dots button {
+		width: 9px;
+		height: 9px;
+		padding: 0;
+		border: 1px solid rgba(184, 170, 118, 0.82);
+		border-radius: 50%;
+		background: transparent;
+		cursor: pointer;
+	}
+
+	.nitaq-mobile-slider__dots button.is-active {
+		background: #B8AA76;
+	}
+}
+
+/* Nitaq about page */
+.nitaq-about-page {
+	--nitaq-green: #123A35;
+	--nitaq-green-deep: #0F302D;
+	--nitaq-gold: #B8AA76;
+	--nitaq-soft: #F8F7F2;
+	--nitaq-ink: #122C2C;
+	--nitaq-muted: rgba(255, 255, 255, 0.76);
+	background: var(--nitaq-green-deep);
+	color: #FFFFFF;
+	direction: rtl;
+	text-align: right;
+	overflow: hidden;
+}
+
+.nitaq-about-page *,
+.nitaq-about-page *::before,
+.nitaq-about-page *::after {
+	box-sizing: border-box;
+}
+
+.nitaq-about-page h1,
+.nitaq-about-page h2,
+.nitaq-about-page h3,
+.nitaq-about-page p {
+	margin: 0;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-about-page h1,
+.nitaq-about-page h2,
+.nitaq-about-page h3 {
+	color: inherit;
+	line-height: 1.35;
+}
+
+.nitaq-about-page p {
+	font-size: 18px;
+	line-height: 2;
+}
+
+.nitaq-about-container {
+	width: min(1180px, calc(100% - 56px));
+	margin: 0 auto;
+}
+
+.nitaq-about-hero {
+	position: relative;
+	display: flex;
+	min-height: min(820px, 94vh);
+	align-items: flex-end;
+	padding: 170px 0 110px;
+	background: var(--nitaq-green-deep);
+}
+
+.nitaq-about-hero__image,
+.nitaq-about-hero__overlay {
+	position: absolute;
+	inset: 0;
+}
+
+.nitaq-about-hero__image {
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	transform: scale(1.02);
+}
+
+.nitaq-about-hero__overlay {
+	background:
+		linear-gradient(90deg, rgba(15, 48, 45, 0.38), rgba(15, 48, 45, 0.9)),
+		linear-gradient(0deg, rgba(15, 48, 45, 0.78), rgba(15, 48, 45, 0.2));
+}
+
+.nitaq-about-hero__content {
+	position: relative;
+	z-index: 2;
+	max-width: 760px;
+	margin-right: max(7vw, 28px);
+	margin-left: auto;
+}
+
+.nitaq-about-kicker {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 18px;
+	color: var(--nitaq-gold);
+	font-size: 14px;
+	font-weight: 600;
+	letter-spacing: 0;
+	line-height: 1.8;
+}
+
+.nitaq-about-kicker::before {
+	content: "";
+	width: 44px;
+	height: 1px;
+	background: currentColor;
+}
+
+.nitaq-about-hero h1 {
+	margin-bottom: 18px;
+	font-size: clamp(48px, 8vw, 96px);
+	font-weight: 500;
+}
+
+.nitaq-about-hero h2 {
+	max-width: 720px;
+	margin-bottom: 24px;
+	color: #FFFFFF;
+	font-size: clamp(28px, 4vw, 50px);
+	font-weight: 500;
+}
+
+.nitaq-about-hero p {
+	max-width: 700px;
+	margin-bottom: 34px;
+	color: var(--nitaq-muted);
+}
+
+.nitaq-about-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 48px;
+	padding: 12px 26px;
+	color: var(--nitaq-green-deep) !important;
+	background: var(--nitaq-gold);
+	border: 1px solid var(--nitaq-gold);
+	border-radius: 10px;
+	font-size: 15px;
+	font-weight: 700;
+	line-height: 1.7;
+	text-decoration: none;
+	transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.nitaq-about-button:hover {
+	color: #FFFFFF !important;
+	background: transparent;
+}
+
+.nitaq-about-button--dark:hover {
+	color: var(--nitaq-green-deep) !important;
+	background: transparent;
+	border-color: var(--nitaq-green-deep);
+}
+
+.nitaq-about-section {
+	padding: 112px 0;
+}
+
+.nitaq-about-section--light {
+	background: var(--nitaq-soft);
+	color: var(--nitaq-ink);
+}
+
+.nitaq-about-section--light p,
+.nitaq-about-section--light li {
+	color: rgba(18, 44, 44, 0.78);
+}
+
+.nitaq-about-section--dark,
+.nitaq-about-section--green {
+	background:
+		radial-gradient(circle at 15% 20%, rgba(184, 170, 118, 0.12), transparent 30%),
+		var(--nitaq-green-deep);
+	color: #FFFFFF;
+}
+
+.nitaq-about-section--green {
+	background-color: var(--nitaq-green);
+}
+
+.nitaq-about-split,
+.nitaq-about-feature {
+	display: grid;
+	grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+	gap: 72px;
+	align-items: center;
+}
+
+.nitaq-about-split--reverse {
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.nitaq-about-copy h2,
+.nitaq-about-heading h2,
+.nitaq-about-feature__text h2,
+.nitaq-about-duo h2,
+.nitaq-about-final h2 {
+	margin-bottom: 24px;
+	font-size: clamp(34px, 4vw, 58px);
+	font-weight: 500;
+}
+
+.nitaq-about-copy p + p {
+	margin-top: 20px;
+}
+
+.nitaq-about-image {
+	position: relative;
+	margin: 0;
+	overflow: hidden;
+	border-radius: 0;
+	box-shadow: 0 26px 70px rgba(0, 0, 0, 0.18);
+}
+
+.nitaq-about-image::before {
+	content: "";
+	position: absolute;
+	inset: 18px;
+	z-index: 1;
+	border: 1px solid rgba(184, 170, 118, 0.55);
+	pointer-events: none;
+}
+
+.nitaq-about-image img,
+.nitaq-about-feature__media img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-height: 470px;
+	object-fit: cover;
+}
+
+.nitaq-about-duo {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 28px;
+}
+
+.nitaq-about-duo article,
+.nitaq-about-values article,
+.nitaq-about-stats article {
+	border: 1px solid rgba(184, 170, 118, 0.38);
+	background: rgba(255, 255, 255, 0.045);
+}
+
+.nitaq-about-duo article {
+	min-height: 330px;
+	padding: 54px;
+}
+
+.nitaq-about-duo p {
+	color: var(--nitaq-muted);
+}
+
+.nitaq-about-heading {
+	max-width: 760px;
+	margin-bottom: 48px;
+}
+
+.nitaq-about-values {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 22px;
+}
+
+.nitaq-about-values article {
+	min-height: 275px;
+	padding: 34px 28px;
+	background: #FFFFFF;
+	border-color: rgba(18, 44, 44, 0.1);
+	box-shadow: 0 18px 48px rgba(18, 44, 44, 0.08);
+}
+
+.nitaq-about-values h3 {
+	margin-bottom: 14px;
+	color: var(--nitaq-green-deep);
+	font-size: 24px;
+	font-weight: 600;
+}
+
+.nitaq-about-values h3::after {
+	content: "";
+	display: block;
+	width: 36px;
+	height: 2px;
+	margin-top: 16px;
+	background: var(--nitaq-gold);
+}
+
+.nitaq-about-values p {
+	font-size: 16px;
+}
+
+.nitaq-about-reasons {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 18px;
+}
+
+.nitaq-about-reasons span {
+	position: relative;
+	display: flex;
+	align-items: center;
+	min-height: 92px;
+	padding: 22px 56px 22px 24px;
+	color: #FFFFFF;
+	border: 1px solid rgba(184, 170, 118, 0.34);
+	background: rgba(255, 255, 255, 0.05);
+	font-size: 18px;
+	line-height: 1.8;
+}
+
+.nitaq-about-reasons span::before {
+	content: "";
+	position: absolute;
+	right: 22px;
+	top: 50%;
+	width: 14px;
+	height: 14px;
+	border: 1px solid var(--nitaq-gold);
+	transform: translateY(-50%) rotate(45deg);
+	pointer-events: none;
+}
+
+.nitaq-about-feature {
+	grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+}
+
+.nitaq-about-feature__media {
+	overflow: hidden;
+	min-height: 560px;
+}
+
+.nitaq-about-feature__text ul {
+	display: grid;
+	gap: 10px;
+	margin: 26px 0 34px;
+	padding: 0;
+	list-style: none;
+}
+
+.nitaq-about-feature__text li {
+	position: relative;
+	padding-right: 26px;
+	font-size: 17px;
+	line-height: 1.9;
+}
+
+.nitaq-about-feature__text li::before {
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 16px;
+	width: 9px;
+	height: 9px;
+	background: var(--nitaq-gold);
+	transform: rotate(45deg);
+}
+
+.nitaq-about-section--stats {
+	background: var(--nitaq-soft);
+	color: var(--nitaq-ink);
+}
+
+.nitaq-about-section--stats .nitaq-about-heading p {
+	color: rgba(18, 44, 44, 0.72);
+}
+
+.nitaq-about-stats {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 18px;
+}
+
+.nitaq-about-stats article {
+	padding: 34px 24px;
+	background: #FFFFFF;
+	border-color: rgba(184, 170, 118, 0.38);
+	text-align: center;
+}
+
+.nitaq-about-stats strong {
+	display: block;
+	margin-bottom: 12px;
+	color: var(--nitaq-green-deep);
+	font-size: clamp(28px, 3vw, 40px);
+	font-weight: 600;
+	line-height: 1.25;
+}
+
+.nitaq-about-stats span {
+	color: rgba(18, 44, 44, 0.7);
+	font-size: 15px;
+	line-height: 1.8;
+}
+
+.nitaq-about-final {
+	padding: 112px 0;
+	background:
+		linear-gradient(rgba(15, 48, 45, 0.9), rgba(15, 48, 45, 0.9)),
+		url("/wp-content/uploads/2026/05/تفاصيل-معمارية-وطبيعية.png") center center / cover no-repeat;
+	text-align: center;
+}
+
+.nitaq-about-final .nitaq-about-container {
+	max-width: 820px;
+}
+
+.nitaq-about-final .nitaq-about-kicker::before {
+	display: none;
+}
+
+.nitaq-about-final p {
+	margin-bottom: 34px;
+	color: var(--nitaq-muted);
+}
+
+/* ─── Hero metrics bar ─── */
+.nitaq-about-hero__metrics {
+	display: flex;
+	gap: 48px;
+	margin-top: 56px;
+	padding-top: 32px;
+	border-top: 1px solid rgba(184, 170, 118, 0.3);
+}
+
+.nitaq-about-hero__metrics > div {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.nitaq-about-hero__metrics strong {
+	display: block;
+	color: #FFFFFF;
+	font-size: clamp(20px, 2.5vw, 28px);
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+.nitaq-about-hero__metrics span {
+	color: rgba(255, 255, 255, 0.65);
+	font-size: 14px;
+	line-height: 1.6;
+}
+
+/* ─── Action buttons row ─── */
+.nitaq-about-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 14px;
+	margin-bottom: 0;
+}
+
+/* ─── Outline button variant ─── */
+.nitaq-about-button--outline {
+	color: var(--nitaq-gold) !important;
+	background: transparent;
+	border-color: var(--nitaq-gold);
+}
+
+.nitaq-about-button--outline:hover {
+	color: var(--nitaq-green-deep) !important;
+	background: var(--nitaq-gold);
+}
+
+/* ─── Signature / philosophy section ─── */
+.nitaq-about-signature {
+	padding: 96px 0;
+	background: var(--nitaq-green-deep);
+	text-align: center;
+}
+
+.nitaq-about-signature .nitaq-about-container {
+	max-width: 860px;
+}
+
+.nitaq-about-signature .nitaq-about-kicker::before {
+	display: none;
+}
+
+.nitaq-about-signature h2 {
+	margin-bottom: 24px;
+	color: #FFFFFF;
+	font-size: clamp(30px, 4vw, 52px);
+	font-weight: 500;
+	line-height: 1.5;
+}
+
+.nitaq-about-signature p {
+	color: rgba(255, 255, 255, 0.72);
+	font-size: 18px;
+	line-height: 2;
+}
+
+/* ─── Lead paragraph ─── */
+.nitaq-about-lead {
+	font-size: 19px;
+	font-weight: 500;
+	line-height: 1.9;
+	margin-bottom: 20px;
+}
+
+.nitaq-about-section--light .nitaq-about-lead {
+	color: var(--nitaq-ink);
+}
+
+.nitaq-about-section--dark .nitaq-about-lead,
+.nitaq-about-feature__text .nitaq-about-lead {
+	color: rgba(18, 44, 44, 0.88);
+}
+
+/* ─── Value card number labels (01, 02…) ─── */
+.nitaq-about-values article > span {
+	display: block;
+	margin-bottom: 18px;
+	color: var(--nitaq-gold);
+	font-size: 28px;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+	line-height: 1;
+}
+
+/* ─── Split statement variant (copy + image, copy first) ─── */
+.nitaq-about-split--statement {
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	align-items: center;
+}
+
+@media only screen and (max-width: 1024px) {
+	.nitaq-about-values,
+	.nitaq-about-stats {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.nitaq-about-split,
+	.nitaq-about-split--reverse,
+	.nitaq-about-feature {
+		grid-template-columns: 1fr;
+		gap: 42px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.nitaq-about-container {
+		width: min(100% - 36px, 1180px);
+	}
+
+	.nitaq-about-hero {
+		min-height: 680px;
+		padding: 138px 0 64px;
+	}
+
+	.nitaq-about-hero__content {
+		max-width: none;
+		margin-right: auto;
+	}
+
+	.nitaq-about-hero h1 {
+		font-size: 46px;
+	}
+
+	.nitaq-about-hero h2 {
+		font-size: 29px;
+	}
+
+	.nitaq-about-page p {
+		font-size: 16px;
+		line-height: 1.95;
+	}
+
+	.nitaq-about-section,
+	.nitaq-about-final {
+		padding: 72px 0;
+	}
+
+	.nitaq-about-copy h2,
+	.nitaq-about-heading h2,
+	.nitaq-about-feature__text h2,
+	.nitaq-about-duo h2,
+	.nitaq-about-final h2 {
+		font-size: 34px;
+	}
+
+	.nitaq-about-image img,
+	.nitaq-about-feature__media,
+	.nitaq-about-feature__media img {
+		min-height: 360px;
+	}
+
+	.nitaq-about-duo,
+	.nitaq-about-values,
+	.nitaq-about-reasons,
+	.nitaq-about-stats {
+		grid-template-columns: 1fr;
+	}
+
+	.nitaq-about-duo article {
+		min-height: auto;
+		padding: 34px 28px;
+	}
+
+	.nitaq-about-values article {
+		min-height: auto;
+	}
+
+	.nitaq-about-hero__metrics {
+		gap: 28px;
+		margin-top: 40px;
+		flex-wrap: wrap;
+	}
+
+	.nitaq-about-signature {
+		padding: 64px 0;
+	}
+
+	.nitaq-about-signature h2 {
+		font-size: 30px;
+	}
+
+	.nitaq-about-actions {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}
+
+/* Nitaq news system */
+.nitaq-news-section,
+.nitaq-news-page {
+	--nitaq-news-green: #0F302D;
+	--nitaq-news-green-soft: #123A35;
+	--nitaq-news-gold: #B8AA76;
+	--nitaq-news-cream: #F8F7F2;
+	background: var(--nitaq-news-green);
+	color: #FFFFFF;
+	direction: rtl;
+	text-align: right;
+	overflow: hidden;
+}
+
+.nitaq-news-section *,
+.nitaq-news-page *,
+.nitaq-news-section *::before,
+.nitaq-news-page *::before,
+.nitaq-news-section *::after,
+.nitaq-news-page *::after {
+	box-sizing: border-box;
+}
+
+.nitaq-news-container {
+	width: min(1180px, calc(100% - 56px));
+	margin: 0 auto;
+}
+
+.nitaq-news-section {
+	padding: 90px 0 100px;
+}
+
+.nitaq-news-heading {
+	max-width: 760px;
+	margin: 0 auto 46px;
+	text-align: center;
+}
+
+.nitaq-news-heading span,
+.nitaq-news-hero span,
+.nitaq-news-single-hero span {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 16px;
+	color: var(--nitaq-news-gold);
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.8;
+}
+
+.nitaq-news-heading span::before,
+.nitaq-news-hero span::before,
+.nitaq-news-single-hero span::before {
+	content: "";
+	width: 42px;
+	height: 1px;
+	background: currentColor;
+}
+
+.nitaq-news-heading h2,
+.nitaq-news-hero h1,
+.nitaq-news-single-hero h1 {
+	margin: 0 0 18px;
+	color: #FFFFFF;
+	font-size: clamp(38px, 4vw, 48px);
+	font-weight: 500;
+	line-height: 1.25;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-news-heading p,
+.nitaq-news-hero p {
+	max-width: 680px;
+	margin: 0 auto;
+	color: rgba(255, 255, 255, 0.72);
+	font-size: 15px;
+	line-height: 1.8;
+}
+
+.nitaq-news-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 28px;
+}
+
+.nitaq-news-card {
+	display: flex;
+	min-height: 100%;
+	flex-direction: column;
+	border: 1px solid rgba(184, 170, 118, 0.22);
+	border-radius: 6px;
+	overflow: hidden;
+	background: #173D38;
+	box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
+	transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.nitaq-news-card__image {
+	position: relative;
+	display: block;
+	height: 210px;
+	overflow: hidden;
+}
+
+.nitaq-news-card__image img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.45s ease;
+}
+
+@media (hover: hover) {
+	.nitaq-news-card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 28px 55px rgba(0, 0, 0, 0.20);
+	}
+}
+
+.nitaq-news-card:hover .nitaq-news-card__image img {
+	transform: scale(1.035);
+}
+
+.nitaq-news-card__image span {
+	position: absolute;
+	right: 18px;
+	bottom: 18px;
+	display: inline-flex;
+	padding: 8px 14px;
+	color: var(--nitaq-news-gold);
+	background: rgba(15, 48, 45, 0.92);
+	border: 1px solid rgba(184, 170, 118, 0.34);
+	font-size: 13px;
+	font-weight: 700;
+	line-height: 1.4;
+}
+
+.nitaq-news-card__content {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	padding: 24px 22px 26px;
+	text-align: right;
+	direction: rtl;
+}
+
+.nitaq-news-card h3 {
+	margin: 0 0 12px;
+	color: #FFFFFF;
+	font-size: 20px;
+	font-weight: 600;
+	line-height: 1.55;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-news-card h3 a {
+	color: inherit !important;
+	text-decoration: none;
+}
+
+.nitaq-news-card p {
+	margin: 0 0 20px;
+	color: rgba(255, 255, 255, 0.72);
+	font-size: 14px;
+	line-height: 1.85;
+}
+
+.nitaq-news-card__button {
+	display: inline-flex;
+	width: fit-content;
+	align-items: center;
+	justify-content: center;
+	margin-top: auto;
+	padding: 7px 14px;
+	color: var(--nitaq-news-gold) !important;
+	background: transparent;
+	border: 1px solid rgba(184, 170, 118, 0.45);
+	border-radius: 4px;
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.7;
+	text-decoration: none;
+	transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.nitaq-news-card__button:hover {
+	color: var(--nitaq-news-green) !important;
+	background: var(--nitaq-news-gold);
+	border-color: var(--nitaq-news-gold);
+}
+
+.nitaq-news-more {
+	margin-top: 35px;
+	text-align: center;
+}
+
+.nitaq-news-more .nitaq-news-card__button {
+	padding: 11px 28px;
+	border-color: var(--nitaq-news-gold);
+}
+
+.nitaq-news-empty {
+	color: rgba(255, 255, 255, 0.75);
+	font-size: 18px;
+	line-height: 2;
+}
+
+.nitaq-news-hero,
+.nitaq-news-single-hero {
+	position: relative;
+	display: flex;
+	min-height: 520px;
+	align-items: flex-end;
+	padding: 160px 0 90px;
+	background:
+		linear-gradient(rgba(15, 48, 45, 0.88), rgba(15, 48, 45, 0.88)),
+		url("/wp-content/uploads/2026/05/theWholeProject.png") center center / cover no-repeat;
+}
+
+.nitaq-news-listing,
+.nitaq-news-related {
+	padding: 92px 0 110px;
+	background: var(--nitaq-news-green);
+}
+
+.nitaq-news-pagination {
+	margin-top: 52px;
+	text-align: center;
+}
+
+.nitaq-news-pagination .page-numbers {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 42px;
+	height: 42px;
+	margin: 0 4px;
+	color: #FFFFFF;
+	border: 1px solid rgba(184, 170, 118, 0.35);
+	text-decoration: none;
+}
+
+.nitaq-news-pagination .page-numbers.current,
+.nitaq-news-pagination .page-numbers:hover {
+	color: var(--nitaq-news-green);
+	background: var(--nitaq-news-gold);
+	border-color: var(--nitaq-news-gold);
+}
+
+.nitaq-news-single-hero {
+	overflow: hidden;
+}
+
+.nitaq-news-single-hero__image,
+.nitaq-news-single-hero__overlay {
+	position: absolute;
+	inset: 0;
+}
+
+.nitaq-news-single-hero__image {
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	transform: scale(1.02);
+}
+
+.nitaq-news-single-hero__overlay {
+	background:
+		linear-gradient(90deg, rgba(15, 48, 45, 0.42), rgba(15, 48, 45, 0.92)),
+		linear-gradient(0deg, rgba(15, 48, 45, 0.82), rgba(15, 48, 45, 0.18));
+}
+
+.nitaq-news-single-hero .nitaq-news-container {
+	position: relative;
+	z-index: 2;
+}
+
+.nitaq-news-single-content {
+	padding: 84px 0;
+	background: var(--nitaq-news-cream);
+	color: #122C2C;
+}
+
+.nitaq-news-single-content__inner {
+	max-width: 860px;
+}
+
+.nitaq-news-single-content p,
+.nitaq-news-single-content li {
+	color: rgba(18, 44, 44, 0.82);
+	font-size: 19px;
+	line-height: 2.05;
+}
+
+.nitaq-news-single-content p {
+	margin: 0 0 24px;
+}
+
+.nitaq-news-single-content .nitaq-news-card__button {
+	margin-top: 28px;
+	color: #122C2C !important;
+}
+
+.nitaq-news-single-content .nitaq-news-card__button:hover {
+	color: #122C2C !important;
+}
+
+@media only screen and (max-width: 1024px) {
+	.nitaq-news-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.nitaq-news-card__image {
+		height: 210px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.nitaq-news-container {
+		width: min(92%, 1180px);
+	}
+
+	.nitaq-news-section,
+	.nitaq-news-listing,
+	.nitaq-news-related,
+	.nitaq-news-single-content {
+		padding: 65px 0;
+	}
+
+	.nitaq-news-hero,
+	.nitaq-news-single-hero {
+		min-height: 430px;
+		padding: 132px 0 58px;
+	}
+
+	.nitaq-news-heading h2,
+	.nitaq-news-hero h1,
+	.nitaq-news-single-hero h1 {
+		font-size: 32px;
+	}
+
+	.nitaq-news-grid {
+		grid-template-columns: 1fr;
+		gap: 22px;
+	}
+
+	.nitaq-news-card__image {
+		height: 220px;
+	}
+
+	.nitaq-news-card__content {
+		padding: 22px 18px 24px;
+	}
+}
+
+/* Nitaq brochures page */
+.nitaq-brochures-page {
+	--nitaq-brochures-green: #0F302D;
+	--nitaq-brochures-green-soft: #123A35;
+	--nitaq-brochures-gold: #B8AA76;
+	--nitaq-brochures-cream: #F8F7F2;
+	background: var(--nitaq-brochures-green);
+	color: #FFFFFF;
+	direction: rtl;
+	text-align: right;
+	overflow: hidden;
+}
+
+.nitaq-brochures-page *,
+.nitaq-brochures-page *::before,
+.nitaq-brochures-page *::after {
+	box-sizing: border-box;
+}
+
+.nitaq-brochures-container {
+	width: min(1180px, calc(100% - 56px));
+	margin: 0 auto;
+}
+
+.nitaq-brochures-hero {
+	position: relative;
+	padding: 180px 0 118px;
+	background:
+		radial-gradient(circle at 18% 20%, rgba(184, 170, 118, 0.14), transparent 28%),
+		linear-gradient(135deg, rgba(18, 58, 53, 0.96), rgba(15, 48, 45, 1));
+	text-align: center;
+}
+
+.nitaq-brochures-hero::after {
+	content: "";
+	position: absolute;
+	right: 50%;
+	bottom: 78px;
+	width: 86px;
+	height: 1px;
+	background: var(--nitaq-brochures-gold);
+	transform: translateX(50%);
+}
+
+.nitaq-brochures-kicker {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 18px;
+	color: var(--nitaq-brochures-gold);
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.8;
+}
+
+.nitaq-brochures-page h1,
+.nitaq-brochures-page h2,
+.nitaq-brochures-page h3,
+.nitaq-brochures-page p {
+	margin: 0;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-brochures-hero h1 {
+	margin-bottom: 18px;
+	color: #FFFFFF;
+	font-size: clamp(52px, 8vw, 92px);
+	font-weight: 500;
+	line-height: 1.25;
+}
+
+.nitaq-brochures-hero h2 {
+	max-width: 860px;
+	margin: 0 auto 22px;
+	color: #FFFFFF;
+	font-size: clamp(28px, 4vw, 46px);
+	font-weight: 500;
+	line-height: 1.45;
+}
+
+.nitaq-brochures-hero p {
+	max-width: 820px;
+	margin: 0 auto;
+	color: rgba(255, 255, 255, 0.74);
+	font-size: 18px;
+	line-height: 2;
+}
+
+.nitaq-brochures-list {
+	padding: 110px 0;
+	background: var(--nitaq-brochures-cream);
+}
+
+.nitaq-brochures-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 32px;
+}
+
+.nitaq-brochure-card {
+	display: flex;
+	min-height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	border: 1px solid rgba(184, 170, 118, 0.35);
+	border-radius: 12px;
+	background: #FFFFFF;
+	box-shadow: 0 24px 70px rgba(15, 48, 45, 0.12);
+}
+
+.nitaq-brochure-card__image {
+	display: block;
+	height: 320px;
+	overflow: hidden;
+	background: var(--nitaq-brochures-green);
+}
+
+.nitaq-brochure-card__image img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.45s ease;
+}
+
+.nitaq-brochure-card:hover .nitaq-brochure-card__image img {
+	transform: scale(1.04);
+}
+
+.nitaq-brochure-card__content {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	padding: 34px;
+	color: var(--nitaq-brochures-green);
+}
+
+.nitaq-brochure-card__content span {
+	margin-bottom: 12px;
+	color: var(--nitaq-brochures-gold);
+	font-size: 13px;
+	font-weight: 800;
+	line-height: 1.8;
+}
+
+.nitaq-brochure-card h3 {
+	margin-bottom: 16px;
+	color: var(--nitaq-brochures-green);
+	font-size: 30px;
+	font-weight: 600;
+	line-height: 1.4;
+}
+
+.nitaq-brochure-card p {
+	margin-bottom: 30px;
+	color: rgba(15, 48, 45, 0.74);
+	font-size: 17px;
+	line-height: 2;
+}
+
+.nitaq-brochure-card__button {
+	display: inline-flex;
+	width: fit-content;
+	align-items: center;
+	justify-content: center;
+	margin-top: auto;
+	padding: 12px 24px;
+	color: var(--nitaq-brochures-green) !important;
+	background: var(--nitaq-brochures-gold);
+	border: 1px solid var(--nitaq-brochures-gold);
+	border-radius: 10px;
+	font-size: 15px;
+	font-weight: 800;
+	line-height: 1.7;
+	text-decoration: none;
+	transition: color 0.25s ease, background 0.25s ease;
+}
+
+.nitaq-brochure-card__button:hover {
+	color: var(--nitaq-brochures-gold) !important;
+	background: var(--nitaq-brochures-green);
+}
+
+.nitaq-brochures-cta {
+	padding: 98px 0 108px;
+	background:
+		linear-gradient(rgba(15, 48, 45, 0.92), rgba(15, 48, 45, 0.92)),
+		url("/wp-content/uploads/2026/05/تفاصيل-معمارية-وطبيعية.png") center center / cover no-repeat;
+	text-align: center;
+}
+
+.nitaq-brochures-cta .nitaq-brochures-container {
+	max-width: 820px;
+}
+
+.nitaq-brochures-cta h2 {
+	margin-bottom: 18px;
+	color: #FFFFFF;
+	font-size: clamp(34px, 5vw, 58px);
+	font-weight: 500;
+	line-height: 1.35;
+}
+
+.nitaq-brochures-cta p {
+	margin: 0 auto 30px;
+	color: rgba(255, 255, 255, 0.76);
+	font-size: 18px;
+	line-height: 2;
+}
+
+@media only screen and (max-width: 1024px) {
+	.nitaq-brochures-grid {
+		gap: 24px;
+	}
+
+	.nitaq-brochure-card__image {
+		height: 280px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.nitaq-brochures-container {
+		width: min(100% - 36px, 1180px);
+	}
+
+	.nitaq-brochures-hero {
+		padding: 138px 0 86px;
+	}
+
+	.nitaq-brochures-hero h1 {
+		font-size: 48px;
+	}
+
+	.nitaq-brochures-hero h2 {
+		font-size: 28px;
+	}
+
+	.nitaq-brochures-hero p,
+	.nitaq-brochures-cta p {
+		font-size: 16px;
+	}
+
+	.nitaq-brochures-list,
+	.nitaq-brochures-cta {
+		padding: 72px 0;
+	}
+
+	.nitaq-brochures-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.nitaq-brochure-card__image {
+		height: 230px;
+	}
+
+	.nitaq-brochure-card__content {
+		padding: 26px;
+	}
+
+	.nitaq-brochure-card h3 {
+		font-size: 26px;
+	}
+}
+
+/* Nitaq register interest landing page */
+.nitaq-register-page {
+	--nitaq-register-green: #0F302D;
+	--nitaq-register-green-soft: #123A35;
+	--nitaq-register-gold: #B8AA76;
+	--nitaq-register-cream: #F7F4EC;
+	background: var(--nitaq-register-green);
+	color: #FFFFFF;
+	direction: rtl;
+	text-align: right;
+	overflow: hidden;
+	scroll-behavior: smooth;
+}
+
+.nitaq-register-page *,
+.nitaq-register-page *::before,
+.nitaq-register-page *::after {
+	box-sizing: border-box;
+}
+
+.nitaq-register-container {
+	width: min(1180px, calc(100% - 56px));
+	margin: 0 auto;
+}
+
+.nitaq-register-page h1,
+.nitaq-register-page h2,
+.nitaq-register-page h3,
+.nitaq-register-page p {
+	margin: 0;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-register-hero {
+	position: relative;
+	display: flex;
+	min-height: min(820px, 94vh);
+	align-items: flex-end;
+	padding: 170px 0 104px;
+	overflow: hidden;
+	background: var(--nitaq-register-green);
+}
+
+.nitaq-register-hero__image,
+.nitaq-register-hero__overlay {
+	position: absolute;
+	inset: 0;
+}
+
+.nitaq-register-hero__image {
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	transform: scale(1.02);
+}
+
+.nitaq-register-hero__overlay {
+	background:
+		linear-gradient(90deg, rgba(15, 48, 45, 0.32), rgba(15, 48, 45, 0.92)),
+		linear-gradient(0deg, rgba(15, 48, 45, 0.76), rgba(15, 48, 45, 0.28));
+}
+
+.nitaq-register-hero__content {
+	position: relative;
+	z-index: 2;
+	max-width: 760px;
+	margin-right: max(7vw, 28px);
+	margin-left: auto;
+}
+
+.nitaq-register-kicker {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 18px;
+	color: var(--nitaq-register-gold);
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.8;
+}
+
+.nitaq-register-kicker::before {
+	content: "";
+	width: 42px;
+	height: 1px;
+	background: currentColor;
+}
+
+.nitaq-register-hero h1 {
+	margin-bottom: 20px;
+	color: #FFFFFF;
+	font-size: clamp(48px, 7vw, 86px);
+	font-weight: 500;
+	line-height: 1.25;
+}
+
+.nitaq-register-hero h2 {
+	max-width: 720px;
+	margin-bottom: 22px;
+	color: #FFFFFF;
+	font-size: clamp(27px, 3.7vw, 45px);
+	font-weight: 500;
+	line-height: 1.45;
+}
+
+.nitaq-register-hero p {
+	max-width: 720px;
+	margin-bottom: 34px;
+	color: rgba(255, 255, 255, 0.76);
+	font-size: 18px;
+	line-height: 2;
+}
+
+.nitaq-register-button,
+.nitaq-register-form-fields input[type="submit"],
+.nitaq-register-form-fields button[type="submit"] {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 50px;
+	padding: 12px 28px;
+	color: var(--nitaq-register-green) !important;
+	background: var(--nitaq-register-gold) !important;
+	border: 1px solid var(--nitaq-register-gold) !important;
+	border-radius: 10px;
+	font-size: 15px;
+	font-weight: 800;
+	line-height: 1.7;
+	text-decoration: none;
+	transition: color 0.25s ease, background 0.25s ease;
+}
+
+.nitaq-register-button:hover,
+.nitaq-register-form-fields input[type="submit"]:hover,
+.nitaq-register-form-fields button[type="submit"]:hover {
+	color: var(--nitaq-register-gold) !important;
+	background: var(--nitaq-register-green) !important;
+}
+
+.nitaq-register-highlights {
+	padding: 0 0 96px;
+	background: var(--nitaq-register-green);
+}
+
+.nitaq-register-highlight-grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 18px;
+	margin-top: -54px;
+	position: relative;
+	z-index: 3;
+}
+
+.nitaq-register-highlight-grid article {
+	min-height: 250px;
+	padding: 34px 26px;
+	border: 1px solid rgba(184, 170, 118, 0.32);
+	background: rgba(255, 255, 255, 0.055);
+	box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+}
+
+.nitaq-register-highlight-grid span {
+	display: block;
+	margin-bottom: 24px;
+	color: var(--nitaq-register-gold);
+	font-size: 15px;
+	font-weight: 800;
+}
+
+.nitaq-register-highlight-grid h3 {
+	margin-bottom: 14px;
+	color: #FFFFFF;
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 1.45;
+}
+
+.nitaq-register-highlight-grid p {
+	color: rgba(255, 255, 255, 0.72);
+	font-size: 15px;
+	line-height: 1.9;
+}
+
+.nitaq-register-preview,
+.nitaq-register-form-section {
+	padding: 112px 0;
+	background: var(--nitaq-register-cream);
+	color: var(--nitaq-register-green);
+}
+
+.nitaq-register-split,
+.nitaq-register-form-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+	gap: 72px;
+	align-items: center;
+}
+
+.nitaq-register-copy h2,
+.nitaq-register-form-card h2,
+.nitaq-register-final h2 {
+	margin-bottom: 22px;
+	color: var(--nitaq-register-green);
+	font-size: clamp(34px, 4.4vw, 58px);
+	font-weight: 500;
+	line-height: 1.35;
+}
+
+.nitaq-register-copy p,
+.nitaq-register-form-card > p {
+	color: rgba(15, 48, 45, 0.75);
+	font-size: 18px;
+	line-height: 2;
+}
+
+.nitaq-register-copy ul,
+.nitaq-register-side-card ul {
+	display: grid;
+	gap: 12px;
+	margin: 28px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.nitaq-register-copy li,
+.nitaq-register-side-card li {
+	position: relative;
+	padding-right: 26px;
+	color: rgba(15, 48, 45, 0.82);
+	font-size: 17px;
+	line-height: 1.9;
+}
+
+.nitaq-register-copy li::before,
+.nitaq-register-side-card li::before {
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 15px;
+	width: 9px;
+	height: 9px;
+	background: var(--nitaq-register-gold);
+	transform: rotate(45deg);
+}
+
+.nitaq-register-image {
+	margin: 0;
+	overflow: hidden;
+	box-shadow: 0 26px 70px rgba(15, 48, 45, 0.14);
+}
+
+.nitaq-register-image img {
+	display: block;
+	width: 100%;
+	min-height: 520px;
+	object-fit: cover;
+}
+
+.nitaq-register-form-section {
+	background: var(--nitaq-register-green);
+	color: #FFFFFF;
+}
+
+.nitaq-register-form-layout {
+	grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+	align-items: stretch;
+}
+
+.nitaq-register-form-card {
+	padding: 48px;
+	border: 1px solid rgba(184, 170, 118, 0.35);
+	border-radius: 14px;
+	background: var(--nitaq-register-cream);
+	color: var(--nitaq-register-green);
+	box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+}
+
+.nitaq-register-form-card .nitaq-register-kicker::before {
+	background: var(--nitaq-register-gold);
+}
+
+.nitaq-register-form-fields {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 18px;
+	margin-top: 30px;
+}
+
+.nitaq-register-form-fields label {
+	display: grid;
+	gap: 8px;
+	color: var(--nitaq-register-green);
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 1.6;
+}
+
+.nitaq-register-form-fields__wide,
+.nitaq-register-form-fields__submit {
+	grid-column: 1 / -1;
+}
+
+.nitaq-register-form-fields input,
+.nitaq-register-form-fields select,
+.nitaq-register-form-fields textarea {
+	width: 100%;
+	min-height: 52px;
+	padding: 12px 14px;
+	color: var(--nitaq-register-green);
+	background: #FFFFFF;
+	border: 1px solid rgba(184, 170, 118, 0.45);
+	border-radius: 10px;
+	direction: rtl;
+	text-align: right;
+	font-size: 15px;
+}
+
+.nitaq-register-form-fields textarea {
+	min-height: 130px;
+	resize: vertical;
+}
+
+.nitaq-register-form-fields input::placeholder,
+.nitaq-register-form-fields textarea::placeholder {
+	color: rgba(15, 48, 45, 0.48);
+	opacity: 1;
+}
+
+.nitaq-register-form-fields__submit p {
+	margin-top: 12px;
+	color: rgba(15, 48, 45, 0.62);
+	font-size: 13px;
+	line-height: 1.8;
+}
+
+.nitaq-register-page .wpcf7-not-valid-tip,
+.nitaq-register-page .wpcf7-response-output {
+	direction: rtl;
+	text-align: right;
+}
+
+.nitaq-register-page .wpcf7-response-output {
+	margin: 20px 0 0 !important;
+	border-color: var(--nitaq-register-gold) !important;
+	color: var(--nitaq-register-green);
+}
+
+.nitaq-register-side-card {
+	display: flex;
+	min-height: 100%;
+	flex-direction: column;
+	overflow: hidden;
+	border: 1px solid rgba(184, 170, 118, 0.32);
+	border-radius: 14px;
+	background: rgba(255, 255, 255, 0.055);
+}
+
+.nitaq-register-side-card img {
+	display: block;
+	width: 100%;
+	height: 330px;
+	object-fit: cover;
+}
+
+.nitaq-register-side-card div {
+	padding: 32px;
+}
+
+.nitaq-register-side-card h3 {
+	margin-bottom: 14px;
+	color: #FFFFFF;
+	font-size: 28px;
+	line-height: 1.45;
+}
+
+.nitaq-register-side-card p,
+.nitaq-register-side-card li {
+	color: rgba(255, 255, 255, 0.76);
+}
+
+.nitaq-register-final {
+	padding: 108px 0;
+	background:
+		linear-gradient(rgba(15, 48, 45, 0.9), rgba(15, 48, 45, 0.9)),
+		url("/wp-content/uploads/2026/05/تفاصيل-معمارية-وطبيعية.png") center center / cover no-repeat;
+	text-align: center;
+}
+
+.nitaq-register-final .nitaq-register-container {
+	max-width: 850px;
+}
+
+.nitaq-register-final .nitaq-register-kicker::before {
+	display: none;
+}
+
+.nitaq-register-final h2 {
+	color: #FFFFFF;
+}
+
+.nitaq-register-final p {
+	margin: 0 auto 30px;
+	color: rgba(255, 255, 255, 0.76);
+	font-size: 18px;
+	line-height: 2;
+}
+
+@media only screen and (max-width: 1024px) {
+	.nitaq-register-highlight-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.nitaq-register-split,
+	.nitaq-register-form-layout {
+		grid-template-columns: 1fr;
+		gap: 42px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.nitaq-register-container {
+		width: min(100% - 36px, 1180px);
+	}
+
+	.nitaq-register-hero {
+		min-height: 690px;
+		padding: 138px 0 70px;
+	}
+
+	.nitaq-register-hero__content {
+		margin-right: auto;
+	}
+
+	.nitaq-register-hero h1 {
+		font-size: 43px;
+	}
+
+	.nitaq-register-hero h2 {
+		font-size: 27px;
+	}
+
+	.nitaq-register-hero p,
+	.nitaq-register-copy p,
+	.nitaq-register-form-card > p,
+	.nitaq-register-final p {
+		font-size: 16px;
+	}
+
+	.nitaq-register-highlights {
+		padding-bottom: 70px;
+	}
+
+	.nitaq-register-highlight-grid {
+		grid-template-columns: 1fr;
+		margin-top: -36px;
+	}
+
+	.nitaq-register-preview,
+	.nitaq-register-form-section,
+	.nitaq-register-final {
+		padding: 72px 0;
+	}
+
+	.nitaq-register-image img {
+		min-height: 360px;
+	}
+
+	.nitaq-register-form-card {
+		padding: 28px;
+	}
+
+	.nitaq-register-form-fields {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Nitaq projects page */
+.nitaq-project-page {
+	--nitaq-green: #122C2C;
+	--nitaq-green-deep: #0F302D;
+	--nitaq-gold: #B8AA76;
+	--nitaq-soft: #F8F7F2;
+	--nitaq-muted: rgba(248, 247, 242, 0.76);
+	background: var(--nitaq-green);
+	color: var(--nitaq-soft);
+	direction: rtl;
+	text-align: right;
+	overflow: hidden;
+}
+
+.nitaq-project-page *,
+.nitaq-project-page *::before,
+.nitaq-project-page *::after {
+	box-sizing: border-box;
+}
+
+.nitaq-project-page h1,
+.nitaq-project-page h2,
+.nitaq-project-page h3,
+.nitaq-project-page p {
+	margin: 0;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-project-page h1,
+.nitaq-project-page h2,
+.nitaq-project-page h3 {
+	color: inherit;
+	line-height: 1.35;
+}
+
+.nitaq-project-page p {
+	color: var(--nitaq-muted);
+	font-size: 18px;
+	line-height: 2;
+}
+
+.nitaq-project-hero {
+	position: relative;
+	display: flex;
+	min-height: min(760px, 92vh);
+	align-items: flex-end;
+	padding: 170px max(7vw, 28px) 96px;
+	background: var(--nitaq-green-deep);
+	overflow: hidden;
+}
+
+.nitaq-project-hero__image,
+.nitaq-project-hero__overlay {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.nitaq-project-hero__image {
+	object-fit: cover;
+	filter: saturate(0.9) contrast(1.02);
+}
+
+.nitaq-project-hero__overlay {
+	background:
+		linear-gradient(90deg, rgba(18, 44, 44, 0.28), rgba(18, 44, 44, 0.88)),
+		linear-gradient(180deg, rgba(18, 44, 44, 0.15), rgba(18, 44, 44, 0.92));
+}
+
+.nitaq-project-hero__content {
+	position: relative;
+	z-index: 1;
+	width: min(780px, 100%);
+}
+
+.nitaq-project-kicker {
+	display: inline-flex;
+	margin-bottom: 16px !important;
+	color: var(--nitaq-gold) !important;
+	font-size: 14px !important;
+	font-weight: 600;
+	line-height: 1.8 !important;
+}
+
+.nitaq-project-hero h1 {
+	margin-bottom: 10px;
+	font-size: clamp(54px, 8vw, 120px);
+	font-weight: 600;
+}
+
+.nitaq-project-hero h2 {
+	max-width: 760px;
+	margin-bottom: 22px;
+	color: #FFFFFF;
+	font-size: clamp(30px, 4.5vw, 64px);
+	font-weight: 500;
+}
+
+.nitaq-project-hero p:not(.nitaq-project-kicker) {
+	max-width: 640px;
+	color: rgba(248, 247, 242, 0.86);
+	font-size: 20px;
+}
+
+.nitaq-project-section {
+	padding: 110px max(7vw, 28px);
+	background: var(--nitaq-green);
+}
+
+.nitaq-project-section--light {
+	background: var(--nitaq-soft);
+	color: var(--nitaq-green);
+}
+
+.nitaq-project-section--light p {
+	color: rgba(18, 44, 44, 0.74);
+}
+
+.nitaq-project-grid {
+	display: grid;
+	width: min(1180px, 100%);
+	margin: 0 auto;
+	gap: 44px;
+}
+
+.nitaq-project-grid--split,
+.nitaq-project-grid--two,
+.nitaq-project-models {
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	align-items: center;
+}
+
+.nitaq-project-grid--reverse {
+	direction: ltr;
+}
+
+.nitaq-project-grid--reverse > * {
+	direction: rtl;
+}
+
+.nitaq-project-page h2 {
+	margin-bottom: 24px;
+	font-size: clamp(34px, 4vw, 58px);
+	font-weight: 500;
+}
+
+.nitaq-project-page h3 {
+	margin-bottom: 14px;
+	font-size: clamp(25px, 2.4vw, 36px);
+	font-weight: 600;
+}
+
+.nitaq-project-lead {
+	font-size: 20px !important;
+	line-height: 2.05 !important;
+}
+
+.nitaq-project-media,
+.nitaq-project-wide-media,
+.nitaq-project-model-card,
+.nitaq-project-text-card,
+.nitaq-project-image-pair img {
+	border: 1px solid rgba(184, 170, 118, 0.28);
+	box-shadow: 0 28px 70px rgba(0, 0, 0, 0.22);
+}
+
+.nitaq-project-media,
+.nitaq-project-wide-media {
+	margin: 0;
+	overflow: hidden;
+	background: rgba(248, 247, 242, 0.06);
+}
+
+.nitaq-project-media {
+	aspect-ratio: 1.1 / 1;
+}
+
+.nitaq-project-wide-media {
+	width: min(1180px, 100%);
+	margin: 44px auto 0;
+	aspect-ratio: 16 / 7;
+}
+
+.nitaq-project-media img,
+.nitaq-project-wide-media img,
+.nitaq-project-model-card img,
+.nitaq-project-image-pair img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.nitaq-project-text-card,
+.nitaq-project-model-card {
+	background: #FFFFFF;
+	color: var(--nitaq-green);
+}
+
+.nitaq-project-text-card {
+	min-height: 330px;
+	padding: 42px;
+}
+
+.nitaq-project-section-head {
+	width: min(860px, 100%);
+	margin: 0 auto 42px;
+	text-align: center;
+}
+
+.nitaq-project-section-head .nitaq-project-kicker {
+	justify-content: center;
+}
+
+.nitaq-project-section-head p:not(.nitaq-project-kicker) {
+	font-size: 19px;
+}
+
+.nitaq-project-model-card {
+	overflow: hidden;
+}
+
+.nitaq-project-model-card img {
+	aspect-ratio: 16 / 11;
+	height: auto;
+}
+
+.nitaq-project-model-card div {
+	padding: 32px;
+}
+
+.nitaq-project-model-card p {
+	color: rgba(18, 44, 44, 0.72);
+}
+
+.nitaq-project-lifestyle {
+	background: linear-gradient(180deg, #122C2C 0%, #0F302D 100%);
+}
+
+.nitaq-project-amenities {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 16px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.nitaq-project-amenities li {
+	position: relative;
+	min-height: 74px;
+	padding: 20px 44px 20px 20px;
+	color: #FFFFFF;
+	background: rgba(248, 247, 242, 0.06);
+	border: 1px solid rgba(184, 170, 118, 0.22);
+	font-size: 18px;
+	line-height: 1.8;
+}
+
+.nitaq-project-amenities li::before {
+	content: "";
+	position: absolute;
+	top: 30px;
+	right: 20px;
+	width: 8px;
+	height: 8px;
+	background: var(--nitaq-gold);
+}
+
+.nitaq-project-image-pair {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 18px;
+}
+
+.nitaq-project-image-pair img {
+	aspect-ratio: 4 / 5;
+}
+
+.nitaq-project-cta {
+	text-align: center;
+	background:
+		linear-gradient(135deg, rgba(184, 170, 118, 0.12), transparent 38%),
+		var(--nitaq-green);
+	border-top: 1px solid rgba(184, 170, 118, 0.28);
+}
+
+.nitaq-project-cta > div {
+	width: min(820px, 100%);
+	margin: 0 auto;
+}
+
+.nitaq-project-cta .nitaq-project-kicker {
+	justify-content: center;
+}
+
+.nitaq-project-cta a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 34px;
+	padding: 14px 34px;
+	color: var(--nitaq-green) !important;
+	background: var(--nitaq-gold);
+	border: 1px solid var(--nitaq-gold);
+	border-radius: 10px;
+	font-size: 17px;
+	font-weight: 600;
+	line-height: 1.8;
+	text-decoration: none;
+}
+
+.nitaq-project-cta a:hover {
+	color: #FFFFFF !important;
+	background: transparent;
+}
+
+@media only screen and (max-width: 1024px) {
+	.nitaq-project-hero {
+		min-height: 720px;
+		padding-top: 130px;
+	}
+
+	.nitaq-project-grid--split,
+	.nitaq-project-grid--two,
+	.nitaq-project-models {
+		grid-template-columns: 1fr;
+	}
+
+	.nitaq-project-wide-media {
+		aspect-ratio: 4 / 3;
+	}
+}
+
+@media only screen and (max-width: 680px) {
+	.nitaq-project-hero {
+		min-height: 640px;
+		padding: 116px 24px 68px;
+	}
+
+	.nitaq-project-section {
+		padding: 76px 24px;
+	}
+
+	.nitaq-project-page p,
+	.nitaq-project-lead {
+		font-size: 16px !important;
+	}
+
+	.nitaq-project-media {
+		aspect-ratio: 4 / 3;
+	}
+
+	.nitaq-project-text-card,
+	.nitaq-project-model-card div {
+		padding: 28px;
+	}
+
+	.nitaq-project-amenities,
+	.nitaq-project-image-pair {
+		grid-template-columns: 1fr;
+	}
+
+	.nitaq-project-section-head {
+		text-align: right;
+	}
+
+	.nitaq-project-section-head .nitaq-project-kicker,
+	.nitaq-project-cta .nitaq-project-kicker {
+		justify-content: flex-start;
+	}
+
+	.nitaq-project-cta {
+		text-align: right;
+	}
+}
+
+/* Nitaq homepage news */
+.nitaq-news-section {
+	direction: rtl;
+}
+
+.nitaq-news-section .qodef-section-title {
+	text-align: right;
+}
+
+.nitaq-news-section .qodef-blog {
+	direction: rtl;
+}
+
+.nitaq-news-section .qodef-blog article {
+	text-align: right;
+}
+
+.nitaq-news-section .qodef-blog article .qodef-e-media-image {
+	background-color: rgba(248, 247, 242, 0.08);
+	overflow: hidden;
+}
+
+.nitaq-news-section .qodef-blog article .qodef-e-media-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	filter: saturate(0.94) contrast(1.02);
+}
+
+.nitaq-news-section .qodef-blog article .qodef-e-info-date,
+.nitaq-news-section .qodef-blog article .qodef-e-info-date a {
+	color: #B8AA76 !important;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-news-section .qodef-blog article .qodef-e-title,
+.nitaq-news-section .qodef-blog article .qodef-e-title a {
+	color: #FFFFFF !important;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-news-section .qodef-blog article .qodef-e-title a:hover {
+	color: #B8AA76 !important;
+}
+
+.nitaq-news-section .qodef-blog article .qodef-e-excerpt {
+	color: rgba(248, 247, 242, 0.78) !important;
+	line-height: 1.9;
+	text-align: right;
+}
+
+.nitaq-news-section .qodef-blog article .qodef-e-read-more,
+.nitaq-news-section .qodef-blog article .qodef-button {
+	color: #B8AA76 !important;
+}
+
+.nitaq-news-section .qodef-blog article .qodef-e-read-more svg *,
+.nitaq-news-section .qodef-blog article .qodef-button svg * {
+	stroke: #B8AA76 !important;
+}
+
+@media only screen and (max-width: 768px) {
+	.nitaq-news-section {
+		padding-top: 65px !important;
+		padding-bottom: 65px !important;
+	}
+
+	.nitaq-news-section .qodef-blog article {
+		margin-bottom: 42px;
+	}
+}
+
+#qodef-page-footer {
+	background-color: #122C2C !important;
+	color: #F8F7F2;
+	direction: rtl;
+	text-align: right;
+	border-top: 1px solid rgba(184, 170, 118, 0.45);
+	box-shadow: 0 -18px 50px rgba(8, 26, 24, 0.12);
+}
+
+#qodef-page-footer-top-area,
+#qodef-page-footer-bottom-area {
+	background-color: #122C2C !important;
+}
+
+#qodef-page-footer-top-area {
+	padding-top: 64px !important;
+	padding-bottom: 42px !important;
+}
+
+#qodef-page-footer-bottom-area {
+	border-top: 1px solid rgba(184, 170, 118, 0.18);
+	padding-top: 22px !important;
+	padding-bottom: 24px !important;
+}
+
+#qodef-page-footer .widget {
+	margin-bottom: 24px;
+}
+
+#qodef-page-footer .widget,
+#qodef-page-footer p,
+#qodef-page-footer li,
+#qodef-page-footer .textwidget {
+	color: rgba(248, 247, 242, 0.82);
+}
+
+#qodef-page-footer .qodef-widget-title,
+#qodef-page-footer h1,
+#qodef-page-footer h2,
+#qodef-page-footer h3,
+#qodef-page-footer h4,
+#qodef-page-footer h5,
+#qodef-page-footer h6 {
+	color: #BDB18F !important;
+	letter-spacing: 0;
+	text-transform: none;
+	margin-bottom: 18px;
+}
+
+#qodef-page-footer a {
+	color: #F8F7F2 !important;
+	text-decoration: none;
+}
+
+#qodef-page-footer a:hover {
+	color: #BDB18F !important;
+}
+
+#qodef-page-footer ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.nitaq-footer-logo {
+	display: block;
+	width: min(205px, 64vw);
+	height: auto;
+	margin: 0 0 24px auto;
+	object-fit: contain;
+}
+
+.nitaq-footer-company,
+.nitaq-footer-contact-company {
+	color: #BDB18F !important;
+	font-weight: 600;
+	margin-bottom: 10px !important;
+}
+
+.nitaq-footer-brand p,
+.nitaq-footer-contact p {
+	margin: 0;
+	line-height: 1.9;
+	max-width: 390px;
+}
+
+.nitaq-footer-links li {
+	margin-bottom: 12px;
+	line-height: 1.8;
+}
+
+.nitaq-footer-copy {
+	width: 100%;
+	color: rgba(248, 247, 242, 0.72);
+	text-align: center;
+	line-height: 1.8;
+}
+
+@media only screen and (max-width: 768px) {
+	.nitaq-interest-section {
+		padding-top: 80px !important;
+		padding-bottom: 80px !important;
+	}
+
+	.nitaq-interest-card {
+		margin-right: 20px !important;
+		margin-left: 20px !important;
+		padding: 38px 26px 44px !important;
+	}
+
+	#qodef-page-footer {
+		text-align: right;
+	}
+
+	#qodef-page-footer-top-area {
+		padding-top: 48px !important;
+		padding-bottom: 24px !important;
+	}
+
+	#qodef-page-footer-bottom-area {
+		padding-top: 18px !important;
+		padding-bottom: 20px !important;
+	}
+
+	#qodef-page-footer .widget {
+		margin-bottom: 34px;
+	}
+
+	.nitaq-footer-logo {
+		width: min(165px, 58vw);
+		margin-right: 0;
+		margin-left: auto;
+	}
+
+	.nitaq-footer-brand p,
+	.nitaq-footer-contact p {
+		max-width: none;
+	}
+}
+
+/* Nitaq side area menu */
+#qodef-side-area {
+	right: auto !important;
+	left: -499px;
+	background-color: #122C2C !important;
+	color: #F8F7F2;
+	border-right: 1px solid rgba(189, 177, 143, 0.28);
+	box-shadow: 18px 0 60px rgba(0, 0, 0, 0.28);
+}
+
+.qodef-side-area--opened #qodef-side-area {
+	right: auto !important;
+	left: 0 !important;
+	visibility: visible;
+}
+
+.qodef-side-area--opened .qodef-side-area-cover {
+	background-color: rgba(18, 44, 44, 0.55) !important;
+}
+
+#qodef-side-area-close {
+	right: auto !important;
+	left: 42px;
+	color: #BDB18F !important;
+}
+
+#qodef-side-area-close:hover {
+	color: #F8F7F2 !important;
+}
+
+#qodef-side-area .widget,
+#qodef-side-area p,
+#qodef-side-area .textwidget {
+	color: rgba(248, 247, 242, 0.78);
+}
+
+#qodef-side-area {
+	direction: rtl;
+	text-align: center;
+}
+
+#qodef-side-area-inner {
+	display: flex;
+	min-height: 100%;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 30px;
+}
+
+#qodef-side-area .widget {
+	margin: 0;
+}
+
+#qodef-side-area .widget_media_image {
+	line-height: 0;
+}
+
+#qodef-side-area .nitaq-side-area-logo-link {
+	display: inline-block;
+	line-height: 0;
+}
+
+#qodef-side-area img.nitaq-side-area-logo {
+	display: block;
+	width: min(210px, 60vw);
+	max-width: 100%;
+	height: auto;
+	object-fit: contain;
+}
+
+#qodef-side-area .nitaq-side-brand,
+#qodef-side-area .nitaq-side-contact {
+	max-width: 340px;
+	margin: 0 auto;
+	direction: rtl;
+	text-align: center;
+}
+
+#qodef-side-area .nitaq-side-brand h4,
+#qodef-side-area .nitaq-side-contact h5 {
+	margin: 0 0 16px;
+	color: #BDB18F;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+#qodef-side-area .nitaq-side-brand h4 {
+	font-size: 34px;
+	line-height: 1.35;
+}
+
+#qodef-side-area .nitaq-side-contact h5 {
+	font-size: 24px;
+	line-height: 1.4;
+}
+
+#qodef-side-area .nitaq-side-brand p,
+#qodef-side-area .nitaq-side-contact p {
+	margin: 0;
+	color: rgba(248, 247, 242, 0.82);
+	font-size: 17px;
+	line-height: 1.9;
+}
+
+#qodef-side-area .nitaq-side-contact-link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 24px;
+	padding: 11px 28px;
+	border: 1px solid #BDB18F;
+	color: #BDB18F !important;
+	font-size: 14px;
+	line-height: 1.6;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+#qodef-side-area .nitaq-side-contact-link:hover {
+	background-color: #BDB18F !important;
+	color: #122C2C !important;
+}
+
+#qodef-side-area .qodef-widget-title,
+#qodef-side-area h1,
+#qodef-side-area h2,
+#qodef-side-area h3,
+#qodef-side-area h4,
+#qodef-side-area h5,
+#qodef-side-area h6 {
+	color: #F8F7F2;
+}
+
+#qodef-side-area a,
+#qodef-side-area .qodef-social-icons-group a,
+#qodef-side-area .qodef-icon-holder {
+	color: #BDB18F !important;
+}
+
+#qodef-side-area a:hover,
+#qodef-side-area .qodef-social-icons-group a:hover,
+#qodef-side-area .qodef-icon-holder:hover {
+	color: #F8F7F2 !important;
+}
+
+#qodef-side-area svg,
+#qodef-side-area svg * {
+	stroke: currentColor;
+}
+
+#qodef-side-area .sbi_info,
+#qodef-side-area .sb_instagram_error,
+#qodef-side-area .sbi_error {
+	background-color: #F8F7F2;
+	color: #122C2C;
+	border-color: rgba(189, 177, 143, 0.35);
+}
+
+@media only screen and (max-width: 680px) {
+	#qodef-side-area {
+		left: -86vw;
+		width: 86vw;
+		padding-right: 36px;
+		padding-left: 36px;
+	}
+
+	.qodef-side-area--opened #qodef-side-area {
+		left: 0 !important;
+	}
+
+	#qodef-side-area-close {
+		left: 28px;
+	}
+
+	#qodef-side-area-inner {
+		gap: 24px;
+	}
+
+	#qodef-side-area img.nitaq-side-area-logo {
+		width: min(170px, 58vw);
+	}
+
+	#qodef-side-area .nitaq-side-brand h4 {
+		font-size: 29px;
+	}
+
+	#qodef-side-area .nitaq-side-brand p,
+	#qodef-side-area .nitaq-side-contact p {
+		font-size: 15px;
+		line-height: 1.85;
+	}
+}
+
+/* Nitaq mobile header and menu */
+@media only screen and (max-width: 1024px) {
+	body.qodef-mobile-header--standard #qodef-page-mobile-header {
+		background-color: #0F302D !important;
+		border: 0;
+		box-shadow: 0 10px 28px rgba(5, 22, 20, 0.18);
+		direction: rtl;
+	}
+
+	body.qodef-mobile-header--standard #qodef-page-mobile-header-inner {
+		min-height: 82px;
+		height: 82px;
+		padding: 0 22px;
+		background-color: #0F302D !important;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-logo-link {
+		position: absolute !important;
+		left: 50% !important;
+		right: auto !important;
+		top: 50% !important;
+		transform: translate(-50%, -50%) !important;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: min(136px, 38vw);
+		height: auto !important;
+		min-height: 0;
+		max-height: none;
+		line-height: 0;
+		padding: 0;
+		box-sizing: border-box;
+		overflow: visible !important;
+		background-image: none !important;
+		opacity: 1 !important;
+		visibility: visible !important;
+		z-index: 4;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-logo-link img {
+		position: static !important;
+		display: block;
+		width: auto !important;
+		max-width: min(136px, 38vw) !important;
+		height: auto !important;
+		max-height: none !important;
+		object-fit: contain !important;
+		transform: none !important;
+		opacity: 1 !important;
+		visibility: visible !important;
+		z-index: 5;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-logo-link .qodef--main {
+		display: none !important;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-logo-link .qodef--light {
+		display: block !important;
+		opacity: 1 !important;
+		visibility: visible !important;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-logo-link .qodef--dark {
+		display: none !important;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-opener {
+		position: absolute !important;
+		right: 18px !important;
+		left: auto !important;
+		top: 50% !important;
+		transform: translateY(-50%) !important;
+		width: 52px;
+		height: 52px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		color: #B8AA76 !important;
+		border: 1px solid rgba(184, 170, 118, 0.34);
+		border-radius: 10px;
+		background-color: rgba(255, 255, 255, 0.02);
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-opener svg {
+		width: 28px !important;
+		height: 18px !important;
+		overflow: visible;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-opener svg rect,
+	#qodef-page-mobile-header .qodef-mobile-header-opener svg path,
+	#qodef-page-mobile-header .qodef-mobile-header-opener svg polygon {
+		fill: #B8AA76 !important;
+		stroke: #B8AA76 !important;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-opener:hover,
+	#qodef-page-mobile-header .qodef-mobile-header-opener.qodef--opened {
+		background-color: rgba(184, 170, 118, 0.12);
+		border-color: #B8AA76;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation {
+		background-color: #0F302D !important;
+		border-top: 1px solid rgba(184, 170, 118, 0.22);
+		box-shadow: 0 24px 42px rgba(5, 22, 20, 0.26);
+		direction: rtl;
+		text-align: right;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation > ul,
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul {
+		width: 100%;
+		margin: 0;
+		padding: 18px 24px 26px;
+		background-color: #0F302D !important;
+		list-style: none;
+		box-sizing: border-box;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li {
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li:last-child {
+		border-bottom: 0;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li a {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		min-height: 56px;
+		padding: 0;
+		color: #FFFFFF !important;
+		font-size: 18px;
+		line-height: 1.6;
+		letter-spacing: 0;
+		text-transform: none;
+		text-align: right;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li a:hover,
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li.current-menu-item > a,
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li.current-menu-ancestor > a {
+		color: #B8AA76 !important;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li.nitaq-mobile-menu-cta {
+		border-bottom: 0;
+		margin-bottom: 12px;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li.nitaq-mobile-menu-cta > a {
+		justify-content: center;
+		min-height: 52px;
+		padding: 0 20px;
+		color: #0F302D !important;
+		background-color: #B8AA76;
+		border-radius: 10px;
+		font-weight: 600;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-navigation ul li.nitaq-mobile-menu-cta > a:hover {
+		color: #0F302D !important;
+		background-color: #ADA37D;
+	}
+
+	#qodef-page-outer {
+		margin-top: -82px;
+	}
+}
+
+@media only screen and (max-width: 430px) {
+	body.qodef-mobile-header--standard #qodef-page-mobile-header-inner {
+		min-height: 76px;
+		height: 76px;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-logo-link {
+		width: min(124px, 36vw);
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-logo-link img {
+		max-width: min(124px, 36vw) !important;
+	}
+
+	#qodef-page-mobile-header .qodef-mobile-header-opener {
+		right: 14px !important;
+		width: 48px;
+		height: 48px;
+	}
+
+	#qodef-page-outer {
+		margin-top: -76px;
+	}
+}
+
+/* Image Map Pro tooltip visibility fix */
+.imp-tooltips-container {
+	display: block !important;
+	z-index: 2147483000 !important;
+	overflow: visible !important;
+	pointer-events: none;
+}
+
+.imp-tooltips-container.is-fullscreen:not([style*="display: block"]) {
+	display: none !important;
+}
+
+.imp-tooltip-wrap {
+	z-index: 2147483001 !important;
+	overflow: visible !important;
+	visibility: visible !important;
+}
+
+.imp-tooltip-wrap .imp-tooltip,
+.imp-tooltips-container.is-fullscreen .imp-fullscreen-tooltip {
+	box-sizing: border-box;
+	min-width: 220px;
+	max-width: min(340px, calc(100vw - 32px));
+	z-index: 2147483002 !important;
+	visibility: visible !important;
+	direction: rtl;
+	text-align: right;
+}
+
+.imp-tooltip-wrap .imp-tooltip[style*="display: inline-block"],
+.imp-tooltips-container.is-fullscreen[style*="display: block"] .imp-fullscreen-tooltip[style*="display: flex"] {
+	opacity: 1 !important;
+}
+
+@media (max-width: 767px), (pointer: coarse) {
+	.imp-tooltip-wrap {
+		position: fixed !important;
+		inset: auto 16px calc(16px + env(safe-area-inset-bottom)) 16px !important;
+		width: auto !important;
+		height: auto !important;
+		z-index: 2147483001 !important;
+	}
+
+	.imp-tooltip-wrap .imp-tooltip[style*="display: inline-block"] {
+		display: block !important;
+		width: auto !important;
+		min-width: 0;
+		max-width: none;
+		max-height: min(52vh, 420px);
+		overflow: auto;
+		border-radius: 14px !important;
+		box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+	}
+
+	.imp-tooltips-container.is-fullscreen {
+		position: fixed !important;
+		inset: 0 !important;
+		width: 100% !important;
+		height: 100% !important;
+		z-index: 2147483000 !important;
+		background: rgba(18, 44, 44, 0.42);
+	}
+
+	.imp-tooltips-container.is-fullscreen .imp-fullscreen-tooltip {
+		width: 100% !important;
+		max-width: none;
+		min-width: 0;
+		padding: 20px;
+	}
+
+	.imp-tooltips-container.is-fullscreen .imp-fullscreen-tooltip .imp-tooltip-content {
+		width: min(100%, 360px);
+		direction: rtl;
+		text-align: right;
+	}
+}
+
+.elementor-widget-shortcode,
+.elementor-widget-shortcode .elementor-widget-container,
+.elementor-shortcode,
+.elementor-section:has([id^="image-map-pro-"]),
+.elementor-container:has([id^="image-map-pro-"]),
+.elementor-column:has([id^="image-map-pro-"]),
+.elementor-widget-wrap:has([id^="image-map-pro-"]) {
+	overflow: visible !important;
+}
+
+/* ─── Community aerial image – Ken Burns ───────────────────────────── */
+@keyframes nitaq-community-kenburns {
+	from {
+		background-size: 104%;
+		background-position: 50% 50%;
+	}
+	to {
+		background-size: 110%;
+		background-position: 54% 50%;
+	}
+}
+
+.elementor-element-409cb69 {
+	overflow: hidden;
+	position: relative;
+}
+
+.elementor-element-409cb69 > .elementor-widget-wrap {
+	overflow: hidden;
+	position: relative;
+	background-size: 104%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	animation: nitaq-community-kenburns 8s ease-in-out normal infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.elementor-element-409cb69 > .elementor-widget-wrap {
+		animation: none;
+		background-size: cover;
+		background-position: 50% 50%;
+	}
+}
+/* ──────────────────────────────────────────────────────────────────── */
+
+/* ─── Story section polish – luxury / Arabic-first ─────────────── */
+
+/* 1. Badge buttons — small luxury labels
+   !important overrides Elementor size-sm preset (12px 24px / 15px).
+   pointer-events: none removes hover animations. */
+.elementor-element-95f9912 .elementor-button,
+.elementor-element-5ba5287 .elementor-button,
+.nitaq-story-badge .elementor-button {
+	padding: 6px 14px !important;
+	font-size: 16px !important;
+	line-height: 1.4 !important;
+	border-radius: 6px !important;
+	border: 1px solid rgba(184, 170, 118, 0.45) !important;
+	box-shadow: 0 1px 6px rgba(15, 48, 45, 0.10);
+	letter-spacing: 0.03em;
+	cursor: default;
+	pointer-events: none;
+}
+
+/* 2. Gold accent line under each story title
+   ::after on H3.qodef-m-title; margin-left: auto aligns right in RTL. */
+.elementor-element-344da97 .qodef-m-title::after,
+.elementor-element-3d72a5c .qodef-m-title::after,
+.nitaq-story-text .qodef-m-title::after {
+	content: '';
+	display: block;
+	width: 55px;
+	height: 1px;
+	background: #B8AA76;
+	opacity: 0.65;
+	margin-top: 14px;
+	margin-left: auto;
+	margin-right: 0;
+}
+
+.nitaq-story-gold-line {
+	display: block;
+	width: 55px;
+	height: 1px;
+	background: #B8AA76;
+	opacity: 0.65;
+	margin: 12px 0 18px auto;
+}
+
+/* 3. Standard image widget — row 2 */
+.elementor-element-b86d9da img,
+.nitaq-story-image img {
+	border: 1px solid rgba(184, 170, 118, 0.28);
+	box-shadow: 0 18px 45px rgba(15, 48, 45, 0.08);
+	border-radius: 4px;
+	display: block;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+}
+
+/* 4. Stacked images — row 1
+   !important overrides Hendon parent theme image styles. */
+.elementor-element-b1e9048 img {
+	border: 1px solid rgba(184, 170, 118, 0.28) !important;
+	box-shadow: 0 18px 45px rgba(15, 48, 45, 0.08) !important;
+	border-radius: 4px !important;
+}
+
+/* 5. Features icon list — 2-column grid
+   !important overrides Elementor's list container display. */
+.elementor-element-f4c08ba .elementor-icon-list-items,
+.nitaq-story-features .elementor-icon-list-items {
+	display: grid !important;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 10px 26px;
+	direction: rtl;
+	text-align: right;
+}
+
+.elementor-element-f4c08ba .elementor-icon-list-item,
+.nitaq-story-features .elementor-icon-list-item {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	direction: rtl;
+}
+
+.elementor-element-f4c08ba .elementor-icon-list-text,
+.nitaq-story-features .elementor-icon-list-text {
+	color: #4D4A43;
+	font-size: 15px;
+	line-height: 1.7;
+}
+
+/* Gold chevron icons — !important overrides Elementor widget colour setting */
+.elementor-element-f4c08ba .elementor-icon-list-icon,
+.nitaq-story-features .elementor-icon-list-icon {
+	color: #B8AA76 !important;
+	flex-shrink: 0;
+	margin-top: 4px;
+}
+
+/* 6. Mobile */
+@media (max-width: 767px) {
+	.elementor-element-f4c08ba .elementor-icon-list-items,
+	.nitaq-story-features .elementor-icon-list-items {
+		grid-template-columns: 1fr;
+	}
+	.elementor-element-b86d9da img,
+	.nitaq-story-image img {
+		width: 100%;
+		max-width: 100%;
+	}
+}
+/* ─────────────────────────────────────────────────────────────────── */
+
+/* ─── Interest form: replace Hendon demo parallax image ─────────── */
+/*
+ * The section elementor-element-37d9af8 is a padding-only parallax section
+ * (empty column, height driven by padding: 305px 0). The demo image
+ * (hendon.qodeinteractive.com/…/home-1-parallax-1.jpg) is injected by
+ * the parent theme's parallax JS as position:absolute — we cannot change
+ * its src via CSS, so we cover it with a ::before pseudo-element showing
+ * the new Nitaq company image, and reduce the padding to the target height.
+ */
+
+/* Ensure the section is a stacking context so ::before sits above the parallax img */
+.elementor-element-37d9af8 {
+	position: relative;
+}
+
+/* New Nitaq company image + subtle brand overlay */
+.elementor-element-37d9af8::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	background-image:
+		linear-gradient(rgba(15, 48, 45, 0.22), rgba(15, 48, 45, 0.22)),
+		url('/wp-content/uploads/2026/05/company-scaled.png');
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	pointer-events: none;
+}
+
+/* Desktop: target height ~440px (220px × 2 padding) */
+.elementor-3199 .elementor-element.elementor-element-37d9af8 {
+	padding: 220px 0 !important; /* was 305px — reduces section from 610px to 440px */
+}
+
+/* Tablet: target height ~340px */
+@media only screen and (max-width: 1024px) {
+	.elementor-3199 .elementor-element.elementor-element-37d9af8 {
+		padding: 170px 0 !important;
+	}
+}
+
+/* Mobile: target height ~260px */
+@media only screen and (max-width: 767px) {
+	.elementor-3199 .elementor-element.elementor-element-37d9af8 {
+		padding: 130px 0 !important;
+	}
+}
+/* ─────────────────────────────────────────────────────────────────── */
+
+/* ═══════════════════════════════════════════════════════════════════
+   Nitaq Custom Footer
+   Replaces Hendon parent sidebar-footer. All selectors scoped to
+   .nitaq-footer — does not affect any other part of the site.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.nitaq-footer {
+	background: linear-gradient(180deg, #0F302D 0%, #0A2421 100%);
+	color: rgba(255, 255, 255, 0.78);
+	direction: rtl;
+	font-size: 15px;
+	line-height: 1.85;
+}
+
+.nitaq-footer *,
+.nitaq-footer *::before,
+.nitaq-footer *::after {
+	box-sizing: border-box;
+}
+
+.nitaq-footer__inner {
+	width: min(1180px, calc(100% - 56px));
+	margin: 0 auto;
+}
+
+/* ── CTA bar ─────────────────────────────────────────────────────── */
+
+.nitaq-footer__cta {
+	background: #0A2421;
+	border-bottom: 1px solid rgba(184, 170, 118, 0.20);
+	padding: 52px 0;
+}
+
+.nitaq-footer__cta-inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 40px;
+}
+
+.nitaq-footer__cta-text {
+	min-width: 0;
+}
+
+.nitaq-footer__cta-heading {
+	margin: 0 0 8px;
+	color: #FFFFFF;
+	font-size: 28px;
+	font-weight: 500;
+	line-height: 1.3;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.nitaq-footer__cta-sub {
+	margin: 0;
+	color: rgba(255, 255, 255, 0.70);
+	font-size: 15px;
+	line-height: 1.75;
+}
+
+.nitaq-footer__cta-btn {
+	display: inline-flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	padding: 13px 32px;
+	color: #0F302D !important;
+	background: #B8AA76;
+	border: 1px solid #B8AA76;
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 1.4;
+	text-decoration: none;
+	white-space: nowrap;
+	transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.nitaq-footer__cta-btn:hover {
+	color: #B8AA76 !important;
+	background: transparent;
+	border-color: rgba(184, 170, 118, 0.65);
+}
+
+/* ── Main grid area ──────────────────────────────────────────────── */
+
+.nitaq-footer__main {
+	padding: 75px 0 55px;
+	border-bottom: 1px solid rgba(184, 170, 118, 0.18);
+}
+
+.nitaq-footer__grid {
+	display: grid;
+	grid-template-columns: 1.5fr 1fr 1fr 1.4fr;
+	gap: 64px;
+	align-items: start;
+}
+
+/* ── Column headings ─────────────────────────────────────────────── */
+
+.nitaq-footer__heading {
+	position: relative;
+	margin: 0 0 22px;
+	padding-bottom: 14px;
+	color: #B8AA76;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1.4;
+	letter-spacing: 0.05em;
+	text-transform: none;
+}
+
+.nitaq-footer__heading::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 38px;
+	height: 1px;
+	background: rgba(184, 170, 118, 0.55);
+}
+
+/* ── Brand column ────────────────────────────────────────────────── */
+
+.nitaq-footer__logo-wrap {
+	display: inline-block;
+	margin-bottom: 20px;
+}
+
+.nitaq-footer__logo {
+	display: block;
+	width: auto;
+	max-width: 165px;
+	height: auto;
+	object-fit: contain;
+}
+
+.nitaq-footer__company-name {
+	margin: 0 0 16px;
+	color: rgba(255, 255, 255, 0.90);
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 1.5;
+}
+
+.nitaq-footer__description {
+	margin: 0;
+	color: rgba(255, 255, 255, 0.68);
+	font-size: 14px;
+	line-height: 1.95;
+}
+
+/* ── Link lists ──────────────────────────────────────────────────── */
+
+.nitaq-footer__links {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.nitaq-footer__links li {
+	margin-bottom: 12px;
+}
+
+.nitaq-footer__link {
+	color: rgba(255, 255, 255, 0.80) !important;
+	font-size: 14px;
+	line-height: 1.7;
+	text-decoration: none;
+	transition: color 0.22s ease;
+}
+
+.nitaq-footer__link:hover {
+	color: #B8AA76 !important;
+}
+
+/* ── Contact column ──────────────────────────────────────────────── */
+
+.nitaq-footer__contact address {
+	font-style: normal;
+	color: rgba(255, 255, 255, 0.70);
+	font-size: 14px;
+	line-height: 1.9;
+}
+
+.nitaq-footer__contact-name {
+	color: rgba(255, 255, 255, 0.88);
+	font-weight: 600;
+	margin-bottom: 8px;
+}
+
+.nitaq-footer__contact address p {
+	margin: 0 0 8px;
+}
+
+.nitaq-footer__contact address a {
+	color: rgba(255, 255, 255, 0.80) !important;
+	text-decoration: none;
+	transition: color 0.22s ease;
+}
+
+.nitaq-footer__contact address a:hover {
+	color: #B8AA76 !important;
+}
+
+.nitaq-footer__contact-btn {
+	display: inline-flex;
+	margin-top: 18px;
+	padding: 9px 20px;
+	color: #B8AA76 !important;
+	background: transparent;
+	border: 1px solid rgba(184, 170, 118, 0.45);
+	font-size: 13px;
+	font-weight: 600;
+	text-decoration: none;
+	transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease;
+}
+
+.nitaq-footer__contact-btn:hover {
+	color: #0A2421 !important;
+	background: #B8AA76;
+	border-color: #B8AA76;
+}
+
+/* ── Bottom copyright bar ────────────────────────────────────────── */
+
+.nitaq-footer__bottom {
+	padding: 20px 0;
+}
+
+.nitaq-footer__copyright {
+	margin: 0;
+	color: rgba(255, 255, 255, 0.46);
+	font-size: 13px;
+	text-align: center;
+	line-height: 1.7;
+}
+
+/* ── Tablet: 2 columns ───────────────────────────────────────────── */
+
+@media only screen and (max-width: 1024px) {
+	.nitaq-footer__grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 44px 52px;
+	}
+
+	.nitaq-footer__cta-inner {
+		flex-direction: column;
+		text-align: center;
+		align-items: center;
+		gap: 24px;
+	}
+}
+
+/* ── Mobile: 1 column, centred ───────────────────────────────────── */
+
+@media only screen and (max-width: 767px) {
+	.nitaq-footer__inner {
+		width: min(100% - 36px, 1180px);
+	}
+
+	.nitaq-footer__cta {
+		padding: 40px 0;
+	}
+
+	.nitaq-footer__main {
+		padding: 55px 0 35px;
+	}
+
+	.nitaq-footer__grid {
+		grid-template-columns: 1fr;
+		gap: 38px;
+		text-align: center;
+	}
+
+	/* Centre the gold heading underline */
+	.nitaq-footer__heading::after {
+		right: 50%;
+		transform: translateX(50%);
+	}
+
+	.nitaq-footer__logo-wrap {
+		display: block;
+		text-align: center;
+	}
+
+	.nitaq-footer__logo {
+		margin: 0 auto;
+	}
+
+	.nitaq-footer__description {
+		margin: 0 auto;
+	}
+
+	.nitaq-footer__contact-btn {
+		display: block;
+		width: fit-content;
+		margin: 18px auto 0;
+	}
+}
+
+/* ══════════════════════════════════════════════════════════════════ */
+
+/* ─── About page motion ─────────────────────────────────────────── */
+
+/* Stat number — always LTR so digits read left-to-right in RTL layout */
+.nitaq-stat-number {
+	display: inline-block;
+	direction: ltr;
+	unicode-bidi: isolate;
+}
+
+/* ─── Images — fade + lift + scale ─── */
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-image,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-feature__media,
+body.nitaq-motion-ready .nitaq-about-page figure {
+	opacity: 0;
+	transform: translateY(45px) scale(1.035);
+	transition: opacity 1.1s ease, transform 1.1s ease;
+	transition-delay: var(--nitaq-motion-delay, 0ms);
+	will-change: opacity, transform;
+}
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-image.is-visible,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-feature__media.is-visible,
+body.nitaq-motion-ready .nitaq-about-page figure.is-visible {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+	will-change: auto;
+}
+
+/* ─── Text blocks — fade + lift, 160ms after paired image ─── */
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-copy,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-feature__text,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-heading,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-signature .nitaq-about-container,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-final .nitaq-about-container {
+	opacity: 0;
+	transform: translateY(36px);
+	transition: opacity 0.95s ease, transform 0.95s ease;
+	transition-delay: calc(var(--nitaq-motion-delay, 0ms) + 160ms);
+	will-change: opacity, transform;
+}
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-copy.is-visible,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-feature__text.is-visible,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-heading.is-visible,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-signature .nitaq-about-container.is-visible,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-final .nitaq-about-container.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+	will-change: auto;
+}
+
+/* ─── Cards / stats / values / reasons — staggered reveal ─── */
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-duo article,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-values article,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-reasons span,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-stats article,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-hero__metrics > div,
+body.nitaq-motion-ready .nitaq-about-page article {
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity 0.88s ease, transform 0.88s ease;
+	transition-delay: var(--nitaq-motion-delay, 0ms);
+	will-change: opacity, transform;
+}
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-duo article.is-visible,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-values article.is-visible,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-reasons span.is-visible,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-stats article.is-visible,
+body.nitaq-motion-ready .nitaq-about-page .nitaq-about-hero__metrics > div.is-visible,
+body.nitaq-motion-ready .nitaq-about-page article.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+	will-change: auto;
+}
+
+/* ─── Image hover zoom — desktop only, on inner img to avoid reveal conflict ─── */
+@media (hover: hover) and (pointer: fine) {
+	.nitaq-about-page .nitaq-about-image,
+	.nitaq-about-page .nitaq-about-feature__media,
+	.nitaq-about-page figure {
+		overflow: hidden;
+	}
+	.nitaq-about-page .nitaq-about-image img,
+	.nitaq-about-page .nitaq-about-feature__media img,
+	.nitaq-about-page figure img {
+		transition: transform 0.6s ease;
+		transform-origin: center center;
+	}
+	.nitaq-about-page .nitaq-about-image:hover img,
+	.nitaq-about-page .nitaq-about-feature__media:hover img,
+	.nitaq-about-page figure:hover img {
+		transform: scale(1.035);
+	}
+}
+
+/* ─── prefers-reduced-motion — show everything instantly ─── */
+@media (prefers-reduced-motion: reduce) {
+	body.nitaq-motion-ready .nitaq-about-page * {
+		transition: none !important;
+		animation: none !important;
+		opacity: 1 !important;
+		transform: none !important;
+	}
+}
+
+/* ─────────────────────────────────────────────────────────────────── */
+
+/* ═══════════════════════════════════════════════════════════════════
+   Nitaq Project Page — Scroll Reveal Animations
+   Guard: body.nitaq-project-motion-ready (added by JS only when
+          .nitaq-project-page is found in the DOM)
+   JS tags each element with one of two reveal classes before observing.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── Image containers: fade + lift 32px + subtle scale ─── */
+body.nitaq-project-motion-ready .nitaq-project-page .nitaq-project-reveal--image {
+	opacity: 0;
+	transform: translateY(32px) scale(1.025);
+	transition:
+		opacity 950ms ease,
+		transform 950ms ease;
+	transition-delay: var(--nitaq-motion-delay, 0ms);
+	will-change: opacity, transform;
+}
+
+body.nitaq-project-motion-ready .nitaq-project-page .nitaq-project-reveal--image.is-visible {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}
+
+/* ─── Text blocks, headings, cards, amenities, CTA: fade + lift 26px ─── */
+body.nitaq-project-motion-ready .nitaq-project-page .nitaq-project-reveal {
+	opacity: 0;
+	transform: translateY(26px);
+	transition:
+		opacity 850ms ease,
+		transform 850ms ease;
+	transition-delay: var(--nitaq-motion-delay, 0ms);
+	will-change: opacity, transform;
+}
+
+body.nitaq-project-motion-ready .nitaq-project-page .nitaq-project-reveal.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* ─── Cards: slightly shorter lift, same stagger from JS ─── */
+body.nitaq-project-motion-ready .nitaq-project-page .nitaq-project-text-card.nitaq-project-reveal {
+	transform: translateY(24px);
+	transition-duration: 880ms;
+}
+
+body.nitaq-project-motion-ready .nitaq-project-page .nitaq-project-text-card.nitaq-project-reveal.is-visible {
+	transform: translateY(0);
+}
+
+/* ─── Image hover (desktop pointer only) ─── */
+@media (hover: hover) and (pointer: fine) {
+	.nitaq-project-page .nitaq-project-media img,
+	.nitaq-project-page .nitaq-project-wide-media img,
+	.nitaq-project-page .nitaq-project-model-card img,
+	.nitaq-project-page .nitaq-project-image-pair img {
+		transition: transform 550ms ease;
+		transform-origin: center center;
+	}
+	.nitaq-project-page .nitaq-project-media:hover img,
+	.nitaq-project-page .nitaq-project-wide-media:hover img,
+	.nitaq-project-page .nitaq-project-model-card:hover img,
+	.nitaq-project-page .nitaq-project-image-pair:hover img {
+		transform: scale(1.035);
+	}
+}
+
+/* ─── prefers-reduced-motion — show everything instantly ─── */
+@media (prefers-reduced-motion: reduce) {
+	body.nitaq-project-motion-ready .nitaq-project-page * {
+		transition: none !important;
+		animation: none !important;
+		opacity: 1 !important;
+		transform: none !important;
+	}
+}
+
+/* ══════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════
+   Single nitaq_project — full-width layout, video hero, header
+   Root causes:
+     • .qodef-content-grid { width: 1100px } in main.css:1766
+     • #qodef-page-inner  { padding: 140px 0 160px } in main.css:2250
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Hide Qode default page title ── */
+body.single-nitaq_project .qodef-page-title {
+	display: none !important;
+}
+
+/* ── Body background: brand green fills any side gap ── */
+body.single-nitaq_project {
+	background: #0A2421 !important;
+}
+
+/* ── Break width constraint + zero vertical padding ──
+   Theme sets width:1100px on .qodef-content-grid and
+   padding:140px 0 160px on #qodef-page-inner. ── */
+body.single-nitaq_project #qodef-page-outer,
+body.single-nitaq_project #qodef-page-inner,
+body.single-nitaq_project #qodef-page-inner.qodef-content-grid,
+body.single-nitaq_project #qodef-page-content,
+body.single-nitaq_project .qodef-content-grid,
+body.single-nitaq_project .qodef-grid,
+body.single-nitaq_project .entry-content {
+	max-width: none !important;
+	width: 100% !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+body.single-nitaq_project #qodef-page-inner {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+/* ── Header: absolute + transparent over hero ──
+   JS adds .nitaq-header-scrolled to document.body when past 55% of hero.
+   On scroll: switches to fixed + dark. ── */
+body.single-nitaq_project #qodef-page-header {
+	position: absolute !important;
+	top: 0 !important;
+	left: 0 !important;
+	right: 0 !important;
+	z-index: 100 !important;
+	background: transparent !important;
+	transition: background 0.35s ease, box-shadow 0.35s ease;
+}
+
+body.single-nitaq_project.nitaq-header-scrolled #qodef-page-header {
+	position: fixed !important;
+	background: rgba(7, 31, 28, 0.92) !important;
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Hero: full viewport height, top padding for header clearance ── */
+body.single-nitaq_project .nitaq-project-hero {
+	min-height: 100vh !important;
+	padding-top: 170px !important;
+}
+
+/* ── Video layer: absolute overlay between image and overlay div (DOM order) ──
+   DOM stacking: image → video → overlay div → content (all z:auto except content z:1)
+   Explicit z-index on overlay/content ensures they sit above video. ── */
+body.single-nitaq_project .nitaq-project-hero__video {
+	position: absolute !important;
+	inset: 0 !important;
+	width: 100% !important;
+	height: 100% !important;
+	object-fit: cover !important;
+	display: block !important;
+	pointer-events: none !important;
+}
+
+body.single-nitaq_project .nitaq-project-hero__overlay {
+	z-index: 2 !important;
+}
+
+body.single-nitaq_project .nitaq-project-hero__content {
+	z-index: 3 !important;
+}
+
+/* ── Projects archive grid ── */
+.nitaq-projects-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+	gap: 32px;
+	padding: 48px max(5vw, 24px);
+}
+
+.nitaq-project-card {
+	display: block;
+	background: #fff;
+	border-radius: 4px;
+	overflow: hidden;
+	text-decoration: none;
+	color: inherit;
+	transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.nitaq-project-card:hover {
+	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+	transform: translateY(-4px);
+}
+
+.nitaq-project-card__image {
+	width: 100%;
+	aspect-ratio: 16 / 10;
+	object-fit: cover;
+	display: block;
+}
+
+.nitaq-project-card__body {
+	padding: 24px;
+	direction: rtl;
+}
+
+.nitaq-project-card__kicker {
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--nitaq-gold, #B8963E);
+	margin-bottom: 8px;
+}
+
+.nitaq-project-card__title {
+	font-size: 20px;
+	font-weight: 600;
+	margin-bottom: 8px;
+	line-height: 1.3;
+}
+
+.nitaq-project-card__desc {
+	font-size: 14px;
+	color: #555;
+	line-height: 1.6;
+	margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+
+/* =========================================================
+   Nitaq Project Single — hard full-width fix
+   Fixes Hendon/Qode .qodef-content-grid width:1100px
+   Scope: single project pages only
+   ========================================================= */
+
+body.single-nitaq_project #qodef-page-outer,
+body.single-nitaq_project #qodef-page-content,
+body.single-nitaq_project #qodef-page-inner,
+body.single-nitaq_project #qodef-page-inner.qodef-content-grid,
+body.single-nitaq_project .qodef-content-grid,
+body.single-nitaq_project .qodef-grid,
+body.single-nitaq_project .entry-content {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  min-width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+body.single-nitaq_project #qodef-page-inner {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+body.single-nitaq_project .nitaq-project-page,
+body.single-nitaq_project .nitaq-project-section,
+body.single-nitaq_project .nitaq-project-hero,
+body.single-nitaq_project .nitaq-project-cta {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  min-width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  box-sizing: border-box !important;
+}
+
+body.single-nitaq_project {
+  overflow-x: hidden !important;
+  background: #0A2421 !important;
+}
+
+/* Hero video hard fix */
+body.single-nitaq_project .nitaq-project-hero {
+  position: relative !important;
+  min-height: 100vh !important;
+  overflow: hidden !important;
+  background-color: #0A2421 !important;
+}
+
+body.single-nitaq_project .nitaq-project-hero__video {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 0 !important;
+}
+
+body.single-nitaq_project .nitaq-project-hero::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  background:
+    linear-gradient(90deg, rgba(7,31,28,0.92), rgba(7,31,28,0.55)),
+    linear-gradient(180deg, rgba(7,31,28,0.25), rgba(7,31,28,0.88)) !important;
+  pointer-events: none !important;
+}
+
+body.single-nitaq_project .nitaq-project-hero__content {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+
+/* ── Hero overlay: reduced to ~5% so video is clearly visible ── */
+body.single-nitaq_project .nitaq-project-hero::before {
+    background:
+        linear-gradient(90deg, rgba(7,31,28,0.08), rgba(7,31,28,0.03)),
+        linear-gradient(180deg, rgba(7,31,28,0.04), rgba(7,31,28,0.12)) !important;
+}
+
+body.single-nitaq_project .nitaq-project-hero__overlay {
+    background: transparent !important;
+}
+
+/* ── Hero CTA button: .nitaq-project-btn ── */
+body.single-nitaq_project .nitaq-project-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-top: 32px !important;
+    padding: 16px 42px !important;
+    min-width: 180px !important;
+    border-radius: 16px !important;
+    background: #B8AA76 !important;
+    border: 1px solid #B8AA76 !important;
+    color: #0A2421 !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.02em !important;
+    text-decoration: none !important;
+    box-shadow: 0 18px 45px rgba(0,0,0,0.18) !important;
+    transition: transform 250ms ease, background 250ms ease, box-shadow 250ms ease !important;
+}
+
+body.single-nitaq_project .nitaq-project-btn:hover {
+    background: #D0BE84 !important;
+    border-color: #D0BE84 !important;
+    color: #0A2421 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 22px 55px rgba(0,0,0,0.24) !important;
+    text-decoration: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   /register-interest/ (page-id-3340) — video hero, transparent header
+   Scope: body.page-id-3340 only. No other pages affected.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Transparent header over hero ── */
+body.page-id-3340 #qodef-page-header {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    background: transparent !important;
+    z-index: 100 !important;
+    transition: background 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* ── Fixed dark header after scroll (JS adds .nitaq-header-scrolled to body) ── */
+body.page-id-3340.nitaq-header-scrolled #qodef-page-header {
+    position: fixed !important;
+    background: rgba(7, 31, 28, 0.92) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Full viewport height hero ── */
+body.page-id-3340 .nitaq-register-hero {
+    min-height: 100vh !important;
+    padding-top: 160px !important;
+}
+
+/* ── Video layer (injected by JS as first child of .nitaq-register-hero) ── */
+body.page-id-3340 .nitaq-register-hero__video {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+}
+
+/* ── Hide image div once video is injected ── */
+body.page-id-3340 .nitaq-register-hero--has-video .nitaq-register-hero__image {
+    display: none !important;
+}
+
+/* ── Reduce overlay to ~5% so video is clearly visible ── */
+body.page-id-3340 .nitaq-register-hero__overlay {
+    background:
+        linear-gradient(90deg, rgba(7,31,28,0.08), rgba(7,31,28,0.03)),
+        linear-gradient(180deg, rgba(7,31,28,0.04), rgba(7,31,28,0.12)) !important;
+    z-index: 1 !important;
+}
+
+/* ── Content above video and overlay ── */
+body.page-id-3340 .nitaq-register-hero__content {
+    z-index: 2 !important;
+}
+
+/* ── Button hover: lighter gold lift ── */
+body.page-id-3340 .nitaq-register-button:hover {
+    background: #D0BE84 !important;
+    border-color: #D0BE84 !important;
+    color: #0A2421 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.24) !important;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+    body.page-id-3340 .nitaq-register-hero {
+        min-height: 82vh !important;
+        padding: 130px 24px 90px !important;
+        justify-content: center !important;
+    }
+
+    body.page-id-3340 .nitaq-register-hero__content {
+        text-align: center !important;
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    body.page-id-3340 .nitaq-register-hero h1 {
+        font-size: 48px !important;
+    }
+
+    body.page-id-3340 .nitaq-register-hero p {
+        font-size: 16px !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Register hero: video stacking hard fix (v2) ── */
+body.page-id-3340 .nitaq-register-hero {
+    position: relative !important;
+    overflow: hidden !important;
+    background: #0A2421 !important;
+}
+
+body.page-id-3340 .nitaq-register-hero__video {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    z-index: 0 !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: none !important;
+}
+
+body.page-id-3340 .nitaq-register-hero--has-video .nitaq-register-hero__image {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+body.page-id-3340 .nitaq-register-hero__overlay {
+    z-index: 1 !important;
+    background: rgba(7,31,28,0.08) !important;
+}
+
+body.page-id-3340 .nitaq-register-hero__content {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+/* ── Header: transparent (meta now sets rgba(0,0,0,0) natively; belt-and-braces) ── */
+body.page-id-3340.qodef-header--divided #qodef-page-header,
+body.page-id-3340 #qodef-page-header {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+body.page-id-3340.nitaq-header-scrolled.qodef-header--divided #qodef-page-header,
+body.page-id-3340.nitaq-header-scrolled #qodef-page-header {
+    background: rgba(7,31,28,0.92) !important;
+    background-color: rgba(7,31,28,0.92) !important;
+}
+
+/* ─── About page stats: balanced number vs unit sizing (v3) ─────── */
+/* Page:    /about-us/ — body.page-id-1172                            */
+/* Problem: previous rule targeted strong, making suffix equally huge  */
+/* Fix:     strong reset; number & suffix targeted separately          */
+
+/* 1. Reset strong — suffix now in .nitaq-about-stat-suffix */
+body.page-id-1172 .nitaq-about-section--stats .nitaq-about-stats strong {
+	font-size: inherit !important;
+	font-weight: inherit !important;
+	line-height: 1.2 !important;
+	letter-spacing: 0 !important;
+}
+
+/* 2. Number: large and dominant */
+body.page-id-1172 .nitaq-about-section--stats .nitaq-stat-number {
+	font-size: clamp(46px, 3.4vw, 62px) !important;
+	font-weight: 800 !important;
+	line-height: 1.1 !important;
+	letter-spacing: -0.02em !important;
+	display: inline !important;
+}
+
+/* 3. Suffix/unit: clearly smaller than number */
+body.page-id-1172 .nitaq-about-section--stats .nitaq-about-stat-suffix {
+	font-size: clamp(22px, 1.8vw, 30px) !important;
+	font-weight: 700 !important;
+	line-height: 1.3 !important;
+	display: inline !important;
+	vertical-align: middle !important;
+}
+
+/* 4. Card label: restore original */
+body.page-id-1172 .nitaq-about-section--stats .nitaq-about-stats article > span:last-child {
+	font-size: 15px !important;
+	font-weight: 400 !important;
+	letter-spacing: 0 !important;
+}
+
+@media (max-width: 767px) {
+	body.page-id-1172 .nitaq-about-section--stats .nitaq-stat-number {
+		font-size: 42px !important;
+	}
+	body.page-id-1172 .nitaq-about-section--stats .nitaq-about-stat-suffix {
+		font-size: 20px !important;
+	}
+}
+/* ──────────────────────────────────────────────────────────────────── */
+
+/* ─── Equal-height value cards — project page only ──────────────── */
+/* Section: .nitaq-project-section--light > .nitaq-project-grid--two */
+/* Problem: align-items: center on the grid let cards differ in height */
+/* Fix:     stretch grid rows + flex cards so content stays centered   */
+body.single-nitaq_project .nitaq-project-section--light .nitaq-project-grid--two {
+	align-items: stretch !important;
+}
+
+body.single-nitaq_project .nitaq-project-section--light .nitaq-project-text-card {
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: center !important;
+}
+
+@media (max-width: 768px) {
+	body.single-nitaq_project .nitaq-project-section--light .nitaq-project-text-card {
+		min-height: auto !important;
+	}
+}
+/* ──────────────────────────────────────────────────────────────────── */
+
+
+/* ── Signature / Philosophy split layout ── */
+body.page-id-1172 .nitaq-about-signature {
+    background: #0f2318;
+}
+body.page-id-1172 .nitaq-about-sig-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 56px;
+    align-items: center;
+    direction: ltr;
+    padding: 100px 28px;
+    max-width: 1180px;
+    margin: 0 auto;
+}
+body.page-id-1172 .nitaq-sig-media img {
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    display: block;
+    box-shadow: 0 28px 70px rgba(0,0,0,0.30);
+}
+body.page-id-1172 .nitaq-sig-box {
+    direction: rtl;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(184,170,118,0.35);
+    padding: 56px 48px;
+    color: #fff;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.20);
+}
+body.page-id-1172 .nitaq-sig-box .nitaq-about-kicker {
+    display: block;
+    margin-bottom: 16px;
+}
+body.page-id-1172 .nitaq-sig-box h2 {
+    color: #fff;
+    margin-bottom: 20px;
+}
+body.page-id-1172 .nitaq-sig-box p {
+    color: rgba(255,255,255,0.78);
+    margin: 0;
+}
+@media (max-width: 900px) {
+    body.page-id-1172 .nitaq-about-sig-split {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 72px 24px;
+        direction: rtl;
+    }
+    body.page-id-1172 .nitaq-sig-media img {
+        height: 340px;
+    }
+    body.page-id-1172 .nitaq-sig-box {
+        padding: 36px 28px;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════
+   TRILOGY SECTION — فلسفتنا / رؤيتنا / رسالتنا
+   Scoped to body.page-id-1172 only
+   ═══════════════════════════════════════════════ */
+
+body.page-id-1172 .nitaq-about-trilogy {
+    background: #0b1e12;
+    padding: 100px 0 110px;
+    direction: rtl;
+}
+
+body.page-id-1172 .nitaq-about-trilogy .nitaq-about-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 28px;
+}
+
+body.page-id-1172 .nitaq-trilogy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    align-items: stretch;
+}
+
+/* ── Card ── */
+body.page-id-1172 .nitaq-trilogy-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(184,170,118,0.22);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.38s cubic-bezier(0.22,0.61,0.36,1),
+                box-shadow 0.38s cubic-bezier(0.22,0.61,0.36,1),
+                border-color 0.38s ease;
+}
+
+body.page-id-1172 .nitaq-trilogy-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 32px 72px rgba(0,0,0,0.38);
+    border-color: rgba(184,170,118,0.50);
+}
+
+/* ── Image ── */
+body.page-id-1172 .nitaq-trilogy-card__media {
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    flex-shrink: 0;
+}
+
+body.page-id-1172 .nitaq-trilogy-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.22,0.61,0.36,1);
+}
+
+body.page-id-1172 .nitaq-trilogy-card:hover .nitaq-trilogy-card__media img {
+    transform: scale(1.06);
+}
+
+/* ── Body ── */
+body.page-id-1172 .nitaq-trilogy-card__body {
+    padding: 36px 32px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+    text-align: right;
+}
+
+/* ── Kicker ── */
+body.page-id-1172 .nitaq-trilogy-card__kicker {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #b8aa76;
+    border-bottom: 1px solid rgba(184,170,118,0.40);
+    padding-bottom: 10px;
+    margin-bottom: 4px;
+}
+
+/* ── Title ── */
+body.page-id-1172 .nitaq-trilogy-card__title {
+    font-size: clamp(18px, 1.6vw, 23px);
+    font-weight: 700;
+    line-height: 1.35;
+    color: #ffffff;
+    margin: 0;
+}
+
+/* ── Body text ── */
+body.page-id-1172 .nitaq-trilogy-card__text {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.68);
+    margin: 0;
+}
+
+/* ── Scroll reveal motion ── */
+body.page-id-1172 .nitaq-trilogy-card.nitaq-motion-ready {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22,0.61,0.36,1),
+                box-shadow 0.38s cubic-bezier(0.22,0.61,0.36,1),
+                border-color 0.38s ease;
+}
+
+body.page-id-1172 .nitaq-trilogy-card.nitaq-motion-ready.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+body.page-id-1172 .nitaq-trilogy-card.nitaq-motion-ready.is-visible:hover {
+    transform: translateY(-8px);
+}
+
+/* ── Tablet ── */
+@media (max-width: 960px) {
+    body.page-id-1172 .nitaq-trilogy-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+    }
+    body.page-id-1172 .nitaq-trilogy-card:last-child {
+        grid-column: 1 / -1;
+        max-width: 520px;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+    body.page-id-1172 .nitaq-about-trilogy {
+        padding: 72px 0 80px;
+    }
+    body.page-id-1172 .nitaq-trilogy-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    body.page-id-1172 .nitaq-trilogy-card:last-child {
+        grid-column: auto;
+        max-width: none;
+        margin: 0;
+    }
+    body.page-id-1172 .nitaq-trilogy-card__body {
+        padding: 28px 24px 32px;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════
+   TRILOGY INTRO — top text block above 3 cards
+   Scoped to body.page-id-1172 only
+   ═══════════════════════════════════════════════ */
+
+/* Override trilogy section background with richer gradient + glow */
+body.page-id-1172 .nitaq-about-trilogy {
+    background:
+        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(184,170,118,0.09), transparent 60%),
+        linear-gradient(180deg, #081d10 0%, #0b2817 60%, #0a1f0f 100%) !important;
+    padding-top: 110px !important;
+    padding-bottom: 120px !important;
+    overflow: hidden;
+}
+
+/* ── Intro wrapper ── */
+body.page-id-1172 .nitaq-trilogy-intro {
+    max-width: 780px;
+    margin: 0 auto 72px;
+    text-align: center;
+    direction: rtl;
+}
+
+/* Scroll reveal for intro */
+body.page-id-1172 .nitaq-trilogy-intro.nitaq-motion-ready {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.70s ease, transform 0.70s cubic-bezier(0.22,0.61,0.36,1);
+}
+body.page-id-1172 .nitaq-trilogy-intro.nitaq-motion-ready.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Gold kicker ── */
+body.page-id-1172 .nitaq-trilogy-intro__kicker {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #b8aa76;
+    margin-bottom: 24px;
+}
+
+/* ── Headline ── */
+body.page-id-1172 .nitaq-trilogy-intro__heading {
+    font-size: clamp(34px, 3.8vw, 58px) !important;
+    font-weight: 800 !important;
+    line-height: 1.38 !important;
+    color: #ffffff !important;
+    margin: 0 0 24px !important;
+}
+
+/* ── Lead paragraph ── */
+body.page-id-1172 .nitaq-trilogy-intro__lead {
+    font-size: 17px !important;
+    line-height: 2 !important;
+    color: rgba(255,255,255,0.70) !important;
+    margin: 0 auto !important;
+    max-width: 640px;
+}
+
+/* ── Gold divider ── */
+body.page-id-1172 .nitaq-trilogy-intro__divider {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #b8aa76 50%, transparent);
+    margin: 36px auto 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    body.page-id-1172 .nitaq-about-trilogy {
+        padding-top: 72px !important;
+        padding-bottom: 80px !important;
+    }
+    body.page-id-1172 .nitaq-trilogy-intro {
+        margin-bottom: 48px;
+    }
+    body.page-id-1172 .nitaq-trilogy-intro__heading {
+        font-size: 30px !important;
+    }
+    body.page-id-1172 .nitaq-trilogy-intro__lead {
+        font-size: 15px !important;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════
+   REGISTER INTEREST — Feature Highlights Cards
+   Premium overrides scoped to body.page-id-3340
+   ═══════════════════════════════════════════════ */
+
+/* Section wrapper — remove bottom padding gap, keep green bg */
+body.page-id-3340 .nitaq-register-highlights {
+    padding-bottom: 80px !important;
+    overflow: visible !important;
+}
+
+/* Grid — deeper overlap, centred, max-width, premium gap */
+body.page-id-3340 .nitaq-register-highlight-grid {
+    max-width: 1240px !important;
+    margin: -80px auto 0 !important;
+    padding: 0 28px !important;
+    gap: 24px !important;
+    z-index: 5 !important;
+}
+
+/* Card — dark green glass + strong gold border */
+body.page-id-3340 .nitaq-register-highlight-grid article {
+    min-height: 230px !important;
+    padding: 42px 28px !important;
+    background: rgba(8, 29, 22, 0.88) !important;
+    border: 1.5px solid rgba(184, 170, 118, 0.82) !important;
+    box-shadow:
+        0 28px 72px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.055) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    transition:
+        transform 320ms cubic-bezier(0.22, 0.61, 0.36, 1),
+        border-color 320ms ease,
+        box-shadow 320ms ease !important;
+}
+
+body.page-id-3340 .nitaq-register-highlight-grid article:hover {
+    transform: translateY(-7px) !important;
+    border-color: rgba(208, 190, 132, 0.95) !important;
+    box-shadow:
+        0 36px 88px rgba(0, 0, 0, 0.34),
+        0 0 0 1px rgba(208, 190, 132, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07) !important;
+}
+
+/* Number — gold, top, slightly larger */
+body.page-id-3340 .nitaq-register-highlight-grid article span {
+    color: #B8AA76 !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.08em !important;
+    margin-bottom: 18px !important;
+    opacity: 0.95 !important;
+}
+
+/* Title */
+body.page-id-3340 .nitaq-register-highlight-grid article h3 {
+    color: #ffffff !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
+    margin-bottom: 12px !important;
+}
+
+/* Description */
+body.page-id-3340 .nitaq-register-highlight-grid article p {
+    color: rgba(255, 255, 255, 0.72) !important;
+    font-size: 14.5px !important;
+    line-height: 1.9 !important;
+    margin: 0 !important;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+    body.page-id-3340 .nitaq-register-highlight-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        margin-top: -50px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    body.page-id-3340 .nitaq-register-highlight-grid {
+        grid-template-columns: 1fr !important;
+        margin-top: 32px !important;
+        padding: 0 20px !important;
+    }
+    body.page-id-3340 .nitaq-register-highlight-grid article {
+        min-height: 190px !important;
+        padding: 34px 24px !important;
+    }
+}
+
+/* Register Interest — hero kicker margin */
+body.page-id-3340 .nitaq-register-hero__content .nitaq-register-kicker {
+    margin-right: 20px !important;
+}
+
+
+/* ═══════════════════════════════════════════════
+   ABOUT HERO — video background
+   Scoped to body.page-id-1172 only
+   ═══════════════════════════════════════════════ */
+
+/* Video takes the same absolute-cover position as the old __image div */
+body.page-id-1172 .nitaq-about-hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Richer overlay tuned for moving video — darker edges, lighter centre */
+body.page-id-1172 .nitaq-about-hero .nitaq-about-hero__overlay {
+    background:
+        linear-gradient(90deg, rgba(8,27,22,0.52) 0%, rgba(8,27,22,0.32) 55%, rgba(8,27,22,0.18) 100%),
+        linear-gradient(0deg, rgba(8,27,22,0.50) 0%, rgba(8,27,22,0.09) 52%, rgba(8,27,22,0.38) 100%) !important;
+    z-index: 1;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   ABOUT PAGE — Dashboard colour-variable overrides
+   Variables are written inline by nitaq-about-page.php only when
+   a dashboard colour is set.  Empty = section keeps its own defaults.
+   All rules scoped to body.page-id-1172 only.
+   ═══════════════════════════════════════════════════════════════ */
+
+body.page-id-1172 .nitaq-about-hero           { background-color: var(--nitaq-sec-bg, transparent); }
+body.page-id-1172 .nitaq-about-hero .nitaq-about-hero__kicker,
+body.page-id-1172 .nitaq-about-hero h1,
+body.page-id-1172 .nitaq-about-hero .nitaq-about-hero__h2  { color: var(--nitaq-sec-h, inherit); }
+body.page-id-1172 .nitaq-about-hero .nitaq-about-hero__body,
+body.page-id-1172 .nitaq-about-hero .nitaq-about-hero__metric-label { color: var(--nitaq-sec-tx, inherit); }
+
+body.page-id-1172 .nitaq-about-intro          { background-color: var(--nitaq-sec-bg, transparent); }
+body.page-id-1172 .nitaq-about-intro h2       { color: var(--nitaq-sec-h, inherit); }
+body.page-id-1172 .nitaq-about-intro p,
+body.page-id-1172 .nitaq-about-intro .nitaq-about-kicker { color: var(--nitaq-sec-tx, inherit); }
+
+body.page-id-1172 .nitaq-about-trilogy        { background-color: var(--nitaq-sec-bg, transparent); }
+body.page-id-1172 .nitaq-about-trilogy .nitaq-trilogy-intro__heading,
+body.page-id-1172 .nitaq-about-trilogy .nitaq-trilogy-card__title { color: var(--nitaq-sec-h, inherit); }
+body.page-id-1172 .nitaq-about-trilogy .nitaq-trilogy-intro__lead,
+body.page-id-1172 .nitaq-about-trilogy .nitaq-trilogy-card__body,
+body.page-id-1172 .nitaq-about-trilogy .nitaq-trilogy-intro__kicker { color: var(--nitaq-sec-tx, inherit); }
+
+body.page-id-1172 .nitaq-about-values         { background-color: var(--nitaq-sec-bg, transparent); }
+body.page-id-1172 .nitaq-about-values h2      { color: var(--nitaq-sec-h, inherit); }
+body.page-id-1172 .nitaq-about-values p       { color: var(--nitaq-sec-tx, inherit); }
+
+body.page-id-1172 .nitaq-about-why            { background-color: var(--nitaq-sec-bg, transparent); }
+body.page-id-1172 .nitaq-about-why h2         { color: var(--nitaq-sec-h, inherit); }
+body.page-id-1172 .nitaq-about-why p          { color: var(--nitaq-sec-tx, inherit); }
+
+body.page-id-1172 .nitaq-about-groves         { background-color: var(--nitaq-sec-bg, transparent); }
+body.page-id-1172 .nitaq-about-groves h2      { color: var(--nitaq-sec-h, inherit); }
+body.page-id-1172 .nitaq-about-groves p,
+body.page-id-1172 .nitaq-about-groves li      { color: var(--nitaq-sec-tx, inherit); }
+
+body.page-id-1172 .nitaq-about-destination    { background-color: var(--nitaq-sec-bg, transparent); }
+body.page-id-1172 .nitaq-about-destination h2 { color: var(--nitaq-sec-h, inherit); }
+body.page-id-1172 .nitaq-about-destination p  { color: var(--nitaq-sec-tx, inherit); }
+
+body.page-id-1172 .nitaq-about-stats          { background-color: var(--nitaq-sec-bg, transparent); }
+body.page-id-1172 .nitaq-about-stats h2       { color: var(--nitaq-sec-h, inherit); }
+body.page-id-1172 .nitaq-about-stats p        { color: var(--nitaq-sec-tx, inherit); }
+
+body.page-id-1172 .nitaq-about-cta            { background-color: var(--nitaq-sec-bg, transparent); }
+body.page-id-1172 .nitaq-about-cta h2         { color: var(--nitaq-sec-h, inherit); }
+body.page-id-1172 .nitaq-about-cta p          { color: var(--nitaq-sec-tx, inherit); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   NITAQ NEWS — Premium Visual Enhancement  [nitaq-news-premium-v1]
+   Scoped to .nitaq-news-page only (archive-nitaq_news + single-nitaq_news).
+   Does NOT affect .nitaq-news-section homepage shortcode.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. ARCHIVE HERO ────────────────────────────────────────────────────── */
+
+/* Richer overlay: lighter in the centre so the image shows through */
+.nitaq-news-archive .nitaq-news-hero {
+    min-height: 600px;
+    padding: 190px 0 96px;
+    background:
+        linear-gradient(
+            175deg,
+            rgba(15, 48, 45, 0.97) 0%,
+            rgba(15, 48, 45, 0.54) 52%,
+            rgba(15, 48, 45, 0.88) 100%
+        ),
+        url("/wp-content/uploads/2026/05/theWholeProject.png") center 30% / cover no-repeat !important;
+}
+
+/* Thin gold accent line at foot of archive hero */
+.nitaq-news-archive .nitaq-news-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 260px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(184, 170, 118, 0.80), transparent);
+    pointer-events: none;
+}
+
+.nitaq-news-archive .nitaq-news-hero span {
+    font-size: 12px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.nitaq-news-archive .nitaq-news-hero h1 {
+    font-size: clamp(40px, 4.5vw, 54px);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+.nitaq-news-archive .nitaq-news-hero p {
+    font-size: 16px;
+    max-width: 580px;
+    color: rgba(255, 255, 255, 0.76);
+}
+
+/* ── 2. ARCHIVE LISTING — tighter padding ───────────────────────────────── */
+
+.nitaq-news-archive .nitaq-news-listing {
+    padding: 72px 0 88px;
+}
+
+/* ── 3. CARDS — premium upgrade (scoped to .nitaq-news-page) ────────────── */
+
+/* Gold accent bar at top of every card */
+.nitaq-news-page .nitaq-news-card::before {
+    content: '';
+    display: block;
+    height: 3px;
+    flex-shrink: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(184, 170, 118, 0.95) 0%,
+        rgba(184, 170, 118, 0.25) 100%
+    );
+}
+
+/* Richer card background + stronger border */
+.nitaq-news-page .nitaq-news-card {
+    border-color: rgba(184, 170, 118, 0.38);
+    background: linear-gradient(158deg, #1c4843 0%, #152f2b 100%);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.30s ease;
+}
+
+/* Taller image area */
+.nitaq-news-page .nitaq-news-card__image {
+    height: 262px;
+}
+
+/* Stronger hover effect */
+@media (hover: hover) {
+    .nitaq-news-page .nitaq-news-card:hover {
+        transform: translateY(-7px) !important;
+        box-shadow:
+            0 32px 62px rgba(0, 0, 0, 0.28),
+            0 0 0 1px rgba(184, 170, 118, 0.30) !important;
+        border-color: rgba(184, 170, 118, 0.60) !important;
+    }
+}
+
+.nitaq-news-page .nitaq-news-card h3 {
+    font-size: 19px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.nitaq-news-page .nitaq-news-card p {
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+/* Date badge */
+.nitaq-news-page .nitaq-news-card__image span {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+/* "اقرأ المزيد" button — slightly larger */
+.nitaq-news-page .nitaq-news-card .nitaq-news-card__button {
+    padding: 10px 22px;
+    letter-spacing: 0.04em;
+    border-color: rgba(184, 170, 118, 0.55) !important;
+}
+
+/* ── 4. PAGINATION — premium look ───────────────────────────────────────── */
+
+.nitaq-news-pagination {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(184, 170, 118, 0.15);
+}
+
+/* ── 5. SINGLE — Hero upgrade ───────────────────────────────────────────── */
+
+.nitaq-news-single-hero {
+    min-height: 640px;
+    padding: 210px 0 104px !important;
+}
+
+/* Dramatic overlay: image shines in middle, dark at bottom */
+.nitaq-news-single-hero__overlay {
+    background:
+        linear-gradient(
+            to top,
+            rgba(15, 48, 45, 0.97) 0%,
+            rgba(15, 48, 45, 0.60) 38%,
+            rgba(15, 48, 45, 0.25) 62%,
+            rgba(15, 48, 45, 0.52) 100%
+        ) !important;
+}
+
+/* H1 title */
+.nitaq-news-single-hero h1 {
+    font-size: clamp(30px, 3.8vw, 46px) !important;
+    font-weight: 600 !important;
+    line-height: 1.35 !important;
+    max-width: 820px;
+}
+
+/* Date kicker */
+.nitaq-news-single-hero .nitaq-news-container > span:first-child {
+    font-size: 12px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+/* Gold accent at foot of single hero */
+.nitaq-news-single-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(184, 170, 118, 0.72), transparent);
+    pointer-events: none;
+}
+
+/* ── 6. SINGLE — Content (luxury editorial) ─────────────────────────────── */
+
+.nitaq-news-single-content {
+    position: relative;
+    padding: 92px 0 108px;
+    background: linear-gradient(to bottom, #ECEAE2 0%, #F8F7F2 110px) !important;
+}
+
+/* Gold top accent bar */
+.nitaq-news-single-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 72px;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        rgba(184, 170, 118, 0.45),
+        rgba(184, 170, 118, 0.92),
+        rgba(184, 170, 118, 0.45)
+    );
+    pointer-events: none;
+}
+
+.nitaq-news-single-content__inner {
+    max-width: 820px;
+}
+
+/* Article headings */
+.nitaq-news-single-content h2 {
+    margin: 56px 0 20px;
+    color: #0b2622;
+    font-size: clamp(22px, 2.6vw, 30px);
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.nitaq-news-single-content h3 {
+    margin: 40px 0 16px;
+    color: #0b2622;
+    font-size: clamp(19px, 2.2vw, 24px);
+    font-weight: 600;
+    line-height: 1.45;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.nitaq-news-single-content h4,
+.nitaq-news-single-content h5 {
+    margin: 30px 0 12px;
+    color: #0b2622;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+/* Body text */
+.nitaq-news-single-content p,
+.nitaq-news-single-content li {
+    color: rgba(18, 44, 44, 0.84) !important;
+    font-size: 18px !important;
+    line-height: 2.05 !important;
+}
+
+.nitaq-news-single-content p {
+    margin-bottom: 26px;
+}
+
+/* First paragraph slightly bolder */
+.nitaq-news-single-content > .nitaq-news-single-content__inner > p:first-of-type,
+.nitaq-news-single-content .nitaq-news-single-content__inner > p:first-child {
+    font-size: 19px !important;
+    color: rgba(15, 48, 45, 0.90) !important;
+}
+
+/* Horizontal rule */
+.nitaq-news-single-content hr {
+    margin: 52px auto;
+    border: none;
+    height: 1px;
+    width: 100px;
+    background: rgba(184, 170, 118, 0.50);
+}
+
+/* Blockquote */
+.nitaq-news-single-content blockquote {
+    margin: 40px 0;
+    padding: 28px 30px;
+    background: rgba(184, 170, 118, 0.07);
+    border-right: 4px solid rgba(184, 170, 118, 0.82);
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+}
+
+.nitaq-news-single-content blockquote p {
+    margin: 0 !important;
+    font-size: 18px !important;
+    font-style: italic;
+    color: rgba(15, 48, 45, 0.88) !important;
+    line-height: 1.9 !important;
+}
+
+/* Images inside content */
+.nitaq-news-single-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin: 36px 0;
+    display: block;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+}
+
+/* Lists */
+.nitaq-news-single-content ul,
+.nitaq-news-single-content ol {
+    margin: 0 24px 28px 0;
+    padding-right: 0;
+}
+
+.nitaq-news-single-content ul li,
+.nitaq-news-single-content ol li {
+    margin-bottom: 10px;
+}
+
+/* "العودة إلى الأخبار" back button */
+.nitaq-news-single-content .nitaq-news-card__button {
+    margin-top: 48px !important;
+    padding: 13px 32px !important;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    border-color: rgba(15, 48, 45, 0.30) !important;
+    color: #0F302D !important;
+}
+
+.nitaq-news-single-content .nitaq-news-card__button:hover {
+    background: #0F302D !important;
+    color: #B8AA76 !important;
+    border-color: #0F302D !important;
+}
+
+/* ── 7. RELATED POSTS ───────────────────────────────────────────────────── */
+
+.nitaq-news-related {
+    border-top: 1px solid rgba(184, 170, 118, 0.20);
+    padding: 80px 0 100px !important;
+}
+
+.nitaq-news-related .nitaq-news-heading {
+    margin-bottom: 44px !important;
+    padding-bottom: 26px;
+    border-bottom: 1px solid rgba(184, 170, 118, 0.18);
+    text-align: right;
+    max-width: 100%;
+}
+
+.nitaq-news-related .nitaq-news-heading span {
+    font-size: 12px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.nitaq-news-related .nitaq-news-heading h2 {
+    font-size: clamp(26px, 3vw, 34px);
+}
+
+/* ── 8. RESPONSIVE — mobile refinements ─────────────────────────────────── */
+
+@media only screen and (max-width: 1024px) {
+    .nitaq-news-page .nitaq-news-card__image {
+        height: 240px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+
+    .nitaq-news-archive .nitaq-news-hero {
+        min-height: 460px !important;
+        padding: 148px 0 72px !important;
+    }
+
+    .nitaq-news-archive .nitaq-news-hero h1 {
+        font-size: 32px !important;
+    }
+
+    .nitaq-news-archive .nitaq-news-listing {
+        padding: 56px 0 68px !important;
+    }
+
+    .nitaq-news-single-hero {
+        min-height: 500px !important;
+        padding: 158px 0 80px !important;
+    }
+
+    .nitaq-news-single-hero h1 {
+        font-size: 27px !important;
+        line-height: 1.45 !important;
+    }
+
+    .nitaq-news-page .nitaq-news-card__image {
+        height: 228px !important;
+    }
+
+    .nitaq-news-single-content {
+        padding: 64px 0 78px !important;
+    }
+
+    .nitaq-news-single-content p,
+    .nitaq-news-single-content li {
+        font-size: 16px !important;
+    }
+
+    .nitaq-news-single-content > .nitaq-news-single-content__inner > p:first-of-type,
+    .nitaq-news-single-content .nitaq-news-single-content__inner > p:first-child {
+        font-size: 17px !important;
+    }
+
+    .nitaq-news-single-content h2 {
+        font-size: 22px !important;
+        margin-top: 40px !important;
+    }
+
+    .nitaq-news-single-content h3 {
+        font-size: 19px !important;
+    }
+
+    .nitaq-news-single-content blockquote {
+        padding: 22px 20px;
+        margin: 28px 0;
+    }
+
+    .nitaq-news-related {
+        padding: 60px 0 80px !important;
+    }
+}
+
+
+/* ════════════════════════════════════════════════════════════════════════
+   NITAQ NEWS — Polish Pass v2  [nitaq-news-polish-v2]
+   Fixes: hero→content gap · boxed feeling · related section spacing
+   Scoped entirely to .nitaq-news-page (archive + single).
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. SINGLE HERO — close the bottom gap ───────────────────────────── */
+
+/* Reduce bottom padding so the cream content starts closer to the title */
+.nitaq-news-single-hero {
+    padding: 180px 0 60px !important;
+}
+
+/* Remove the hairline gold floor — it was reinforcing the "box lid" feel */
+.nitaq-news-single-hero::after {
+    display: none !important;
+}
+
+/* ── 2. SINGLE CONTENT — kill the "boxed screenshot" sensation ───────── */
+
+/*
+ * Old: 92px top padding + 3px full-width gold bar = tall empty box ceiling
+ * New: 40px top padding, no bar at section level
+ *      The gold accent moves inside, attached to the reading column itself
+ */
+.nitaq-news-single-content {
+    padding: 40px 0 96px !important;
+}
+
+/* Kill the section-level 3px gold bar (box lid) */
+.nitaq-news-single-content::before {
+    display: none !important;
+}
+
+/*
+ * Content column: narrower reading width (760px is ideal for Arabic body text),
+ * inner top breathing room, and a gold top border that belongs to the text
+ * column — not to the section — making the content feel attached, not boxed.
+ */
+.nitaq-news-single-content__inner {
+    max-width: 760px;
+    padding-top: 30px;
+    border-top: 2px solid rgba(184, 170, 118, 0.48);
+}
+
+/* ── 3. SINGLE CONTENT — reading rhythm ─────────────────────────────── */
+
+/* Tighten the body text margins slightly for a tighter editorial flow */
+.nitaq-news-single-content p {
+    margin-bottom: 22px !important;
+}
+
+/* Back button — more breathing below the text before the button */
+.nitaq-news-single-content .nitaq-news-card__button {
+    margin-top: 40px !important;
+}
+
+/* ── 4. RELATED — close the empty overhead ───────────────────────────── */
+
+.nitaq-news-related {
+    border-top: 1px solid rgba(184, 170, 118, 0.20);
+    padding: 52px 0 72px !important;
+}
+
+/* Tighten the "مستجدات أخرى" heading */
+.nitaq-news-related .nitaq-news-heading {
+    margin-bottom: 30px !important;
+    padding-bottom: 16px !important;
+}
+
+/* Slightly more compact images in related cards — they're secondary content */
+.nitaq-news-related .nitaq-news-card__image {
+    height: 220px !important;
+}
+
+/* ── 5. ARCHIVE LISTING — reduce excess vertical padding ─────────────── */
+
+.nitaq-news-archive .nitaq-news-listing {
+    padding: 56px 0 72px !important;
+}
+
+/* ── 6. RESPONSIVE ───────────────────────────────────────────────────── */
+
+@media only screen and (max-width: 767px) {
+
+    .nitaq-news-single-hero {
+        padding: 148px 0 50px !important;
+    }
+
+    .nitaq-news-single-content {
+        padding: 32px 0 72px !important;
+    }
+
+    .nitaq-news-single-content__inner {
+        padding-top: 24px;
+    }
+
+    .nitaq-news-related {
+        padding: 44px 0 60px !important;
+    }
+
+    .nitaq-news-related .nitaq-news-card__image {
+        height: 200px !important;
+    }
+
+    .nitaq-news-archive .nitaq-news-listing {
+        padding: 44px 0 56px !important;
+    }
+}
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   NITAQ BROCHURES — Premium Card Enhancement  [nitaq-brochures-v1]
+   Scoped to .nitaq-brochures-list / .nitaq-brochure-card classes only.
+   Does NOT affect .nitaq-news-card, .nitaq-project-card, or any other page.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. SECTION BACKGROUND — warm layered gradient + subtle radial glows ── */
+
+.nitaq-brochures-list {
+    padding: 90px 0 100px;
+    background:
+        radial-gradient(ellipse 72% 60% at 22% 68%, rgba(184, 170, 118, 0.10) 0%, transparent 62%),
+        radial-gradient(ellipse 55% 45% at 78% 28%, rgba(184, 170, 118, 0.07) 0%, transparent 55%),
+        linear-gradient(158deg, #EDEADE 0%, #F3F1E8 38%, #F8F7F2 100%) !important;
+}
+
+/* ── 2. CARD — gold top accent bar (first flex item, before image) ──────── */
+
+/*
+ * ::before renders as the very first child of the flex column card,
+ * appearing as a 3px gold strip at the top — within the card's rounded corners.
+ */
+.nitaq-brochure-card::before {
+    content: '';
+    display: block;
+    height: 3px;
+    flex-shrink: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(184, 170, 118, 0.95) 0%,
+        rgba(184, 170, 118, 0.28) 100%
+    );
+}
+
+/* Card base — richer background, stronger border, layered shadow */
+.nitaq-brochure-card {
+    border: 1.5px solid rgba(184, 170, 118, 0.52);
+    background: linear-gradient(158deg, #FFFFFF 0%, #FDFCF8 100%);
+    box-shadow:
+        0 3px 6px  rgba(15, 48, 45, 0.04),
+        0 12px 32px rgba(15, 48, 45, 0.10),
+        0 28px 56px rgba(15, 48, 45, 0.07);
+    transition:
+        transform  0.38s cubic-bezier(0.22, 0.61, 0.36, 1),
+        box-shadow 0.38s ease,
+        border-color 0.30s ease;
+}
+
+/* Hover — lift + gold glow ring + deeper shadow */
+@media (hover: hover) {
+    .nitaq-brochure-card:hover {
+        transform: translateY(-9px);
+        border-color: rgba(184, 170, 118, 0.80);
+        box-shadow:
+            0 6px 10px  rgba(15, 48, 45, 0.05),
+            0 22px 48px rgba(15, 48, 45, 0.14),
+            0 44px 78px rgba(15, 48, 45, 0.10),
+            0 0 0 1px  rgba(184, 170, 118, 0.24);
+    }
+}
+
+/* ── 3. IMAGE AREA — slightly taller + subtle dark overlay on hover ──────── */
+
+.nitaq-brochure-card__image {
+    position: relative;   /* needed for ::after overlay */
+    height: 340px;
+}
+
+/* Hover vignette — dark green tint fades in over the image */
+.nitaq-brochure-card__image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 48, 45, 0.12);
+    opacity: 0;
+    transition: opacity 0.40s ease;
+    pointer-events: none;
+}
+
+.nitaq-brochure-card:hover .nitaq-brochure-card__image::after {
+    opacity: 1;
+}
+
+/* ── 4. CONTENT — refined spacing and typography hierarchy ───────────────── */
+
+.nitaq-brochure-card__content {
+    padding: 32px 36px 38px;
+}
+
+/*
+ * Kicker label "كتيب تعريفي"
+ * Matches the site-wide kicker pattern: gold dash + uppercase label.
+ * ::before renders on the right in RTL — the natural reading-start position.
+ */
+.nitaq-brochure-card__content > span:first-child {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.nitaq-brochure-card__content > span:first-child::before {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: currentColor;
+    flex-shrink: 0;
+}
+
+/* Title */
+.nitaq-brochure-card h3 {
+    margin-bottom: 18px;
+    font-size: clamp(22px, 2.2vw, 28px);
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+/* Description */
+.nitaq-brochure-card p {
+    margin-bottom: 28px;
+    font-size: 16px;
+    line-height: 1.95;
+    color: rgba(15, 48, 45, 0.68);
+}
+
+/* ── 5. DOWNLOAD BUTTON — premium gold style ─────────────────────────────── */
+
+.nitaq-brochure-card__button {
+    padding: 13px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    box-shadow: 0 4px 16px rgba(184, 170, 118, 0.32);
+    transition:
+        color       0.25s ease,
+        background  0.25s ease,
+        border-color 0.25s ease,
+        box-shadow  0.25s ease,
+        transform   0.22s ease;
+}
+
+/* Hover: dark green background, gold text, dark border — micro-lift */
+.nitaq-brochure-card__button:hover {
+    border-color: var(--nitaq-brochures-green) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(15, 48, 45, 0.22);
+}
+
+/* ── 6. RESPONSIVE ───────────────────────────────────────────────────────── */
+
+@media only screen and (max-width: 1024px) {
+    .nitaq-brochure-card__image {
+        height: 300px !important;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .nitaq-brochures-list {
+        padding: 64px 0 72px !important;
+    }
+
+    .nitaq-brochure-card__image {
+        height: 250px !important;
+    }
+
+    .nitaq-brochure-card__content {
+        padding: 26px 26px 32px !important;
+    }
+
+    .nitaq-brochure-card h3 {
+        font-size: 22px !important;
+    }
+
+    .nitaq-brochure-card p {
+        font-size: 15px !important;
+        line-height: 1.85 !important;
+    }
+
+    /* Full-width button on mobile — easier to tap */
+    .nitaq-brochure-card__button {
+        display: flex !important;
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 14px 20px !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   HOMEPAGE MOBILE — Remove white gap between header and hero
+   ─────────────────────────────────────────────────────────────────────
+   Root cause:
+   • Mobile header inner (#qodef-page-mobile-header-inner) is 82px tall
+     (overridden in child CSS at ≤1024px), and 76px at ≤430px.
+   • #qodef-page-outer has margin-top: -82px (≤767px) / -76px (≤430px)
+     to pull content flush under the header.
+   • .nitaq-hero-slider had margin-top: 80px on mobile — 2px short of
+     the 82px header height → 2px white gap on 431-767px screens.
+     At ≤430px: hero 80px vs header 76px → 4px gap below header bottom.
+   Fix:
+   • Match hero margin-top exactly to the header height per breakpoint.
+   • Scoped to body.home only. Desktop (> 767px) is unchanged.
+   • Header CSS is NOT touched.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@media only screen and (max-width: 767px) {
+	body.home .nitaq-hero-slider,
+	body.home .nitaq-video-hero {
+		margin-top: 82px !important; /* was 80px — closes 2px white gap */
+	}
+}
+
+@media only screen and (max-width: 430px) {
+	body.home .nitaq-hero-slider,
+	body.home .nitaq-video-hero {
+		margin-top: 76px !important; /* matches 76px inner header at ≤430px */
+	}
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CONTACT PAGE — روابط مهمة card — link styles
+   Links visually identical to surrounding text; gold on hover.
+   Scoped to body.page-id-1239 only.
+   ═══════════════════════════════════════════════════════════ */
+
+body.page-id-1239 .elementor-widget-text-editor a {
+	color: inherit !important;
+	text-decoration: none !important;
+	transition: color 0.25s ease;
+	cursor: pointer;
+}
+
+body.page-id-1239 .elementor-widget-text-editor a:hover {
+	color: #b9a66a !important;
+}
+
+/* ── Header nav: font-size increase (top-level links only) ── */
+/* Parent theme sets 11px; increased to 13px per client request */
+#qodef-page-header .qodef-header-navigation > ul > li > a {
+    font-size: 16px !important;
+}
+/* ──────────────────────────────────────────────────────────── */
+
+.nitaq-groves{position:relative;overflow:hidden;background:#0c2724;color:#F6F1E5;direction:rtl;text-align:center}
+.nitaq-groves::before{content:"";position:absolute;inset:0;z-index:0;background:url("https://nitaq-re.com/wp-content/uploads/2026/05/higher-resolution.png") center center/cover no-repeat;animation:nitaqGrovesKB 20s ease-in-out infinite alternate;will-change:transform}
+.nitaq-groves::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(15,48,45,.84),rgba(15,48,45,.80) 42%,rgba(9,31,28,.93))}
+@keyframes nitaqGrovesKB{from{transform:scale(1) translate(0,0)}to{transform:scale(1.12) translate(-1.5%,-1%)}}
+.nitaq-groves__inner{position:relative;z-index:2;max-width:1180px;margin-inline:auto;padding:64px 40px;text-align:center}
+.nitaq-groves__corner{position:absolute;width:22px;height:22px;z-index:3;border:0 solid rgba(184,170,118,.55)}
+.nitaq-groves__corner--tr{top:16px;right:16px;border-top-width:1px;border-right-width:1px}
+.nitaq-groves__corner--tl{top:16px;left:16px;border-top-width:1px;border-left-width:1px}
+.nitaq-groves__corner--br{bottom:16px;right:16px;border-bottom-width:1px;border-right-width:1px}
+.nitaq-groves__corner--bl{bottom:16px;left:16px;border-bottom-width:1px;border-left-width:1px}
+.nitaq-groves__topbar{display:flex;flex-direction:column;align-items:center;margin-bottom:22px}
+.nitaq-groves__kicker{display:flex;align-items:center;justify-content:center;gap:10px;color:#C9BA82;font-size:13px;letter-spacing:5px}
+.nitaq-groves__kicker-line{width:26px;height:1px;background:#B8AA76}
+.nitaq-groves__loc{color:rgba(246,241,229,.62);font-size:15px;margin-bottom:18px}
+.nitaq-groves__title{font-size:92px;font-weight:700;line-height:1.02;color:#F8F3E6;margin:0 0 16px}
+.nitaq-groves__rule{display:block;width:64px;height:2px;background:#B8AA76;margin:0 auto 18px}
+.nitaq-groves__subtitle{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:22px;color:#C9BA82;font-size:20px;font-weight:500}
+.nitaq-groves__lede{font-size:18px;line-height:1.95;color:rgba(246,241,229,.72);max-width:700px;margin:0 auto 34px}
+.nitaq-groves__divider{height:1px;background:rgba(184,170,118,.2);margin-bottom:26px}
+.nitaq-groves__label{color:#B8AA76;font-size:14px;letter-spacing:2px;margin-bottom:20px}
+.nitaq-groves__stats{display:flex;max-width:700px;margin-inline:auto;margin-bottom:30px}
+.nitaq-groves__stat{flex:1;padding:0 18px;text-align:center}
+.nitaq-groves__stat:first-child{padding-right:4px}
+.nitaq-groves__stat+.nitaq-groves__stat{border-inline-start:1px solid rgba(184,170,118,.28)}
+.nitaq-groves__num{font-size:54px;font-weight:700;color:#F1E9D2;line-height:1}
+.nitaq-groves__unit{font-size:15px;color:#C9BA82;margin-top:6px}
+.nitaq-groves__cap{font-size:13.5px;color:rgba(246,241,229,.55);margin-top:2px}
+.nitaq-groves__models{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:36px;text-align:right}
+.nitaq-groves__model{position:relative;background:rgba(9,30,28,.5);border:1px solid rgba(184,170,118,.25);border-radius:12px;padding:22px 24px;transition:transform .4s cubic-bezier(.2,.7,.2,1),border-color .4s ease,background .4s ease}
+.nitaq-groves__model:hover{transform:translateY(-8px) scale(1.015);border-color:rgba(184,170,118,.6);background:rgba(9,30,28,.66)}
+.nitaq-groves__model-accent{position:absolute;top:0;right:24px;width:46px;height:2px;background:#B8AA76}
+.nitaq-groves__model-head{display:flex;align-items:baseline;gap:9px;margin-bottom:3px}
+.nitaq-groves__model-ar{font-size:28px;font-weight:700;color:#F6F1E5}
+.nitaq-groves__model-en{font-size:12px;letter-spacing:1.5px;color:#C9BA82}
+.nitaq-groves__model-type{font-size:13.5px;color:rgba(246,241,229,.55);margin-bottom:16px}
+.nitaq-groves__model-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-top:1px solid rgba(184,170,118,.14);font-size:16px}
+.nitaq-groves__model-row span:first-child{color:rgba(246,241,229,.7)}
+.nitaq-groves__model-row span:last-child{color:#F1E9D2;font-weight:500}
+.nitaq-groves__cta{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
+.nitaq-groves__btn{display:inline-flex;align-items:center;gap:9px;background:#B8AA76;color:#0F302D;font-size:17px;font-weight:700;text-decoration:none;padding:16px 36px;border-radius:8px}
+.nitaq-groves__btn:hover{background:#C9BA82}
+.nitaq-groves__btn svg{width:18px;height:18px}
+.nitaq-groves__cta-note{color:rgba(246,241,229,.5);font-size:14.5px}
+.nitaq-groves--js .nitaq-groves__reveal{opacity:0;transform:translateY(44px);transition:opacity 1s ease,transform 1.05s cubic-bezier(.16,.8,.2,1)}
+.nitaq-groves--js .nitaq-groves__reveal.is-in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+.nitaq-groves::before{animation:none}
+.nitaq-groves__model{transition:none}
+.nitaq-groves__model:hover{transform:none}
+}
+@media(max-width:767px){
+.nitaq-groves__inner{padding:44px 22px}
+.nitaq-groves__title{font-size:54px}
+.nitaq-groves__num{font-size:40px}
+.nitaq-groves__stats{flex-direction:column;gap:20px}
+.nitaq-groves__stat{padding:0!important}
+.nitaq-groves__stat+.nitaq-groves__stat{border-inline-start:0;border-top:1px solid rgba(184,170,118,.2);padding-top:20px!important}
+.nitaq-groves__models{grid-template-columns:1fr}
+}
+
+/* ── Project Stats section — .nitaq-project-stats* ────────────────────────── */
+.nitaq-project-stats{position:relative;overflow:hidden;background:#0F302D;color:#F6F1E5;direction:rtl;text-align:center;padding:72px 40px}
+.nitaq-project-stats::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M32 0L64 32L32 64L0 32Z' fill='none' stroke='%23B8AA76' stroke-width='1'/%3E%3C/svg%3E");background-size:64px 64px}
+.nitaq-project-stats__head{position:relative;z-index:1;max-width:760px;margin:0 auto 48px}
+.nitaq-project-stats__kicker{color:#C9BA82;font-size:12px;letter-spacing:3px;margin-bottom:10px}
+.nitaq-project-stats__head h2{font-size:32px;font-weight:700;color:#F8F3E6;margin:0 0 10px}
+.nitaq-project-stats__lead{font-size:15px;color:rgba(246,241,229,.65);margin:0}
+.nitaq-project-stats__row{position:relative;z-index:1;display:flex;max-width:940px;margin-inline:auto;border-top:1px solid rgba(184,170,118,.22);border-bottom:1px solid rgba(184,170,118,.22)}
+.nitaq-project-stats__cell{flex:1;padding:36px 24px;text-align:center}
+.nitaq-project-stats__cell+.nitaq-project-stats__cell{border-inline-start:1px solid rgba(184,170,118,.28)}
+.nitaq-project-stats__value{margin-bottom:8px}
+.nitaq-stat-num{font-size:50px;font-weight:700;color:#F1E9D2;line-height:1;font-variant-numeric:tabular-nums}
+.nitaq-project-stats__unit{font-size:13px;color:#C9BA82;margin-bottom:4px}
+.nitaq-project-stats__cap{font-size:12.5px;color:rgba(246,241,229,.55)}
+@media(max-width:767px){
+.nitaq-project-stats{padding:48px 22px}
+.nitaq-project-stats__head h2{font-size:24px}
+.nitaq-project-stats__row{flex-wrap:wrap;border-bottom:none}
+.nitaq-project-stats__cell{flex:0 0 50%;border-inline-start:none!important;border-top:1px solid rgba(184,170,118,.22);padding:24px 14px}
+.nitaq-project-stats__cell:first-child,.nitaq-project-stats__cell:nth-child(2){border-top:none}
+.nitaq-project-stats__cell:nth-child(odd){border-inline-end:1px solid rgba(184,170,118,.22)}
+.nitaq-stat-num{font-size:38px}
+}
+
+/* ===== Project intro — luxury upgrade (CSS only) ===== */
+.nitaq-project-intro{padding-top:72px;padding-bottom:72px}
+
+.nitaq-project-intro .nitaq-project-kicker{display:flex;align-items:center;gap:10px;color:#C9BA82;letter-spacing:3px}
+.nitaq-project-intro .nitaq-project-kicker::before{content:"";width:8px;height:8px;border:1px solid #B8AA76;transform:rotate(45deg);display:inline-block;flex:none}
+
+/* clean title + gold underline; neutralize any solid highlight background */
+.nitaq-project-intro h2{background:none !important;color:#F8F3E6;line-height:1.15;padding:0;margin:0 0 14px;display:block}
+.nitaq-project-intro h2::after{content:"";display:block;width:70px;height:2px;background:#B8AA76;margin-top:18px}
+
+.nitaq-project-intro .nitaq-project-lead{line-height:2.05}
+
+/* layered gold offset frame + hover zoom on the intro image */
+/* overflow:visible overrides the base overflow:hidden so the ::before frame shows outside the box */
+.nitaq-project-intro .nitaq-project-media{position:relative;overflow:visible}
+.nitaq-project-intro .nitaq-project-media img{border-radius:14px;display:block;position:relative;z-index:1;transition:transform .6s ease}
+.nitaq-project-intro .nitaq-project-media::before{content:"";position:absolute;z-index:0;inset:20px -20px -20px 20px;border:1px solid rgba(184,170,118,.5);border-radius:14px;pointer-events:none}
+.nitaq-project-intro .nitaq-project-media:hover img{transform:scale(1.03)}
+
+@media (prefers-reduced-motion: reduce){
+  .nitaq-project-intro .nitaq-project-media img{transition:none}
+  .nitaq-project-intro .nitaq-project-media:hover img{transform:none}
+}
+
+/* ===== Value cards — brand restyle (CSS only) ===== */
+/* Scope: :has(.nitaq-project-grid--two) isolates value-cards; models section uses .nitaq-project-models */
+.nitaq-project-section--light:has(.nitaq-project-grid--two){background:#0F302D !important;padding:60px 44px}
+.nitaq-project-section--light:has(.nitaq-project-grid--two) .nitaq-project-grid--two{max-width:1040px;margin-inline:auto}
+
+.nitaq-project-section--light .nitaq-project-text-card{
+  position:relative;overflow:hidden;
+  background:rgba(255,255,255,.035) !important;
+  border:1px solid rgba(184,170,118,.28) !important;
+  border-radius:14px;
+  padding:38px 34px;
+  box-shadow:none !important;
+  transition:transform .4s cubic-bezier(.2,.7,.2,1),border-color .4s ease;
+}
+.nitaq-project-section--light .nitaq-project-text-card::before{content:"";position:absolute;top:0;right:34px;width:54px;height:2px;background:#B8AA76}
+.nitaq-project-section--light .nitaq-project-text-card:hover{transform:translateY(-6px);border-color:rgba(184,170,118,.6) !important}
+
+.nitaq-project-section--light .nitaq-project-text-card .nitaq-project-kicker{display:flex;align-items:center;gap:9px;color:#C9BA82 !important;font-size:13px;letter-spacing:2px}
+.nitaq-project-section--light .nitaq-project-text-card .nitaq-project-kicker::before{content:"";width:7px;height:7px;border:1px solid #B8AA76;transform:rotate(45deg);display:inline-block;flex:none}
+
+.nitaq-project-section--light .nitaq-project-text-card h2{color:#F8F3E6 !important;line-height:1.3;margin:0 0 16px}
+.nitaq-project-section--light .nitaq-project-text-card p:not(.nitaq-project-kicker){color:rgba(246,241,229,.72) !important;line-height:2.1}
+
+@media (max-width:767px){.nitaq-project-section--light .nitaq-project-grid--two{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){
+  .nitaq-project-section--light .nitaq-project-text-card{transition:none}
+  .nitaq-project-section--light .nitaq-project-text-card:hover{transform:none}
+}
+
+/* ── ألوان وأحجام عدّادات المشروع ── */
+.nitaq-stats__number {
+  color: #B8AA76 !important;
+  font-size: 52px !important;
+}
+.nitaq-stats__unit {
+  color: #B8AA76 !important;
+  font-size: 36px !important;
+}
+.nitaq-stats__prefix {
+  color: #B8AA76 !important;
+  font-size: 22px !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   NITAQ HERO V2 — Retal-style cinematic gallery  (Phase 2a)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.nitaq-hero-v2 {
+	position: relative;
+	width: 100%;
+	height: calc(100vh + 100px);
+	height: calc(100dvh + 100px);
+	overflow: hidden;
+	direction: rtl;
+	background: var(--nq-green);
+}
+
+/* logged-in admin bar = 32px on desktop, 46px on mobile */
+.admin-bar .nitaq-hero-v2 {
+	height: calc(100vh + 68px);
+	height: calc(100dvh + 68px);
+}
+@media (max-width: 782px) {
+	.admin-bar .nitaq-hero-v2 {
+		height: calc(100dvh + 54px);
+	}
+}
+
+/* ── Slides ─────────────────────────────────────────────────────────────── */
+.nhv2-slide {
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+	visibility: hidden;
+	transition:
+		opacity var(--nq-dur) var(--nq-ease),
+		visibility var(--nq-dur) var(--nq-ease);
+}
+
+.nhv2-slide.is-active {
+	opacity: 1;
+	visibility: visible;
+	z-index: 2;
+}
+
+/* ── Background image ───────────────────────────────────────────────────── */
+.nhv2-bg {
+	position: absolute;
+	inset: 0;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: crisp-edges;
+}
+
+/* ── Overlay + bottom gradient for databar legibility ───────────────────── */
+.nhv2-overlay {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	background: rgba(0, 0, 0, var(--nhv2-overlay, 0.18));
+}
+
+.nhv2-slide::after {
+	content: "";
+	position: absolute;
+	inset: auto 0 0;
+	height: 62%;
+	z-index: 1;
+	background: linear-gradient(
+		to bottom,
+		transparent 0%,
+		rgba(8, 26, 24, 0.50) 52%,
+		rgba(8, 26, 24, 0.84) 100%
+	);
+	pointer-events: none;
+}
+
+/* ── Databar (bottom left, stops before lockup) ─────────────────────────── */
+.nhv2-databar {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 200px;
+	z-index: 4;
+	display: flex;
+	align-items: stretch;
+	flex-wrap: nowrap;
+	gap: 0;
+	padding: 16px var(--nq-gap);
+	background: rgba(0, 0, 0, 0.35);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	border-top: 1px solid rgba(184, 170, 118, 0.3);
+	letter-spacing: 0;
+	line-height: 1.4;
+}
+
+/* ── Data item: label stacked above value ──────────────────────────────────── */
+.nhv2-data-item {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 4px;
+	padding-inline: clamp(16px, 2.2vw, 32px);
+	border-inline-start: 1px solid rgba(255, 255, 255, 0.15);
+	white-space: nowrap;
+}
+
+.nhv2-data-item:first-child {
+	border-inline-start: none;
+	padding-inline-start: 0;
+}
+
+.nhv2-sep {
+	display: none;
+}
+
+.nhv2-data-label {
+	font-size: 11px;
+	color: var(--nq-gold);
+	letter-spacing: 0;
+	text-transform: uppercase;
+	opacity: 0.85;
+}
+
+.nhv2-data-value {
+	font-size: 15px;
+	color: #fff;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+.nhv2-cta {
+	align-self: center;
+	margin-inline-start: clamp(16px, 2.2vw, 32px);
+	padding: 7px 20px;
+	border: 1px solid rgba(184, 170, 118, 0.48);
+	border-radius: 999px;
+	color: var(--nq-gold);
+	font-size: clamp(0.75rem, 1vw, 0.875rem);
+	letter-spacing: 0;
+	text-decoration: none;
+	white-space: nowrap;
+	transition:
+		background-color var(--nq-dur-fast) var(--nq-ease),
+		border-color var(--nq-dur-fast) var(--nq-ease),
+		color var(--nq-dur-fast) var(--nq-ease);
+}
+
+.nhv2-cta:hover {
+	background: rgba(184, 170, 118, 0.14);
+	border-color: var(--nq-gold);
+	color: #ffffff;
+}
+
+/* ── Lockup (bottom inline-end) ─────────────────────────────────────────── */
+.nhv2-lockup {
+	position: absolute;
+	bottom: 0;
+	right: var(--nq-gap);
+	left: auto;
+	z-index: 4;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 6px;
+	padding: clamp(20px, 3vh, 34px) clamp(24px, 4vw, 64px);
+	text-align: center;
+}
+
+.nhv2-logo {
+	display: block;
+	max-width: 100px;
+	height: auto;
+	object-fit: contain;
+	filter: brightness(0) invert(1);
+	opacity: 0.9;
+}
+
+.nhv2-project-name {
+	color: rgba(255, 255, 255, 0.92);
+	font-size: clamp(0.9375rem, 1.3vw, 1.125rem);
+	font-weight: 600;
+	letter-spacing: 0;
+	line-height: 1.3;
+	white-space: nowrap;
+}
+
+.nhv2-city {
+	display: block;
+	color: var(--nq-gold);
+	font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
+	letter-spacing: 0;
+	line-height: 1.3;
+	opacity: 0.85;
+}
+
+/* ── Dots (above thumbnails, left side) ─────────────────────────────────── */
+.nhv2-dots {
+	position: absolute;
+	bottom: clamp(178px, 27vh, 210px);
+	left: clamp(24px, 4vw, 64px);
+	z-index: 5;
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.nhv2-dots button {
+	width: 24px;
+	height: 3px;
+	padding: 0;
+	border: none;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.28);
+	cursor: pointer;
+	transition:
+		width var(--nq-dur-fast) var(--nq-ease),
+		background-color var(--nq-dur-fast) var(--nq-ease);
+}
+
+.nhv2-dots button.is-active {
+	width: 36px;
+	background: var(--nq-gold);
+}
+
+/* ── Homepage: transparent nav (Phase 2b) ───────────────────────────────── */
+body.home #qodef-page-header {
+	position: absolute !important;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 100;
+	background: transparent !important;
+	transition: background 0.35s ease, box-shadow 0.35s ease;
+}
+body.home.nitaq-header-scrolled #qodef-page-header {
+	position: fixed !important;
+	background: rgba(7, 31, 28, 0.92) !important;
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+	box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Homepage hero: no margin needed (nav is absolute) ──────────────────── */
+body.home .nitaq-hero-v2 {
+	margin-top: 0;
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+	/* databar goes full width on mobile (lockup floats top-end) */
+	.nhv2-databar {
+		right: 0;
+		left: 0;
+		padding: 12px 16px;
+		flex-wrap: wrap;
+	}
+
+	.nhv2-data-item { padding-inline: 12px; }
+	.nhv2-data-item:first-child { padding-inline-start: 0; }
+	.nhv2-data-label { font-size: 10px; }
+	.nhv2-data-value  { font-size: 13px; }
+	.nhv2-thumb { width: 90px; height: 58px; }
+
+	.nhv2-lockup {
+		bottom: auto;
+		top: clamp(100px, 14vh, 150px);
+		right: 20px;
+		left: auto;
+		padding: 0;
+	}
+
+	.nhv2-logo { max-width: 72px; }
+
+	.nhv2-dots {
+		bottom: clamp(80px, 16vh, 106px);
+		left: 20px;
+	}
+}
+
+/* ── Thumbnails (bottom-left, below dots) ───────────────────────────────── */
+.nhv2-thumbs {
+	position: absolute;
+	bottom: clamp(76px, 11.5vh, 98px);
+	left: clamp(24px, 4vw, 64px);
+	z-index: 5;
+	display: none;
+	gap: 8px;
+	align-items: flex-end;
+}
+
+@media (min-width: 768px) {
+	.nhv2-thumbs { display: flex; }
+}
+
+.nhv2-thumb {
+	width: 140px;
+	height: 90px;
+	padding: 0;
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	border-radius: var(--nq-radius);
+	background-size: cover;
+	background-position: center;
+	background-color: rgba(0, 0, 0, 0.3);
+	cursor: pointer;
+	opacity: 0.5;
+	transition:
+		opacity var(--nq-dur-fast) var(--nq-ease),
+		border-color var(--nq-dur-fast) var(--nq-ease);
+}
+
+.nhv2-thumb.is-active {
+	opacity: 1;
+	border-color: var(--nq-gold);
+}
+
+.nhv2-thumb:hover:not(.is-active) {
+	opacity: 0.8;
+}
+
+/* ── Video background: full-bleed ───────────────────────────────────────── */
+.nhv2-bg--video {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* ── Ken Burns ───────────────────────────────────────────────────────────── */
+@keyframes nhv2-ken-burns {
+	from { transform: scale(1); }
+	to   { transform: scale(1.03); }
+}
+
+.nhv2-slide.is-active .nhv2-bg:not(.nhv2-bg--video) {
+	animation: nhv2-ken-burns 20s ease-in-out alternate infinite;
+}
+
+.nhv2-slide.is-active .nhv2-bg--video {
+	animation: none;
+}
+
+/* ── Accessibility ───────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+	.nhv2-slide { transition: none; }
+	.nhv2-slide.is-active .nhv2-bg:not(.nhv2-bg--video) { animation: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */

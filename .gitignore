@@ -1,0 +1,6 @@
+*.bak*
+_backup/
+.DS_Store
+**/.DS_Store
+wp-config.php
+.env
