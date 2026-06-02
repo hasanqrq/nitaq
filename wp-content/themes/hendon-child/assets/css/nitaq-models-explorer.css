@@ -141,6 +141,8 @@
 	grid-column: 1;
 	grid-row: 2;
 	height: 100%;
+	/* cap height to match رندر view: panel min-height(500px) − view-tabs(~46px) ≈ 454px */
+	max-height: 454px;
 	overflow-y: auto;
 	overflow-x: hidden;
 	padding: 28px 32px 32px;

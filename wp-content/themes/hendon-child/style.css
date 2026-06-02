@@ -6246,7 +6246,7 @@ body.page-id-1239 .elementor-widget-text-editor a:hover {
 	position:relative;
 	border-top:1px solid rgba(184,170,118,.2);
 }
-.nitaq-groves__cta{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
+.nitaq-groves__cta{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:10px}
 .nitaq-groves__btn{display:inline-flex;align-items:center;gap:9px;background:#B8AA76;color:#0F302D;font-size:17px;font-weight:700;text-decoration:none;padding:16px 36px;border-radius:8px}
 .nitaq-groves__btn:hover{background:#C9BA82}
 .nitaq-groves__btn svg{width:18px;height:18px}

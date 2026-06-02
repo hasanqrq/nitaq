@@ -539,28 +539,8 @@ function nitaq_model_cpt_cards_markup() {
  * Project-page output is identical to before the refactor.
  */
 function nitaq_model_cpt_explorer_markup( $kicker = '', $heading = '' ) {
-	$cards = nitaq_model_cpt_cards_markup();
-	if ( '' === $cards ) {
-		return '';
-	}
-
-	ob_start();
-	?>
-	<section class="nitaq-project-section nitaq-project-section--light">
-		<?php if ( $kicker || $heading ) : ?>
-		<div class="nitaq-project-section-head">
-			<?php if ( $kicker ) : ?>
-			<p class="nitaq-project-kicker"><?php echo esc_html( $kicker ); ?></p>
-			<?php endif; ?>
-			<?php if ( $heading ) : ?>
-			<h2><?php echo esc_html( $heading ); ?></h2>
-			<?php endif; ?>
-		</div>
-		<?php endif; ?>
-		<?php echo $cards; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-	</section>
-	<?php
-	return ob_get_clean();
+	// Section wrapper removed — returns the card grid directly.
+	return nitaq_model_cpt_cards_markup();
 }
 
 function nitaq_project_render( $post_id ) {
@@ -1003,8 +983,9 @@ if ( ! function_exists( 'nitaq_project_enqueue_models_explorer' ) ) {
 			true
 		);
 
-		// Enqueue immediately on project single pages.
-		if ( is_singular( 'nitaq_project' ) ) {
+		// Enqueue immediately: project singles, real front page, or live Arabic homepage.
+		// 3199 = live Arabic homepage (body: page-id-3199); is_front_page() stays for future promotion.
+		if ( is_singular( 'nitaq_project' ) || is_front_page() || is_page( 3199 ) ) {
 			wp_enqueue_style( 'nitaq-models-explorer' );
 			wp_enqueue_script( 'nitaq-models-explorer' );
 		}
