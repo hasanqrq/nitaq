@@ -325,6 +325,26 @@ body.home #qodef-back-to-top {
 	display: block;
 }
 
+/* ── ncs2 image – Ken Burns slow zoom
+   Pattern: reuses nhv2-ken-burns (transform on <img>, not background-size).
+   22 s alternate-infinite gives one zoom-in + one zoom-out cycle continuously.
+   .ncs2__image-col already carries overflow:hidden — no spill possible.
+   RTL-safe: transform has no inline-direction dependency.           ── */
+@keyframes ncs2-ken-burns {
+	from { transform: scale(1);    }
+	to   { transform: scale(1.06); }
+}
+
+.ncs2__img {
+	animation: ncs2-ken-burns 22s ease-in-out alternate infinite;
+	transform-origin: center center;
+	will-change: transform; /* GPU-promote: makes 22 s slow-zoom visible */
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ncs2__img { animation: none; }
+}
+
 /* ── Content column (right side, dark green) ── */
 .ncs2__content-col {
 	order: 1;
@@ -421,6 +441,16 @@ body.home #qodef-back-to-top {
 
 /* hide empty unit spans */
 .ncs2__stat-unit:empty { display: none; }
+
+/* ── num + unit inline — prevents "340,119" / "م²" split across lines.
+   white-space:nowrap keeps the pair together; align-items:baseline
+   lines up the smaller unit text with the number baseline.          ── */
+.ncs2__numline {
+	display: flex;
+	align-items: baseline;
+	gap: 0.3em;
+	white-space: nowrap;
+}
 
 .ncs2__stat-label {
 	color: var(--ncs2-soft);
@@ -6167,10 +6197,10 @@ body.page-id-1239 .elementor-widget-text-editor a:hover {
 }
 /* ──────────────────────────────────────────────────────────── */
 
-.nitaq-groves{position:relative;overflow:hidden;background:#0c2724;color:#F6F1E5;direction:rtl;text-align:center}
-.nitaq-groves::before{content:"";position:absolute;inset:0;z-index:0;background:url("https://nitaq-re.com/wp-content/uploads/2026/05/higher-resolution.png") center center/cover no-repeat;animation:nitaqGrovesKB 20s ease-in-out infinite alternate;will-change:transform}
-.nitaq-groves::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(15,48,45,.84),rgba(15,48,45,.80) 42%,rgba(9,31,28,.93))}
-@keyframes nitaqGrovesKB{from{transform:scale(1) translate(0,0)}to{transform:scale(1.12) translate(-1.5%,-1%)}}
+.nitaq-groves{position:relative;overflow:hidden;background:var(--nq-green,#0F302D);color:#F6F1E5;direction:rtl;text-align:center}
+.nitaq-groves::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background-image:url("https://nitaq-re.com/wp-content/uploads/2026/05/2-1-scaled.png");background-size:220px auto;background-repeat:repeat;opacity:0.08}
+
+
 .nitaq-groves__inner{position:relative;z-index:2;max-width:1180px;margin-inline:auto;padding:64px 40px;text-align:center}
 .nitaq-groves__corner{position:absolute;width:22px;height:22px;z-index:3;border:0 solid rgba(184,170,118,.55)}
 .nitaq-groves__corner--tr{top:16px;right:16px;border-top-width:1px;border-right-width:1px}
@@ -6195,7 +6225,7 @@ body.page-id-1239 .elementor-widget-text-editor a:hover {
 .nitaq-groves__unit{font-size:15px;color:#C9BA82;margin-top:6px}
 .nitaq-groves__cap{font-size:13.5px;color:rgba(246,241,229,.55);margin-top:2px}
 .nitaq-groves__models{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:36px;text-align:right}
-.nitaq-groves__model{position:relative;background:rgba(9,30,28,.5);border:1px solid rgba(184,170,118,.25);border-radius:12px;padding:22px 24px;transition:transform .4s cubic-bezier(.2,.7,.2,1),border-color .4s ease,background .4s ease}
+.nitaq-groves__model{position:relative;background:rgba(13,40,37,.78);border:1px solid rgba(184,170,118,.25);border-radius:12px;padding:22px 24px;transition:transform .4s cubic-bezier(.2,.7,.2,1),border-color .4s ease,background .4s ease}
 .nitaq-groves__model:hover{transform:translateY(-8px) scale(1.015);border-color:rgba(184,170,118,.6);background:rgba(9,30,28,.66)}
 .nitaq-groves__model-accent{position:absolute;top:0;right:24px;width:46px;height:2px;background:#B8AA76}
 .nitaq-groves__model-head{display:flex;align-items:baseline;gap:9px;margin-bottom:3px}
@@ -6205,6 +6235,17 @@ body.page-id-1239 .elementor-widget-text-editor a:hover {
 .nitaq-groves__model-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-top:1px solid rgba(184,170,118,.14);font-size:16px}
 .nitaq-groves__model-row span:first-child{color:rgba(246,241,229,.7)}
 .nitaq-groves__model-row span:last-child{color:#F1E9D2;font-weight:500}
+/* ── Groves model cards — image-led redesign.
+   Override card padding to 0 so image sits flush;
+   text content moves into .nitaq-groves__model-body.
+   Reuses existing border/radius/hover tokens — no new variables. ── */
+.nitaq-groves__model{overflow:hidden;padding:0}
+.nitaq-groves__model-img{width:100%;aspect-ratio:2/1;object-fit:cover;display:block}
+.nitaq-groves__model-body{
+	padding:22px 24px;
+	position:relative;
+	border-top:1px solid rgba(184,170,118,.2);
+}
 .nitaq-groves__cta{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
 .nitaq-groves__btn{display:inline-flex;align-items:center;gap:9px;background:#B8AA76;color:#0F302D;font-size:17px;font-weight:700;text-decoration:none;padding:16px 36px;border-radius:8px}
 .nitaq-groves__btn:hover{background:#C9BA82}
@@ -6213,7 +6254,7 @@ body.page-id-1239 .elementor-widget-text-editor a:hover {
 .nitaq-groves--js .nitaq-groves__reveal{opacity:0;transform:translateY(44px);transition:opacity 1s ease,transform 1.05s cubic-bezier(.16,.8,.2,1)}
 .nitaq-groves--js .nitaq-groves__reveal.is-in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){
-.nitaq-groves::before{animation:none}
+
 .nitaq-groves__model{transition:none}
 .nitaq-groves__model:hover{transform:none}
 }

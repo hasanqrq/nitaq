@@ -5,6 +5,7 @@ require_once get_stylesheet_directory() . '/inc/nitaq-footer-settings.php';
 require_once get_stylesheet_directory() . '/inc/nitaq-about-settings.php';
 require_once get_stylesheet_directory() . '/inc/nitaq-about-page.php';
 require_once get_stylesheet_directory() . '/inc/nitaq-projects.php';
+require_once get_stylesheet_directory() . '/inc/nitaq-models.php';
 
 if ( ! function_exists( 'nitaq_enqueue_project_motion' ) ) {
 	function nitaq_enqueue_project_motion() {
@@ -57,7 +58,7 @@ if ( ! function_exists( 'hendon_child_theme_enqueue_scripts' ) ) {
 	function hendon_child_theme_enqueue_scripts() {
 		$main_style = 'hendon-main';
 		
-		wp_enqueue_style( 'hendon-child-style', get_stylesheet_directory_uri() . '/style.css', array( $main_style ), wp_get_theme()->get( 'Version' ) . '.hero-v2-v18' );
+		wp_enqueue_style( 'hendon-child-style', get_stylesheet_directory_uri() . '/style.css', array( $main_style ), wp_get_theme()->get( 'Version' ) . '.hero-v2-v23' );
 	}
 	
 	add_action( 'wp_enqueue_scripts', 'hendon_child_theme_enqueue_scripts' );
@@ -827,7 +828,7 @@ if ( ! function_exists( 'hendon_child_nitaq_stats_markup' ) ) {
 			<!-- Image column (left in RTL) -->
 			<div class="ncs2__image-col" aria-hidden="true">
 				<img
-					src="https://nitaq-re.com/wp-content/uploads/2026/05/projectView.png"
+					src="https://nitaq-re.com/wp-content/uploads/2026/05/nitaq-hero-5-scaled.jpg"
 					alt=""
 					class="ncs2__img"
 					loading="lazy"
@@ -850,26 +851,30 @@ if ( ! function_exists( 'hendon_child_nitaq_stats_markup' ) ) {
 				<div class="ncs2__grid" role="list">
 
 					<div class="ncs2__stat" role="listitem">
-						<span class="ncs2__stat-num" dir="ltr">+3.9 مليون</span>
-						<span class="ncs2__stat-unit">م²</span>
-						<span class="ncs2__stat-label">مساحة وجهة لازورد</span>
+						<span class="ncs2__numline">
+							<span class="ncs2__stat-num" dir="ltr" data-nitaq-stat="340119">340,119</span>
+							<span class="ncs2__stat-unit">م²</span>
+						</span>
+						<span class="ncs2__stat-label">مساحة مشروع ذا جروفز</span>
 					</div>
 
 					<div class="ncs2__stat" role="listitem">
-						<span class="ncs2__stat-num" dir="ltr">8,100+</span>
+						<span class="ncs2__stat-num" dir="ltr" data-nitaq-stat="455">455</span>
 						<span class="ncs2__stat-unit"></span>
-						<span class="ncs2__stat-label">وحدة سكنية في الوجهة</span>
+						<span class="ncs2__stat-label">فيلا في ذا جروفز</span>
 					</div>
 
 					<div class="ncs2__stat" role="listitem">
-						<span class="ncs2__stat-num" dir="ltr">2</span>
+						<span class="ncs2__stat-num">نمطان سكنيان</span>
 						<span class="ncs2__stat-unit"></span>
-						<span class="ncs2__stat-label">مشروع تطويري متكامل</span>
+						<span class="ncs2__stat-label">فيورا وأورين بتصاميم عصرية تلائم أسلوب حياة العائلة</span>
 					</div>
 
 					<div class="ncs2__stat" role="listitem">
-						<span class="ncs2__stat-num" dir="ltr">15</span>
-						<span class="ncs2__stat-unit">د</span>
+						<span class="ncs2__numline">
+							<span class="ncs2__stat-num" dir="ltr" data-nitaq-stat="15">15</span>
+							<span class="ncs2__stat-unit">دقيقة</span>
+						</span>
 						<span class="ncs2__stat-label">من جسر الملك فهد</span>
 					</div>
 
@@ -1238,6 +1243,95 @@ if ( ! function_exists( 'hendon_child_nitaq_stats_script' ) ) {
 	add_action( 'wp_footer', 'hendon_child_nitaq_stats_script', 96 );
 }
 
+if ( ! function_exists( 'hendon_child_ncs2_countup_script' ) ) {
+	/**
+	 * Count-up animation for the .ncs2 stats section.
+	 * Targets .ncs2__stat-num[data-nitaq-stat] — separate from the legacy
+	 * .nitaq-stats counter which targets a different section entirely.
+	 * Uses data-nitaq-stat for raw numeric values (handles "340,119" correctly).
+	 * Respects prefers-reduced-motion: shows final value instantly.
+	 */
+	function hendon_child_ncs2_countup_script() {
+		if ( ! is_front_page() ) {
+			return;
+		}
+		?>
+		<script>
+			(function () {
+				function initNcs2CountUp() {
+					var section = document.querySelector('.ncs2');
+					if ( !section || section.dataset.ncs2CountupReady === 'true' ) { return; }
+					section.dataset.ncs2CountupReady = 'true';
+
+					var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+					function formatNum(n) {
+						return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+					}
+
+					function animateNum(el) {
+						var raw = el.dataset.nitaqStat;
+						if ( !raw ) { return; }
+						var target = parseFloat(raw);
+						if ( !isFinite(target) ) { return; }
+						if ( reducedMotion ) {
+							el.textContent = formatNum(target);
+							return;
+						}
+						var start = null;
+						var dur = 1600;
+						el.classList.add('is-counting');
+						function tick(ts) {
+							if ( !start ) { start = ts; }
+							var p = Math.min((ts - start) / dur, 1);
+							var e = 1 - Math.pow(1 - p, 3); // ease-out cubic
+							el.textContent = formatNum(target * e);
+							if ( p < 1 ) {
+								requestAnimationFrame(tick);
+							} else {
+								el.textContent = formatNum(target);
+								el.classList.remove('is-counting');
+								el.dataset.ncs2Done = 'true';
+							}
+						}
+						requestAnimationFrame(tick);
+					}
+
+					function runAll() {
+						var nums = section.querySelectorAll('.ncs2__stat-num[data-nitaq-stat]');
+						Array.prototype.slice.call(nums).forEach(function (el) {
+							if ( !el.dataset.ncs2Done ) { animateNum(el); }
+						});
+					}
+
+					if ( !('IntersectionObserver' in window) || reducedMotion ) {
+						runAll();
+						return;
+					}
+
+					new IntersectionObserver(function (entries, obs) {
+						entries.forEach(function (entry) {
+							if ( entry.isIntersecting ) {
+								runAll();
+								section.classList.add('ncs2--visible');
+								obs.unobserve(section);
+							}
+						});
+					}, { threshold: 0.25 }).observe(section);
+				}
+
+				document.readyState === 'loading'
+					? document.addEventListener('DOMContentLoaded', initNcs2CountUp)
+					: initNcs2CountUp();
+			})();
+		</script>
+		<?php
+	}
+
+	add_action( 'wp_footer', 'hendon_child_ncs2_countup_script', 97 );
+}
+
+
 if ( ! function_exists( 'hendon_child_nitaq_news_card_date' ) ) {
 	/**
 	 * Keep homepage news cards on the requested Arabic month label.
@@ -1469,30 +1563,8 @@ if ( ! function_exists( 'hendon_child_nitaq_groves_section' ) ) {
     <div class="nitaq-groves__subtitle nitaq-groves__reveal"><span>مجتمع سكني فاخر ضمن وجهة لازورد · تطوير نطاق الأولى</span></div>
     <p class="nitaq-groves__lede nitaq-groves__reveal">حيث يلتقي السكن بالطبيعة والرفاهية على نسيم الخليج العربي — تصاميم معاصرة مستوحاة من روح الخبر، ومرافق متكاملة على بُعد خطوات، في وجهة تتجاوز مفهوم الحي السكني.</p>
     <div class="nitaq-groves__divider"></div>
-    <div class="nitaq-groves__label nitaq-groves__reveal">وجهة لازورد بالأرقام</div>
-    <div class="nitaq-groves__stats nitaq-groves__reveal">
-      <div class="nitaq-groves__stat"><div class="nitaq-groves__num">+3.9</div><div class="nitaq-groves__unit">مليون م²</div><div class="nitaq-groves__cap">المساحة الإجمالية</div></div>
-      <div class="nitaq-groves__stat"><div class="nitaq-groves__num">+8,100</div><div class="nitaq-groves__unit">وحدة سكنية</div><div class="nitaq-groves__cap">سعة الوجهة</div></div>
-      <div class="nitaq-groves__stat"><div class="nitaq-groves__num">19%</div><div class="nitaq-groves__unit">مساحات خضراء</div><div class="nitaq-groves__cap">من إجمالي الوجهة</div></div>
-    </div>
-    <div class="nitaq-groves__divider"></div>
     <div class="nitaq-groves__label nitaq-groves__reveal">أنماط السكن في ذا جروفز</div>
-    <div class="nitaq-groves__models nitaq-groves__reveal">
-      <div class="nitaq-groves__model">
-        <span class="nitaq-groves__model-accent"></span>
-        <div class="nitaq-groves__model-head"><span class="nitaq-groves__model-ar">ڤيورا</span><span class="nitaq-groves__model-en">VIORA</span></div>
-        <div class="nitaq-groves__model-type">فلل راقية</div>
-        <div class="nitaq-groves__model-row"><span>مساحة الأرض</span><span>من 250 م²</span></div>
-        <div class="nitaq-groves__model-row"><span>مسطح البناء</span><span>288.49 م²</span></div>
-      </div>
-      <div class="nitaq-groves__model">
-        <span class="nitaq-groves__model-accent"></span>
-        <div class="nitaq-groves__model-head"><span class="nitaq-groves__model-ar">أورين</span><span class="nitaq-groves__model-en">AURIN</span></div>
-        <div class="nitaq-groves__model-type">تاون هاوس عصري</div>
-        <div class="nitaq-groves__model-row"><span>مساحة الأرض</span><span>من 200 م²</span></div>
-        <div class="nitaq-groves__model-row"><span>مسطح البناء</span><span>253.92 م²</span></div>
-      </div>
-    </div>
+    <?php echo nitaq_model_cpt_cards_markup(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
     <div class="nitaq-groves__cta nitaq-groves__reveal">
       <a class="nitaq-groves__btn" href="/projects/the-groves/">اكتشف المشروع
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></svg>

@@ -17,17 +17,17 @@
 
 /* ── Explorer wrapper ── */
 .nitaq-models-explorer {
-	width: min(960px, 100%);
+	width: min(1100px, 100%);
 	margin-inline: auto;
 	direction: rtl;
 }
 
-/* ── Model selector pills ── */
+/* ── Model selector pills — full-width centered above panel, untouched ── */
 .nitaq-models-explorer__model-tabs {
 	display: flex;
 	justify-content: center;
 	gap: 12px;
-	margin-bottom: 32px;
+	margin-bottom: 28px;
 }
 .nitaq-models-explorer__model-tab {
 	background: rgba(255,255,255,.04);
@@ -52,20 +52,36 @@
 	font-weight: 700;
 }
 
-/* ── Panel ── */
+/* ── Panel — two-column grid ──────────────────────────────────────────────
+   In RTL grid: column 1 = RIGHT visual side (render), column 2 = LEFT (text).
+   grid-column integers address RTL columns directly (1=right, 2=left).
+   Glow lives on the panel because panel overflow:hidden clips child shadows.
+   ─────────────────────────────────────────────────────────────────────── */
 .nitaq-models-explorer__panel {
+	display: grid;
+	grid-template-columns: 56% 44%;   /* col 1 (RIGHT/render): 56% | col 2 (LEFT/text): 44% */
+	grid-template-rows: auto minmax(0, 1fr); /* row 1: view-tabs; row 2: image/detail/info — minmax prevents stretch */
+	min-height: 500px;
 	background: rgba(255,255,255,.03);
-	border: 1px solid rgba(184,170,118,.2);
+	border: 1px solid rgba(184,170,118,.22);
 	border-radius: 16px;
 	overflow: hidden;
+	/* glow: warm gold aura + deep shadow on the panel itself              */
+	box-shadow:
+		0 36px 90px rgba(0,0,0,.55),
+		0 0 80px rgba(184,170,118,.09);
 }
 
-/* ── View tabs (رندر / مخطط / تفاصيل) ── */
+/* ── View tabs — top of RIGHT column (grid row 1, col 1) ── */
 .nitaq-models-explorer__view-tabs {
+	grid-column: 1;
+	grid-row: 1;
 	display: flex;
 	justify-content: center;
 	gap: 0;
 	border-bottom: 1px solid rgba(184,170,118,.18);
+	/* physical border-right = right edge of left-text column → the column divider */
+	border-right: 1px solid rgba(184,170,118,.14);
 	padding: 0;
 }
 .nitaq-models-explorer__view-tab {
@@ -78,7 +94,7 @@
 	font-weight: 600;
 	letter-spacing: 2px;
 	margin-bottom: -1px;
-	padding: 14px 32px;
+	padding: 12px 24px;
 	transition: color .2s ease, border-color .2s ease;
 }
 .nitaq-models-explorer__view-tab:hover {
@@ -89,13 +105,20 @@
 	color: #C9BA82;
 }
 
-/* ── Image stage ── */
+/* ── Image stage — lower RIGHT column (grid row 2, col 1) ──
+   aspect-ratio removed; grid row height controls the size.
+   Inset box-shadow is not clipped by parent overflow:hidden → gold frame.  ── */
 .nitaq-models-explorer__img-wrap {
+	grid-column: 1;
+	grid-row: 2;
 	position: relative;
 	width: 100%;
-	aspect-ratio: 16 / 10;
+	height: 100%;
 	overflow: hidden;
-	background: rgba(0,0,0,.3);
+	background: rgba(0,0,0,.35);
+	border-right: 1px solid rgba(184,170,118,.14);  /* column divider continued */
+	/* gold frame: inset shadow not clipped by panel overflow:hidden         */
+	box-shadow: inset 0 0 0 1px rgba(184,170,118,.40);
 }
 .nitaq-models-explorer__img {
 	position: absolute;
@@ -110,49 +133,48 @@
 	opacity: 1;
 }
 
-/* ── Detail panel ── */
+/* ── Detail panel — SAME grid area as img-wrap (col 1, row 2) ──────────
+   JS uses inline display:none / display:"" to swap between this and img-wrap.
+   CSS only places it in the grid; display logic is 100% JS-owned.
+   height:100% fills the grid area so the scroll container is properly sized. ── */
 .nitaq-models-explorer__detail-panel {
-	max-height: 320px;
+	grid-column: 1;
+	grid-row: 2;
+	height: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
-	padding: 28px 36px 32px;
+	padding: 28px 32px 32px;
 	scroll-behavior: smooth;
-	/* custom scrollbar — subtle gold on dark */
+	border-right: 1px solid rgba(184,170,118,.14);  /* column divider */
+	/* match img-wrap: same background + gold inset frame */
+	background: rgba(0,0,0,.35);
+	box-shadow: inset 0 0 0 1px rgba(184,170,118,.40);
+	/* scrollbar: stronger gold thumb, subtle dark track */
 	scrollbar-width: thin;
-	scrollbar-color: rgba(184,170,118,.35) transparent;
+	scrollbar-color: rgba(184,170,118,.50) rgba(0,0,0,.12);
 }
-.nitaq-models-explorer__detail-panel::-webkit-scrollbar {
-	width: 4px;
-}
-.nitaq-models-explorer__detail-panel::-webkit-scrollbar-track {
-	background: transparent;
-}
+.nitaq-models-explorer__detail-panel::-webkit-scrollbar { width: 4px; }
+.nitaq-models-explorer__detail-panel::-webkit-scrollbar-track { background: rgba(0,0,0,.12); }
 .nitaq-models-explorer__detail-panel::-webkit-scrollbar-thumb {
-	background: rgba(184,170,118,.35);
+	background: rgba(184,170,118,.50);
 	border-radius: 2px;
 }
 
-/* Floor block */
-.nitaq-models-explorer__floor {
-	margin-bottom: 4px;
-}
+/* Floor blocks */
+.nitaq-models-explorer__floor { margin-bottom: 4px; }
 .nitaq-models-explorer__floor--sep {
 	border-top: 1px solid rgba(184,170,118,.18);
 	margin-top: 20px;
 	padding-top: 20px;
 }
-
-/* Floor label */
 .nitaq-models-explorer__floor-label {
 	color: #C9BA82;
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: 700;
-	letter-spacing: 2.5px;
+	letter-spacing: 2px;
 	text-transform: uppercase;
-	margin: 0 0 14px;
+	margin: 0 0 12px;
 }
-
-/* Room grid — 2 columns: name right, size left */
 .nitaq-models-explorer__room-grid {
 	display: flex;
 	flex-direction: column;
@@ -163,45 +185,47 @@
 	grid-template-columns: 1fr auto;
 	align-items: center;
 	gap: 16px;
-	padding: 14px 0;
+	padding: 11px 0;
 	border-bottom: 1px solid rgba(184,170,118,.12);
 }
-.nitaq-models-explorer__room-row:last-child {
-	border-bottom: none;
-}
+.nitaq-models-explorer__room-row:last-child { border-bottom: none; }
 .nitaq-models-explorer__room-name {
 	color: rgba(246,241,229,.72);
-	font-size: 18px;
+	font-size: 16px;
 	line-height: 1.4;
 }
 .nitaq-models-explorer__room-size {
 	color: #F6F1E5;
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 600;
 	white-space: nowrap;
 	direction: ltr;
 	text-align: left;
 }
-
-/* Empty state */
 .nitaq-models-explorer__detail-empty {
 	color: rgba(246,241,229,.45);
 	font-size: 14px;
 	text-align: center;
-	padding: 32px 0;
+	padding: 48px 0;
 	margin: 0;
 }
 
-/* ── Info block ── */
+/* ── Info block — LEFT column (col 2), spans both rows, vertically centered ──
+   border-top removed (column separator handled by border-right on right col).
+   text-align:right is correct for RTL reading.                               ── */
 .nitaq-models-explorer__info {
-	padding: 28px 36px 36px;
-	border-top: 1px solid rgba(184,170,118,.14);
+	grid-column: 2;
+	grid-row: 1 / span 2;
+	align-self: center;
+	padding: 40px 40px 40px 32px;
+	text-align: right;
 }
 .nitaq-models-explorer__name {
 	color: #F8F3E6;
-	font-size: clamp(22px, 2.5vw, 30px);
+	font-size: clamp(24px, 2.6vw, 34px);
 	font-weight: 700;
-	margin: 0 0 12px;
+	margin: 0 0 18px;
+	line-height: 1.2;
 }
 .nitaq-models-explorer__body {
 	color: #D9CB90 !important;
@@ -210,43 +234,62 @@
 	margin: 0;
 }
 
-/* ── Mobile ── */
-@media (max-width: 600px) {
-	.nitaq-models-explorer__model-tabs {
-		gap: 8px;
+/* ── Mobile ≤860px — single-column stack ──────────────────────────────
+   Order: toggle (above panel, unchanged) → view-tabs → render/detail → info.
+   ─────────────────────────────────────────────────────────────────────── */
+@media (max-width: 860px) {
+	.nitaq-models-explorer__panel {
+		grid-template-columns: 1fr;
+		grid-template-rows: auto auto auto;
+		min-height: unset;
+		box-shadow: 0 14px 40px rgba(0,0,0,.5);
 	}
-	.nitaq-models-explorer__model-tab {
-		font-size: 14px;
-		padding: 9px 20px;
+
+	/* row 1: view-tabs */
+	.nitaq-models-explorer__view-tabs {
+		grid-column: 1;
+		grid-row: 1;
+		border-right: none;
 	}
-	.nitaq-models-explorer__view-tab {
-		padding: 12px 18px;
-		font-size: 12px;
-		letter-spacing: 1px;
-	}
+
+	/* row 2: image stage */
 	.nitaq-models-explorer__img-wrap {
+		grid-column: 1;
+		grid-row: 2;
+		height: auto;
 		aspect-ratio: 4 / 3;
+		border-right: none;
 	}
+
+	/* row 2 shared: detail panel (JS swaps with img-wrap) */
 	.nitaq-models-explorer__detail-panel {
-		padding: 20px 18px 24px;
+		grid-column: 1;
+		grid-row: 2;
+		height: auto;
 		max-height: 280px;
+		padding: 20px 18px 24px;
+		border-right: none;
 	}
+
+	/* row 3: info */
 	.nitaq-models-explorer__info {
-		padding: 22px 20px 28px;
+		grid-column: 1;
+		grid-row: 3;
+		align-self: auto;
+		padding: 28px 24px 32px;
+		border-top: 1px solid rgba(184,170,118,.14);
 	}
-	.nitaq-models-explorer__body {
-		font-size: 15px;
-	}
+
+	.nitaq-models-explorer__model-tabs { gap: 8px; }
+	.nitaq-models-explorer__model-tab  { font-size: 14px; padding: 9px 20px; }
+	.nitaq-models-explorer__view-tab   { padding: 12px 18px; font-size: 12px; letter-spacing: 1px; }
+	.nitaq-models-explorer__name       { font-size: clamp(20px, 5vw, 26px); }
 }
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
 	.nitaq-models-explorer__model-tab,
 	.nitaq-models-explorer__view-tab,
-	.nitaq-models-explorer__img {
-		transition: none;
-	}
-	.nitaq-models-explorer__detail-panel {
-		scroll-behavior: auto;
-	}
+	.nitaq-models-explorer__img { transition: none; }
+	.nitaq-models-explorer__detail-panel { scroll-behavior: auto; }
 }

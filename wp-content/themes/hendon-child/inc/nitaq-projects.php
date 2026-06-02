@@ -450,6 +450,119 @@ function nitaq_project_get_data( $post_id ) {
 // 8. PROJECT RENDERER
 // ═══════════════════════════════════════════════════════════════════
 
+/**
+ * Reusable: render the .nitaq-project-models section from the nitaq_model CPT.
+ *
+ * Queries published nitaq_model posts ordered date ASC (preserves admin order).
+ * Each card carries data-attributes for plan URL and floors JSON so the
+ * nitaq-models-explorer.js can read them without hardcoded lookup maps.
+ *
+ * @param string $kicker  Optional kicker text above the heading.
+ * @param string $heading Optional section heading h2.
+ * @return string HTML — the complete section, or '' if no models published.
+ */
+/**
+ * Returns ONLY the .nitaq-project-grid.nitaq-project-models card grid,
+ * with all data-attributes the explorer JS reads.
+ * Reusable on any page: project page, homepage Groves section, etc.
+ * Returns '' if no nitaq_model posts are published.
+ */
+function nitaq_model_cpt_cards_markup() {
+	$query = new WP_Query( array(
+		'post_type'      => 'nitaq_model',
+		'post_status'    => 'publish',
+		'posts_per_page' => -1,
+		'orderby'        => 'date',
+		'order'          => 'ASC',
+	) );
+
+	if ( ! $query->have_posts() ) {
+		wp_reset_postdata();
+		return '';
+	}
+
+	ob_start();
+	?>
+		<div class="nitaq-project-grid nitaq-project-models">
+			<?php
+			while ( $query->have_posts() ) :
+				$query->the_post();
+				$mid        = get_the_ID();
+				$title      = get_the_title();
+				$render_url = get_post_meta( $mid, '_nitaq_model_render',      true );
+				$render_alt = get_post_meta( $mid, '_nitaq_model_render_alt',  true );
+				$body       = get_post_meta( $mid, '_nitaq_model_body',        true );
+				$plan_url   = get_post_meta( $mid, '_nitaq_model_plan',        true );
+				$floors_raw = get_post_meta( $mid, '_nitaq_model_floors',      true );
+				$model_type = get_post_meta( $mid, '_nitaq_model_type',        true );
+				$land_area  = get_post_meta( $mid, '_nitaq_model_land_area',   true );
+				$built_area = get_post_meta( $mid, '_nitaq_model_built_area',  true );
+
+				// Decode floors and re-encode for esc_attr safety:
+				// json_decode → PHP array → wp_json_encode with UNESCAPED_UNICODE
+				// so Arabic text stays readable; esc_attr handles the HTML quoting.
+				$floors_decoded = json_decode( $floors_raw, true );
+				$floors_attr    = esc_attr(
+					wp_json_encode(
+						is_array( $floors_decoded ) ? $floors_decoded : array(),
+						JSON_UNESCAPED_UNICODE
+					)
+				);
+			?>
+			<article class="nitaq-project-model-card"
+				data-plan-url="<?php echo esc_url( $plan_url ); ?>"
+				data-floors="<?php echo $floors_attr; ?>"
+				data-type="<?php echo esc_attr( $model_type ); ?>"
+				data-land="<?php echo esc_attr( $land_area ); ?>"
+				data-built="<?php echo esc_attr( $built_area ); ?>">
+				<?php if ( $render_url ) : ?>
+				<img src="<?php echo esc_url( $render_url ); ?>"
+					alt="<?php echo esc_attr( $render_alt ); ?>"
+					loading="lazy">
+				<?php endif; ?>
+				<div>
+					<h3><?php echo esc_html( $title ); ?></h3>
+					<?php if ( $body ) : ?>
+					<p><?php echo esc_html( $body ); ?></p>
+					<?php endif; ?>
+				</div>
+			</article>
+			<?php endwhile; wp_reset_postdata(); ?>
+		</div><!-- /.nitaq-project-models -->
+	<?php
+	return ob_get_clean();
+}
+
+/**
+ * Wraps nitaq_model_cpt_cards_markup() in the project-page section shell
+ * (.nitaq-project-section--light + optional kicker/h2).
+ * Project-page output is identical to before the refactor.
+ */
+function nitaq_model_cpt_explorer_markup( $kicker = '', $heading = '' ) {
+	$cards = nitaq_model_cpt_cards_markup();
+	if ( '' === $cards ) {
+		return '';
+	}
+
+	ob_start();
+	?>
+	<section class="nitaq-project-section nitaq-project-section--light">
+		<?php if ( $kicker || $heading ) : ?>
+		<div class="nitaq-project-section-head">
+			<?php if ( $kicker ) : ?>
+			<p class="nitaq-project-kicker"><?php echo esc_html( $kicker ); ?></p>
+			<?php endif; ?>
+			<?php if ( $heading ) : ?>
+			<h2><?php echo esc_html( $heading ); ?></h2>
+			<?php endif; ?>
+		</div>
+		<?php endif; ?>
+		<?php echo $cards; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	</section>
+	<?php
+	return ob_get_clean();
+}
+
 function nitaq_project_render( $post_id ) {
 	$d = nitaq_project_get_data( $post_id );
 
@@ -636,55 +749,13 @@ function nitaq_project_render( $post_id ) {
 	</section>
 	<?php endif; ?>
 
-	<!-- RESIDENTIAL MODELS -->
-	<?php if ( ! empty( $d['models_h2'] ) || ! empty( $d['model1_h3'] ) ) : ?>
-	<section class="nitaq-project-section nitaq-project-section--light">
-		<div class="nitaq-project-section-head">
-			<?php if ( ! empty( $d['models_kicker'] ) ) : ?>
-			<p class="nitaq-project-kicker"><?php echo esc_html( $d['models_kicker'] ); ?></p>
-			<?php endif; ?>
-			<?php if ( ! empty( $d['models_h2'] ) ) : ?>
-			<h2><?php echo esc_html( $d['models_h2'] ); ?></h2>
-			<?php endif; ?>
-		</div>
-		<div class="nitaq-project-grid nitaq-project-models">
-			<?php if ( ! empty( $d['model1_h3'] ) || ! empty( $d['model1_image'] ) ) : ?>
-			<article class="nitaq-project-model-card">
-				<?php if ( ! empty( $d['model1_image'] ) ) : ?>
-				<img src="<?php echo esc_url( $d['model1_image'] ); ?>"
-					alt="<?php echo esc_attr( $d['model1_alt'] ); ?>"
-					loading="lazy">
-				<?php endif; ?>
-				<div>
-					<?php if ( ! empty( $d['model1_h3'] ) ) : ?>
-					<h3><?php echo esc_html( $d['model1_h3'] ); ?></h3>
-					<?php endif; ?>
-					<?php if ( ! empty( $d['model1_body'] ) ) : ?>
-					<p><?php echo esc_html( $d['model1_body'] ); ?></p>
-					<?php endif; ?>
-				</div>
-			</article>
-			<?php endif; ?>
-			<?php if ( ! empty( $d['model2_h3'] ) || ! empty( $d['model2_image'] ) ) : ?>
-			<article class="nitaq-project-model-card">
-				<?php if ( ! empty( $d['model2_image'] ) ) : ?>
-				<img src="<?php echo esc_url( $d['model2_image'] ); ?>"
-					alt="<?php echo esc_attr( $d['model2_alt'] ); ?>"
-					loading="lazy">
-				<?php endif; ?>
-				<div>
-					<?php if ( ! empty( $d['model2_h3'] ) ) : ?>
-					<h3><?php echo esc_html( $d['model2_h3'] ); ?></h3>
-					<?php endif; ?>
-					<?php if ( ! empty( $d['model2_body'] ) ) : ?>
-					<p><?php echo esc_html( $d['model2_body'] ); ?></p>
-					<?php endif; ?>
-				</div>
-			</article>
-			<?php endif; ?>
-		</div>
-	</section>
-	<?php endif; ?>
+	<!-- RESIDENTIAL MODELS — rendered from nitaq_model CPT -->
+	<?php
+	echo nitaq_model_cpt_explorer_markup(
+		$d['models_kicker'] ?? '',
+		$d['models_h2']     ?? ''
+	);
+	?>
 
 	<!-- ARCHITECTURE -->
 	<?php if ( ! empty( $d['arch_h2'] ) ) : ?>
@@ -891,7 +962,8 @@ if ( ! function_exists( 'nitaq_projects_grid_shortcode' ) ) {
 // ═══════════════════════════════════════════════════════════════════
 if ( ! function_exists( 'nitaq_project_enqueue_stats_js' ) ) {
 	function nitaq_project_enqueue_stats_js() {
-		if ( ! is_singular( 'nitaq_project' ) ) {
+		// 3199 = live Arabic homepage (WP front page is the maintenance page).
+		if ( ! is_singular( 'nitaq_project' ) && ! is_front_page() && ! is_page( 3199 ) ) {
 			return;
 		}
 		$js_path = get_stylesheet_directory() . '/assets/js/nitaq-stats.js';
@@ -911,24 +983,60 @@ if ( ! function_exists( 'nitaq_project_enqueue_stats_js' ) ) {
 // ═══════════════════════════════════════════════════════════════════
 if ( ! function_exists( 'nitaq_project_enqueue_models_explorer' ) ) {
 	function nitaq_project_enqueue_models_explorer() {
-		if ( ! is_singular( 'nitaq_project' ) ) {
-			return;
-		}
 		$css_path = get_stylesheet_directory() . '/assets/css/nitaq-models-explorer.css';
 		$js_path  = get_stylesheet_directory() . '/assets/js/nitaq-models-explorer.js';
-		wp_enqueue_style(
+		$css_ver  = file_exists( $css_path ) ? filemtime( $css_path ) : '1.0.0';
+		$js_ver   = file_exists( $js_path )  ? filemtime( $js_path )  : '1.0.0';
+
+		// Register so [nitaq_models_explorer] shortcode can enqueue on demand.
+		wp_register_style(
 			'nitaq-models-explorer',
 			get_stylesheet_directory_uri() . '/assets/css/nitaq-models-explorer.css',
 			array(),
-			file_exists( $css_path ) ? filemtime( $css_path ) : '1.0.0'
+			$css_ver
 		);
-		wp_enqueue_script(
+		wp_register_script(
 			'nitaq-models-explorer',
 			get_stylesheet_directory_uri() . '/assets/js/nitaq-models-explorer.js',
 			array(),
-			file_exists( $js_path ) ? filemtime( $js_path ) : '1.0.0',
+			$js_ver,
 			true
 		);
+
+		// Enqueue immediately on project single pages.
+		if ( is_singular( 'nitaq_project' ) ) {
+			wp_enqueue_style( 'nitaq-models-explorer' );
+			wp_enqueue_script( 'nitaq-models-explorer' );
+		}
 	}
 	add_action( 'wp_enqueue_scripts', 'nitaq_project_enqueue_models_explorer' );
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// SHORTCODE: [nitaq_models_explorer kicker="…" heading="…"]
+// Enqueues registered CSS/JS handles on demand, then returns the
+// full explorer section via nitaq_model_cpt_explorer_markup().
+// Defaults match the heading used on the the-groves project page.
+// ═══════════════════════════════════════════════════════════════════
+if ( ! function_exists( 'nitaq_models_explorer_shortcode' ) ) {
+	function nitaq_models_explorer_shortcode( $atts ) {
+		$atts = shortcode_atts(
+			array(
+				'kicker'  => 'أنماط سكنية',
+				'heading' => 'أنماط سكنية تلبي كل أسلوب حياة',
+			),
+			$atts,
+			'nitaq_models_explorer'
+		);
+
+		// Pull registered handles into the page output.
+		wp_enqueue_style( 'nitaq-models-explorer' );
+		wp_enqueue_script( 'nitaq-models-explorer' );
+
+		return nitaq_model_cpt_explorer_markup(
+			$atts['kicker'],
+			$atts['heading']
+		);
+	}
+	add_shortcode( 'nitaq_models_explorer', 'nitaq_models_explorer_shortcode' );
 }

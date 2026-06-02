@@ -2,71 +2,9 @@
 (function () {
 	'use strict';
 
-	var BASE = 'https://nitaq-re.com/wp-content/uploads/2026/05/';
-
-	/* Floor-plan URLs keyed by fragment of the h3 name */
-	var PLAN_MAP = {
-		'Viora': BASE + 'VioraPlan.png',
-		'Aurin': BASE + 'Aurin.png'
-	};
-
-	/* Room details per model, keyed by same h3 fragment */
-	var FLOORS = {
-		'Viora': [
-			{ label: 'الدور الأرضي', rooms: [
-				{ name: 'مجلس',        size: '4.30 × 4.10 م' },
-				{ name: 'غرفة جلوس',   size: '8.60 × 3.75 م' },
-				{ name: 'غرفة طعام',   size: '2.80 × 4.10 م' },
-				{ name: 'مطبخ',        size: '3.70 × 3.90 م' }
-			]},
-			{ label: 'الدور الأول', rooms: [
-				{ name: 'غرفة نوم رئيسية أولى',  size: '3.55 × 4.60 م' },
-				{ name: 'غرفة نوم رئيسية ثانية', size: '5.10 × 4.10 م' },
-				{ name: 'غرفة نوم أولى',          size: '3.55 × 4.20 م' },
-				{ name: 'غرفة نوم ثانية',         size: '3.70 × 3.90 م' },
-				{ name: 'غرفة ملابس',             size: '1.70 × 2.60 م' }
-			]},
-			{ label: 'الملحق العلوي', rooms: [
-				{ name: 'غرفة خادمة', size: '3.70 × 2.10 م' },
-				{ name: 'غرفة غسيل', size: '1.65 × 2.40 م' }
-			]}
-		],
-		'Aurin': [
-			{ label: 'الدور الأرضي', rooms: [
-				{ name: 'مجلس',          size: '3.70 × 4.10 م' },
-				{ name: 'غرفة جلوس',     size: '4.10 × 3.90 م' },
-				{ name: 'غرفة طعام',     size: '4.40 × 4.10 م' },
-				{ name: 'مطبخ',          size: '3.70 × 3.90 م' },
-				{ name: 'جلسة خارجية',   size: '3.00 × 3.70 م' }
-			]},
-			{ label: 'الدور الأول', rooms: [
-				{ name: 'غرفة نوم رئيسية', size: '3.70 × 4.10 م' },
-				{ name: 'غرفة نوم أولى',   size: '3.70 × 4.20 م' },
-				{ name: 'غرفة نوم ثانية',  size: '3.90 × 3.90 م' }
-			]},
-			{ label: 'الملحق العلوي', rooms: [
-				{ name: 'غرفة خادمة', size: '3.90 × 2.10 م' }
-			]}
-		]
-	};
-
-	function getPlanUrl(name) {
-		for (var key in PLAN_MAP) {
-			if (Object.prototype.hasOwnProperty.call(PLAN_MAP, key)) {
-				if (name.indexOf(key) !== -1) { return PLAN_MAP[key]; }
-			}
-		}
-		return null;
-	}
-
-	function getFloors(name) {
-		for (var key in FLOORS) {
-			if (Object.prototype.hasOwnProperty.call(FLOORS, key)) {
-				if (name.indexOf(key) !== -1) { return FLOORS[key]; }
-			}
-		}
-		return [];
-	}
+	// Plan URL and floor data come from data-attributes set by the PHP renderer
+	// (nitaq_model CPT via nitaq_model_cpt_explorer_markup()).
+	// PLAN_MAP, FLOORS, getPlanUrl(), getFloors() removed — no hardcoded data.
 
 	function init() {
 		var grid = document.querySelector('.nitaq-project-models');
@@ -75,7 +13,7 @@
 		var cards = grid.querySelectorAll('.nitaq-project-model-card');
 		if (cards.length < 2) { return; }
 
-		/* ── Extract data from existing PHP-rendered cards ── */
+		/* ── Extract data from PHP-rendered cards (CPT data-attributes) ── */
 		var models = [];
 		Array.prototype.forEach.call(cards, function (card) {
 			var imgEl = card.querySelector('img');
@@ -83,14 +21,14 @@
 			var pEl   = card.querySelector('p');
 			if (!imgEl || !h3El) { return; }
 			var name    = h3El.textContent.trim();
-			var planUrl = getPlanUrl(name);
-			if (!planUrl) { return; }
+			var planUrl = card.dataset.planUrl || '';
+			var floors  = card.dataset.floors ? JSON.parse(card.dataset.floors) : [];
 			models.push({
 				name:      name,
 				body:      pEl ? pEl.textContent.trim() : '',
 				renderUrl: imgEl.src,
 				planUrl:   planUrl,
-				floors:    getFloors(name)
+				floors:    floors
 			});
 		});
 
